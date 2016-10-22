@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require angular
 //= require angular-devise
+//= require angular-animate.min
+//= require ui-bootstrap-tpls-2.2.0.min
 //= require_tree .

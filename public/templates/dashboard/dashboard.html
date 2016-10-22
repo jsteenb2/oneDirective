@@ -1,0 +1,13 @@
+<div class='container'>
+  <p style='text-align: center'>Container</p>
+
+  <button style='position: fixed; right: 20em;' type='button' class='btn btn-primary'>create a new project</button>
+
+  <h1 class='row' style='text-align: center'>Projects</h1>
+  <div class='row'>
+    <project-card
+    ng-repeat='projects in dashCtrl.projectsData.cached'
+    class='col-md-6 card'
+    project='project'></project-card>
+  </div>
+</div>

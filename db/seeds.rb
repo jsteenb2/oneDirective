@@ -16,7 +16,7 @@ puts "Done!"
 puts 'Creating a CJ account..'
 
 User.create({
-  email: 'cjvirtucio',
+  email: 'cjv@gmail.com',
   password: 'cjvirtucio'
   })
 
@@ -30,5 +30,17 @@ puts "Creating Users.."
     password: 'dsadsaasjaskdj'
     })
 end
+
+puts "Done!"
+
+puts "Creating CJ's projects.."
+
+user = User.find_by_email('cjv@gmail.com')
+
+10.times do |n|
+  user.projects.push Project.create
+end
+
+user.save
 
 puts "Done!"

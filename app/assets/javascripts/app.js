@@ -16,7 +16,7 @@ app.config(
   function($stateProvider, $urlRouterProvider, RestangularProvider) {
 
     // Restangular
-    RestangularProvider.setBaseUrl('/api/v1');
+    RestangularProvider.setBaseUrl('api/v1');
     RestangularProvider.setRequestSuffix('.json');
     RestangularProvider.setDefaultHttpFields({timeout: 3000});
 
@@ -31,9 +31,15 @@ app.config(
         url: '/',
         views: {
           '@': {
-            templateUrl: 'templates/dashboard.html',
-            controller: 'DashboardCtrl'
+            templateUrl: 'templates/dashboard/dashboard.html',
+            controller: 'DashboardCtrl',
+            controllerAs: 'dashCtrl'
           }
+        },
+        resolve: {
+          projectsData: ['ProjectService', function (ProjectService) {
+            return ProjectService.all();
+          }]
         }
       });
 }]);
