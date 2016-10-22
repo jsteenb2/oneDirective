@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-####### ADDED GEMS #################################
+####### ADDED GEMS ################################
 gem 'figaro'
 gem 'httparty'
 gem 'awesome_print', require: 'ap'
