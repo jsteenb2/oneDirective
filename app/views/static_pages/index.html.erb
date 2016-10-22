@@ -1,0 +1,8 @@
+<%= content_for(:angular_app) do %>
+  ng-app="MyApp"
+<% end %>
+
+
+<h1>Welcome {{ currentUser.email }}!</h1>
+
+<a data-method="delete" href="/users/sign_out" rel="nofollow">Logout</a>
