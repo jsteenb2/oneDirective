@@ -6,6 +6,7 @@ gem 'httparty'
 gem 'awesome_print', require: 'ap'
 gem 'tinymce-rails'
 gem 'pg'
+gem 'font-awesome-rails'
 
 #angular
 gem 'angularjs-rails'

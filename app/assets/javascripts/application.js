@@ -16,4 +16,7 @@
 //= require angular-devise
 //= require angular-animate.min
 //= require ui-bootstrap-tpls-2.2.0.min
+//= require tether.min
+//= require bootstrap.min
+//= require mdb.min
 //= require_tree .

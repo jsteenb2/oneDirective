@@ -1,10 +1,7 @@
 <%= content_for(:angular_app) do %>
   ng-app="materialProto"
 <% end %>
-
-
-<h1>Welcome {{ currentUser.email }}!</h1>
+<div ui-view='navbar'></div>
 
 <div ui-view=''></div>
 
-<a data-method="delete" href="/users/sign_out" rel="nofollow">Logout</a>
