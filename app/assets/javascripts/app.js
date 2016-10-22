@@ -35,5 +35,14 @@ app.config(
             controller: 'DashboardCtrl'
           }
         }
+      })
+      .state('projects.show', {
+        url: '/:id',
+        view: {
+          '@': {
+            templateUrl: 'templates/edit.html',
+            controller: 'ProjectEditCtrl'
+          }
+        }
       });
 }]);
