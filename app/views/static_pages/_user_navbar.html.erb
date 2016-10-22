@@ -11,13 +11,16 @@
       <!--Navbar Brand-->
       <a class="navbar-brand">WYSIA</a>
       <ul class="nav navbar-nav nav-flex-icons">
-        <li class="nav-link">
-          <a>
+        <li class="nav-item">
+          <a class="nav-link">
             <%= current_user.name %>
           </a>
         </li>
-        <li class="nav-link waves-effect waves-light">
-          <a id="logout-link" data-method="delete" href="/users/sign_out" rel="nofollow">
+        <li class="nav-item">
+          <a id="nav-divider" class="nav-link">|</a>
+        </li>
+        <li class="nav-item">
+          <a id="logout-link" class="nav-link" data-method="delete" href="/users/sign_out" rel="nofollow">
             Logout
           </a>
         </li>

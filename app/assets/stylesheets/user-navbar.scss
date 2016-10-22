@@ -1,7 +1,9 @@
 
 
 #user-navbar{
-  #logout-link{
-    color: inherit;
+  #nav-divider {
+    &:hover {
+      color: white;
+    }
   }
 }
