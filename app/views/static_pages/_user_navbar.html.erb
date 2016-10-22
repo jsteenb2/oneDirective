@@ -1,0 +1,29 @@
+<!--Navbar-->
+<nav id="user-navbar" class="navbar navbar-fixed-top navbar-dark bg-primary">
+  <!-- Collapse button-->
+  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx2">
+    <i class="fa fa-bars"></i>
+  </button>
+
+  <div class="container">
+    <!--Collapse content-->
+    <div class="collapse navbar-toggleable-xs" id="collapseEx2">
+      <!--Navbar Brand-->
+      <a class="navbar-brand">WYSIA</a>
+      <ul class="nav navbar-nav nav-flex-icons">
+        <li class="nav-link">
+          <a>
+            <%= current_user.name %>
+          </a>
+        </li>
+        <li class="nav-link waves-effect waves-light">
+          <a id="logout-link" data-method="delete" href="/users/sign_out" rel="nofollow">
+            Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!--/.Collapse content-->
+  </div>
+</nav>
+<!--/.Navbar-->
