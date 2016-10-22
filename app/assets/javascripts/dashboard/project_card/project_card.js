@@ -1,4 +1,6 @@
-app.controller('ProjectCardCtrl', ['ProjectService', function () {
+app.controller('ProjectCardCtrl',
+['ProjectService', '$uibModal',
+function (ProjectService, $uibModal) {
   var vm = this;
 
   vm.updateProject = function (params) {
@@ -8,6 +10,22 @@ app.controller('ProjectCardCtrl', ['ProjectService', function () {
   vm.destroyProject = function (params) {
     ProjectService.destroy(params);
   };
+
+  // Modal functionality.
+  vm.open = function (size) {
+    var modalInstance = $uibModal.open({
+      animation: vm.animationsEnabled,
+      component: 'projectModal',
+      resolve: {
+        project: function () {
+          return vm.project;
+        }
+      }
+    });
+
+    modalInstance.result.then(vm.updateProject);
+  };
+
 }]);
 
 app.component('projectCard', {

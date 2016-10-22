@@ -1,12 +1,16 @@
 app.controller('ProjectModalCtrl', function () {
   var vm = this;
 
-  vm.update = function (params) {
-    vm.onUpdate({params: params});
+  vm.$onInit = function () {
+    vm.project = vm.resolve.project;
   };
 
-  vm.destroy = function (project) {
-    vm.onDestroy({project: project});
+  vm.ok = function (params) {
+    vm.close(params);
+  };
+
+  vm.cancel = function () {
+    vm.dismiss('cancel');
   };
 });
 
@@ -14,9 +18,9 @@ app.component('projectModal', {
   controller: 'ProjectModalCtrl',
   restrict: 'E',
   bindings: {
-    project: '>',
-    onUpdate: '&',
-    onDestroy: '&'
+    resolve: '<',
+    close: '&',
+    dismiss: '&'
   },
   templateUrl: 'templates/dashboard/project_modal/project_modal.html'
 });
