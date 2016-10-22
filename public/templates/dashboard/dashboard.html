@@ -1,13 +1,20 @@
 <div class='container'>
-  <p style='text-align: center'>Container</p>
+  <button
+  style='position: fixed; right: 20em;'
+  type='button'
+  class='btn btn-primary'>create a new project</button>
 
-  <button style='position: fixed; right: 20em;' type='button' class='btn btn-primary'>create a new project</button>
+  <div class='row'>
+    <div style='text-align: center' class="col-md-12">
+      <h1>Projects</h1>
+    </div>
+  </div>
 
-  <h1 class='row' style='text-align: center'>Projects</h1>
   <div class='row'>
     <project-card
     ng-repeat='projects in dashCtrl.projectsData.cached'
-    class='col-md-6 card'
+    class='card'
+    style='width: 400px;'
     project='project'></project-card>
   </div>
 </div>
