@@ -21,7 +21,9 @@ app.component('editHeight', {
   template:
   `
     <i
-    popover-placement='right-bottom'
+    popover-placement='auto'
+    popover-append-to-body='true'
+    popover-title='Edit Height'
     uib-popover-template='$ctrl.popover.templateUrl'
     class='fa fa-arrows-v fa-4x icon'></i>
   `
