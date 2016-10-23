@@ -1,5 +1,6 @@
 body {
   background-color: #F6F6F6;
+  padding-bottom: 3em;
   #signup-page-container {
     background-color: white;
     border: 1px solid grey;
@@ -13,6 +14,7 @@ body {
     }
     #submit-button-container {
       text-align: center;
+      margin-top: 2em;
       margin-bottom: 1em;
       span {
         line-height: 1.8em;
