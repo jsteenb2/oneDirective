@@ -1,1 +1,13 @@
-Hello from the modal!
+<form ng-submit='vm.ok(vm.project)'>
+  <label>
+    Title
+    <input type='text' class='form-control' ng-model='vm.project.title' placeholder='vm.project.title'><br>
+  </label><br>
+
+  <label>
+    Description
+    <input type='text' class='form-control' ng-model='vm.project.description' placeholder='vm.project.description'><br>
+  </label><br>
+
+  <input type='submit' value='Update Project'>
+</form>

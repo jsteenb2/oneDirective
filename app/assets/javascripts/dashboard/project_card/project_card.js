@@ -14,8 +14,9 @@ function (ProjectService, $uibModal) {
   // Modal functionality.
   vm.open = function (size) {
     var modalInstance = $uibModal.open({
-      animation: vm.animationsEnabled,
+      animation: true,
       component: 'projectModal',
+      size: 'sm',
       resolve: {
         project: function () {
           return vm.project;
