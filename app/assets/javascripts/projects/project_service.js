@@ -55,7 +55,7 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
   };
 
   srv.get = function(project_id) {
-    return _.find(_data.cached, {id: project_id});
+    return _.find(_data.cached, {id: parseInt(project_id)});
   };
 
   srv.create = function (params) {

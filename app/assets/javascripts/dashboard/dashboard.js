@@ -8,4 +8,5 @@ function (projectData, ProjectService) {
     ProjectService.create($event.params);
   };
 
+
 }]);
