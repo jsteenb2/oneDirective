@@ -9,6 +9,9 @@ app.controller('EditHeightCtrl', function () {
     templateUrl: 'templates/component_toolbar/edit_height_popover.html'
   };
 
+  // Placeholder.
+  vm.options = [1, 2, 3, 4, 5];
+
 });
 
 app.component('editHeight', {

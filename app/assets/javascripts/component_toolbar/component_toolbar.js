@@ -18,7 +18,7 @@ app.component('componentToolbar', {
   restrict: 'E',
   template:
   `
-  <edit-height></edit-height>
+  <edit-height on-update='$ctrl.updateSelected($event)'></edit-height>
   <i class='fa fa-arrows-v fa-4x icon'></i>
   <i class='fa fa-arrows-v fa-4x icon'></i>
   <i class='fa fa-arrows-v fa-4x icon'></i>
