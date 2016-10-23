@@ -10,7 +10,10 @@ function (ProjectService, $uibModal) {
 
   // Edit: go to edit page.
   vm.editProject = function (id) {
-    vm.onEdit({id: id});
+    var $event = {
+      id: id
+    };
+    vm.onEdit({$event: $event});
   };
 
   vm.destroyProject = function (params) {
