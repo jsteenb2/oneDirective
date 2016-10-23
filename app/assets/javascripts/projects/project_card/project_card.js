@@ -31,6 +31,7 @@ function (ProjectService, $uibModal) {
 
 app.component('projectCard', {
   controller: 'ProjectCardCtrl',
+  restrict: 'E',
   bindings: {
     project: '<'
   },
