@@ -4,6 +4,11 @@ app.controller('EditHeightCtrl', function () {
   vm.editHeight = function ($event) {
     vm.onUpdate({$event: $event});
   };
+
+  vm.popover = {
+    templateUrl: 'templates/component_toolbar/edit_height_popover.html'
+  };
+
 });
 
 app.component('editHeight', {
@@ -13,5 +18,11 @@ app.component('editHeight', {
     onUpdate: '&'
   },
   restrict: 'E',
-  template: "<i fa-arrows-v></i>"
+  template:
+  `
+    <i
+    uib-popover-placement='right-bottom'
+    uib-popover-template='$ctrl.popover.templateUrl'
+    class='fa fa-arrows-v fa-4x icon'></i>
+  `
 });

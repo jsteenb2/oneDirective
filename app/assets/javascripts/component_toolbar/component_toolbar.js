@@ -16,5 +16,11 @@ app.controller('ComponentToolbarCtrl', [function () {
 app.component('componentToolbar', {
   controller: 'ComponentToolbarCtrl',
   restrict: 'E',
-  templateUrl: 'templates/component_toolbar/component_toolbar.html'
+  template:
+  `
+  <edit-height></edit-height>
+  <i class='fa fa-arrows-v fa-4x icon'></i>
+  <i class='fa fa-arrows-v fa-4x icon'></i>
+  <i class='fa fa-arrows-v fa-4x icon'></i>
+  `
 });
