@@ -58,16 +58,16 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
     return _.filter(_data.cached, {id: parseInt(project_id)})[0];
   };
 
-  srv.create = function (projectParams) {
+  srv.create = function (params) {
     return Restangular.all('projects')
-      .post({project: projectParams})
+      .post({project: params})
       .then(_cacheOne)
       .catch(_logError);
   };
 
-  srv.update = function (projectParams) {
-    return Restangular.one('projects', projectParams.id)
-      .patch({project: projectParams})
+  srv.update = function (params) {
+    return Restangular.one('projects', params.id)
+      .patch({project: params})
       .then(_updateOne)
       .catch(_logError);
   };

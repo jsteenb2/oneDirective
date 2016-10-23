@@ -6,6 +6,15 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def create
+    @project = current_user.projects.build(project_params)
+    if @project.save
+      respond_to do |format|
+        format.json { render json: @project, status: 200 }
+      end
+    end
+  end
+
   def edit
     @project = Project.find(params[:id])
     respond_to do |format|
@@ -13,4 +22,9 @@ class ProjectsController < ApplicationController
         status: 200}
     end
   end
+
+  private
+    def project_params
+      params.require(:project).permit(:title, :description)
+    end
 end
