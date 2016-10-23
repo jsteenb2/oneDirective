@@ -15,7 +15,7 @@
     <project-card
     ng-repeat='project in dashCtrl.projectsData.cached'
     project='project'
-    class='col-md-4'
-    project='project'></project-card>
+    on-edit='dashCtrl.editProject({id: id})'
+    class='col-md-4'></project-card>
   </div>
 </div>
