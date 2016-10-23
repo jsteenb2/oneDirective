@@ -5,7 +5,8 @@ function (projectData, ProjectService) {
   vm.projectsData = projectData;
 
   vm.addProject = function (params) {
-    ProjectService.create(params);
+    console.log(params);
+    // ProjectService.create(params);
   };
 
 

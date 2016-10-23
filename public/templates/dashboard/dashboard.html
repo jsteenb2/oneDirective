@@ -1,9 +1,8 @@
 <div class='container'>
-  <button
-  style='position: fixed; right: 20em;'
-  type='button'
-  class='btn btn-primary'
-  >Create a New Project</button>
+  <create-project
+  on-create='dashCtrl.addProject(params)'
+  style='position: fixed; right: 20em; z-index: 100000'>
+  </create-project>
 
   <div class='row'>
     <div style='text-align: center' class="col-md-12">
