@@ -1,9 +1,25 @@
 
-
 #user-navbar{
   #nav-divider {
     &:hover {
       color: white;
+    }
+  }
+}
+
+.navbar {
+  min-height: 3em;
+  height: 3em;
+  .navbar-brand {
+    padding-top: 0.5em;
+    padding-bottom: 0;
+  }
+  .navbar-nav {
+    li{
+      a {
+        padding-top: 0.8em;
+        padding-bottom: 0;
+      }
     }
   }
 }
