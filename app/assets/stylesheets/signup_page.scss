@@ -1,0 +1,25 @@
+body {
+  background-color: #F6F6F6;
+  #signup-page-container {
+    background-color: white;
+    border: 1px solid grey;
+    padding: 5em 2em 5em 2em;
+    font-size: 0.9em;
+    line-height: 2em;
+    h2 {
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    #submit-button-container {
+      text-align: center;
+      margin-bottom: 1em;
+      span {
+        line-height: 1.8em;
+      }
+    }
+    #log-in-link {
+      text-align: center;
+    }
+  }
+}
