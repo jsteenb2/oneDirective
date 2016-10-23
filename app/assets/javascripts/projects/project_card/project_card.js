@@ -16,7 +16,7 @@ function (ProjectService, $uibModal) {
     var modalInstance = $uibModal.open({
       animation: true,
       component: 'projectModal',
-      size: 'sm',
+      size: 'lg',
       resolve: {
         project: function () {
           return vm.project;
