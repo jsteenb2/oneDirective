@@ -1,9 +1,9 @@
 app.controller('DashboardCtrl',
 ['projectsData', 'ProjectService', '$state',
-function (projectData, ProjectService, $state) {
+function (projectsData, ProjectService, $state) {
   var vm = this;
 
-  vm.projectsData = projectData;
+  vm.projectsData = projectsData;
 
   vm.addProject = function ($event) {
     ProjectService.create($event.params);
