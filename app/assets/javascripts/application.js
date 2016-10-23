@@ -14,11 +14,12 @@
 //= require jquery_ujs
 //= require angular
 //= require angular-devise
+//= require material
+//= require ripples
 //= require angular-animate.min
 //= require textAngular-rangy.min
 //= require textAngular-sanitize.min
 //= require tether.min
 //= require ui-bootstrap-tpls-2.2.0.min
-//= require bootstrap.min
-//= require mdb.min
+//= require bootstrap
 //= require_tree .
