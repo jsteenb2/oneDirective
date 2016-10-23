@@ -1,10 +1,27 @@
 var app = angular.module('materialProto',
 ['ui.router',
 'restangular',
+<<<<<<< HEAD
  'Devise']);
+=======
+'Devise',
+'ui.bootstrap']);
+>>>>>>> 20b7ad5c6c2662475ec5aa67ab101b5409b4f868
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
+}]);
+
+// CSRF support
+app.config(
+  ["$httpProvider",
+  function($httpProvider) {
+    var token = $('meta[name=csrf-token]')
+      .attr('content');
+    $httpProvider
+      .defaults
+      .headers
+      .common['X-CSRF-Token'] = token;
 }]);
 
 app.factory('_', ['$window', function($window) {
@@ -16,28 +33,57 @@ app.config(
   function($stateProvider, $urlRouterProvider, RestangularProvider) {
 
     // Restangular
-    RestangularProvider.setBaseUrl('/api/v1');
+    RestangularProvider.setBaseUrl('api/v1');
     RestangularProvider.setRequestSuffix('.json');
     RestangularProvider.setDefaultHttpFields({timeout: 3000});
 
     // ADRIAN feel free to change the routing. --- CJ.
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/projects');
 
     $stateProvider
-      .state('projects', {
-        abstract: true
-      })
-      .state('projects.index', {
+      .state('main', {
         url: '/',
+        resolve: {
+          currUser: ['Auth', function(Auth) {
+            return Auth.currentUser();
+          }]
+        }
+      })
+      .state('main.projects', {
+        url: 'projects',
         views: {
           '@': {
-            templateUrl: 'templates/dashboard.html',
-            controller: 'DashboardCtrl'
+            templateUrl: 'templates/dashboard/dashboard.html',
+            controller: 'DashboardCtrl',
+            controllerAs: 'dashCtrl'
           }
+        },
+        resolve: {
+          projectsData: ['ProjectService', function (ProjectService) {
+            return ProjectService.all();
+          }]
+        }
+      })
+      .state('main.projects.edit', {
+        url: '/:id',
+        views: {
+          '@' : {
+            templateUrl: 'templates/projects/edit.html',
+            controller: 'ProjectEditCtrl',
+            // controllerAs: 'editCtrl'
+          }
+        },
+        resolve: {
+          rowsData: ['RowService', function (RowService) {
+            return RowService.all();
+          }],
+          componentsData: ['ComponentService', function (ComponentService) {
+            return ComponentService.all();
+          }],
         }
       });
 }]);
 
-// $('document').ready(function(){
-//   $.material.init();
-// });
+app.run(['$rootScope', function($rootScope){
+  $rootScope.$on("$stateChangeError", console.log.bind(console));
+}]);

@@ -1,0 +1,17 @@
+<div class='card' style='width: 300px; height: 400px'>
+  <div class='view overlay hm-white-slight'>
+    <img class='img-fluid' src='http://mdbootstrap.com/images/reg/reg%20(2).jpg'>
+    <!-- Clicking on the overlay will take you to the edit page. -->
+    <a ng-click='$ctrl.editProject($ctrl.project.id)'>
+      <div class='mask'></div>
+    </a>
+  </div>
+
+  <div class="card-block">
+    <!-- Whereas clicking on the title/description will allow you to edit them. -->
+    <div style='cursor: pointer;' ng-click='$ctrl.open()'>
+      <h4 class="card-title">{{$ctrl.project.title}}</h4>
+      <p class="card-text">{{$ctrl.project.description}}</p>
+    </div>
+  </div>
+</div>
