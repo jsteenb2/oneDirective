@@ -3,6 +3,7 @@ app.controller('ProjectModalCtrl', function () {
 
   vm.$onInit = function () {
     vm.project = vm.resolve.project;
+    vm.title = vm.project.title;
   };
 
   vm.ok = function (params) {
