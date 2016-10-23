@@ -68,6 +68,14 @@ app.config(
             controller: 'ProjectEditCtrl',
             // controllerAs: 'editCtrl'
           }
+        },
+        resolve: {
+          rowsData: ['RowService', function (RowService) {
+            return RowService.all();
+          }],
+          componentsData: ['ComponentService', function (ComponentService) {
+            return ComponentService.all();
+          }],
         }
       });
 }]);

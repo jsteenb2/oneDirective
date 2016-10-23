@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   scope :api do
     scope :v1 do
       resources :projects
+      resources :rows
+      resources :components
     end
   end
 end

@@ -1,6 +1,6 @@
 app.controller('ProjectEditCtrl',
-  ['$stateParams', 'ProjectService', 'currUser', '$scope',
-  function( $stateParams, ProjectService, currUser, $scope) {
+  ['$stateParams', 'ProjectService', 'RowService', 'currUser', '$scope',
+  function( $stateParams, ProjectService, RowService, currUser, $scope) {
 
     $scope.currentUser = currUser;
 
@@ -9,8 +9,10 @@ app.controller('ProjectEditCtrl',
     console.log('you are in projectEdit controller');
 
 
-
+    //don't really need this
     $scope.project = ProjectService.get($stateParams.id);
+    //only rows relevant to project
+    $scope.rows = RowService.get($stateParams.id);
 
 
 }]);
