@@ -1,4 +1,4 @@
-<div class='card' style='width: 300px'>
+<div class='card' style='width: 300px; height: 400px'>
   <div class='view overlay hm-white-slight'>
     <img class='img-fluid' src='http://mdbootstrap.com/images/reg/reg%20(2).jpg'>
     <a href='#' ng-click='$ctrl.open()'>
@@ -7,9 +7,7 @@
   </div>
 
   <div class="card-block">
-    <!--Title-->
-    <h4 class="card-title">Project title</h4>
-    <!--Text-->
-    <p class="card-text">Project description</p>
+    <h4 class="card-title">{{$ctrl.project.title}}</h4>
+    <p class="card-text">{{$ctrl.project.description}}</p>
   </div>
 </div>

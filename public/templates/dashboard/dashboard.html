@@ -12,7 +12,8 @@
 
   <div class='row'>
     <project-card
-    ng-repeat='projects in dashCtrl.projectsData.cached'
+    ng-repeat='project in dashCtrl.projectsData.cached'
+    project='project'
     class='col-md-4'
     project='project'></project-card>
   </div>
