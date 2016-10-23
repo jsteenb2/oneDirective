@@ -2,8 +2,7 @@ var app = angular.module('materialProto',
 ['ui.router',
 'restangular',
 'Devise',
-'ui.bootstrap',
-'textAngular']);
+'ui.bootstrap']);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));

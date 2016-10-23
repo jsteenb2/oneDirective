@@ -17,4 +17,5 @@
 //= require angular-animate.min
 //= require ui-bootstrap-tpls-2.2.0.min
 //= require bootstrap
+//= require material
 //= require_tree .
