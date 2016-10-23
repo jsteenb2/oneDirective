@@ -1,12 +1,8 @@
 var app = angular.module('materialProto',
 ['ui.router',
 'restangular',
-<<<<<<< HEAD
- 'Devise']);
-=======
 'Devise',
 'ui.bootstrap']);
->>>>>>> 20b7ad5c6c2662475ec5aa67ab101b5409b4f868
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
