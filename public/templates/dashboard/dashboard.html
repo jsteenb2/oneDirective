@@ -1,7 +1,8 @@
 <div class='container'>
+  <!-- Map the data to 'params' so that it gets mapped to the 'params' property of $event. -->
   <create-project
-  on-create='dashCtrl.addProject(params)'
-  style='position: fixed; right: 20em; z-index: 100000'>
+  on-create='dashCtrl.addProject({params: params})'
+  style='position: fixed; right: 20em; z-index: 1'>
   </create-project>
 
   <div class='row'>
@@ -14,7 +15,7 @@
     <project-card
     ng-repeat='project in dashCtrl.projectsData.cached'
     project='project'
-    class='col-md-4'
-    project='project'></project-card>
+    on-edit='dashCtrl.editProject({id: id})'
+    class='col-md-4'></project-card>
   </div>
 </div>

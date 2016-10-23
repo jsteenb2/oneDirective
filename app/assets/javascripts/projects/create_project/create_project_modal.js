@@ -2,7 +2,8 @@ app.controller('CreateProjectModalCtrl', function () {
   var vm = this;
 
   vm.ok = function (params) {
-    vm.close(params);
+    // Need to map the value to $value.
+    vm.close({$value: params});
   };
 
   vm.cancel = function () {
