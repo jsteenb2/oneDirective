@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require angular
 //= require angular-devise
-//= require tether.min
-//= require bootstrap.min
-//= require mdb.min
+//= require material
+//= require ripples
 //= require_tree .

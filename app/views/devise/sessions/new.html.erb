@@ -1,26 +1,38 @@
-<h2>Log in</h2>
+<% content_for(:stylesheet) { 'login_page' } %>
+<div class="row">
+  <div id="login-page-container" class="col-md-4 col-md-offset-4">
+    <h2 class="">Log in</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name, class: 'form-group')) do |f| %>
+      <div class="field">
+        <%= f.email_field :email, autofocus: true, placeholder: 'Email', class: 'form-control' %>
+      </div>
+
+      <div class="field">
+        <%= f.password_field :password, autocomplete: "off", placeholder: 'Password', class: 'form-control' %>
+      </div>
+
+
+      <%= link_to "Don't have an account? Click here to sign up.", new_registration_path(resource_name) %>
+
+      <% if devise_mapping.rememberable? -%>
+        <div id="remember-container" class="field form-group">
+          <div class="checkbox">
+            <%= f.label :remember_me do %>
+              <%= f.check_box :remember_me, class: 'checkbox' %>
+              Remember Me
+            <% end %>
+            <%= link_to "Reset Password", new_password_path(resource_name), id: 'reset-password-link' %>
+          </div>
+        </div>
+      <% end -%>
+
+      <div id="submit-button-container" class="actions">
+        <button class="btn btn-raised btn-primary" type="submit" name="action">
+          <span class="col-md-6">Log in</span>
+          <i class="material-icons right col-md-3 col-md-offset-2">send</i>
+        </button>
+      </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end -%>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

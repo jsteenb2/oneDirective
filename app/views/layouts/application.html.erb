@@ -4,6 +4,8 @@
     <title>SkeletorMaterialDesign</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= stylesheet_link_tag yield(:stylesheet) if yield(:stylesheet) %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <%= render 'static_pages/user_navbar.html.erb' if current_user %>
   <body>
@@ -19,6 +21,12 @@
 
     <!-- lodash -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js'></script>
+
+    <script>
+     $(document).ready(function(){
+         $.material.init();
+     })
+    </script>
 
   </body>
 </html>
