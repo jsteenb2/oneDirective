@@ -1,7 +1,7 @@
-
 body {
   background-color: #F6F6F6;
-  #login-page-container {
+  padding-bottom: 3em;
+  #signup-page-container {
     background-color: white;
     border: 1px solid grey;
     padding: 5em 2em 5em 2em;
@@ -12,18 +12,16 @@ body {
       text-align: center;
       margin-bottom: 1em;
     }
-    #remember-container {
-      margin-top: 2em;
-      margin-bottom: 2em;
-    }
-    #reset-password-link {
-      float: right;
-    }
     #submit-button-container {
       text-align: center;
+      margin-top: 2em;
+      margin-bottom: 1em;
       span {
         line-height: 1.8em;
       }
+    }
+    #log-in-link {
+      text-align: center;
     }
   }
 }
