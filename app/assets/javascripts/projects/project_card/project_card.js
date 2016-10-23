@@ -3,8 +3,14 @@ app.controller('ProjectCardCtrl',
 function (ProjectService, $uibModal) {
   var vm = this;
 
+  // Update: using the modal.
   vm.updateProject = function (params) {
     ProjectService.update(params);
+  };
+
+  // Edit: go to edit page.
+  vm.editProject = function (id) {
+    vm.onEdit({id: id});
   };
 
   vm.destroyProject = function (params) {
@@ -33,7 +39,8 @@ app.component('projectCard', {
   controller: 'ProjectCardCtrl',
   restrict: 'E',
   bindings: {
-    project: '<'
+    project: '<',
+    onEdit: '&'
   },
   templateUrl: 'templates/dashboard/project_card/project_card.html'
 });
