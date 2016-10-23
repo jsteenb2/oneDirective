@@ -13,9 +13,10 @@ gem 'materialize-sass'
 gem 'angularjs-rails'
 gem 'angular_rails_csrf'
 
+#dependencies from bower
 source "https://rails-assets.org" do
+  gem "rails-assets-angular-wysiwyg"
   gem 'rails-assets-angular-devise'
-  # gem 'rails-assets-bootstrap-material-design'
 end
 
 #devise
