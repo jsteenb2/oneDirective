@@ -1,3 +1,17 @@
 // Place all the styles related to the components controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.component-toolbar {
+  position: fixed;
+  width: 150px;
+  height: 100%;
+  background-color: black;
+}
+
+.icon {
+  margin-top: 15px;
+  margin-left: 15px;
+  cursor: pointer;
+}

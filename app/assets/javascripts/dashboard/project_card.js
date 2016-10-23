@@ -10,7 +10,10 @@ function (ProjectService, $uibModal) {
 
   // Edit: go to edit page.
   vm.editProject = function (id) {
-    vm.onEdit({id: id});
+    var $event = {
+      id: id
+    };
+    vm.onEdit({$event: $event});
   };
 
   vm.destroyProject = function (params) {
@@ -42,5 +45,5 @@ app.component('projectCard', {
     project: '<',
     onEdit: '&'
   },
-  templateUrl: 'templates/dashboard/project_card/project_card.html'
+  templateUrl: 'templates/dashboard/project_card.html'
 });
