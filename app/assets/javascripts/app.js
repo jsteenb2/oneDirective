@@ -8,6 +8,18 @@ app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
 }]);
 
+// CSRF support
+app.config(
+  ["$httpProvider",
+  function($httpProvider) {
+    var token = $('meta[name=csrf-token]')
+      .attr('content');
+    $httpProvider
+      .defaults
+      .headers
+      .common['X-CSRF-Token'] = token;
+}]);
+
 app.factory('_', ['$window', function($window) {
   return $window._;
 }]);
@@ -22,14 +34,19 @@ app.config(
     RestangularProvider.setDefaultHttpFields({timeout: 3000});
 
     // ADRIAN feel free to change the routing. --- CJ.
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/projects');
 
     $stateProvider
-      .state('projects', {
-        abstract: true
-      })
-      .state('projects.index', {
+      .state('main', {
         url: '/',
+        resolve: {
+          currUser: ['Auth', function(Auth) {
+            return Auth.currentUser();
+          }]
+        }
+      })
+      .state('main.projects', {
+        url: 'projects',
         views: {
           '@': {
             templateUrl: 'templates/dashboard/dashboard.html',
@@ -43,13 +60,18 @@ app.config(
           }]
         }
       })
-      .state('projects.edit', {
+      .state('main.projects.edit', {
         url: '/:id',
-        view: {
-          '@': {
+        views: {
+          '@' : {
             templateUrl: 'templates/projects/edit.html',
-            controller: 'ProjectEditCtrl'
+            controller: 'ProjectEditCtrl',
+            // controllerAs: 'editCtrl'
           }
         }
       });
+}]);
+
+app.run(['$rootScope', function($rootScope){
+  $rootScope.$on("$stateChangeError", console.log.bind(console));
 }]);
