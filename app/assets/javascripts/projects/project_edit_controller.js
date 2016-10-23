@@ -1,16 +1,18 @@
 app.controller('ProjectEditCtrl',
-  ['$stateParams', 'ProjectService',
-  function( $stateParams, ProjectService) {
-    vm = this;
-    
-    vm.currentUser = currUser;
+  ['$stateParams', 'ProjectService', 'currUser', '$scope',
+  function( $stateParams, ProjectService, currUser, $scope) {
+
+    $scope.currentUser = currUser;
 
     console.log("still logged in through: ", 
-      vm.currentUser);
+      $scope.currentUser);
     console.log('you are in projectEdit controller');
 
 
-    vm.project = ProjectService.get($stateParams.id);
+
+    $scope.project = ProjectService.get($stateParams.id);
+
+
 }]);
 
 

@@ -13,11 +13,11 @@ User.destroy_all
 
 puts "Done!"
 
-puts 'Creating a CJ account..'
+puts 'Creating a Ad account..'
 
 User.create({
-  email: 'cjv@gmail.com',
-  password: 'cjvirtucio'
+  email: 'a@a.com',
+  password: 'abc123.'
   })
 
 puts "Done!"
@@ -33,9 +33,9 @@ end
 
 puts "Done!"
 
-puts "Creating CJ's projects.."
+puts "Creating Adrian's projects.."
 
-user = User.find_by_email('cjv@gmail.com')
+user = User.find_by_email('a@a.com')
 
 10.times do |n|
   user.projects.push Project.create({
