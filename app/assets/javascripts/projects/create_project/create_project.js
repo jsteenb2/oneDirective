@@ -1,10 +1,22 @@
-app.controller('CreateProjectCtrl', function () {
+app.controller('CreateProjectCtrl',
+['$uibModal', function ($uibModal) {
   var vm = this;
 
   vm.create = function (params) {
-    vm.onCreate({params: 'hello'});
+    vm.onCreate({params: params});
   };
-});
+
+  // Modal functionality.
+  vm.open = function () {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      component: 'createProjectModal',
+      size: 'lg',
+    });
+
+    modalInstance.result.then(vm.create);
+  };
+}]);
 
 app.component('createProject', {
   controller: 'CreateProjectCtrl',
@@ -12,5 +24,5 @@ app.component('createProject', {
     onCreate: '&'
   },
   restrict: 'E',
-  template: "<button class='btn btn-primary' ng-click='$ctrl.create()'>Create Project</button>"
+  template: "<button class='btn btn-primary' ng-click='$ctrl.open()'>Create Project</button>"
 });
