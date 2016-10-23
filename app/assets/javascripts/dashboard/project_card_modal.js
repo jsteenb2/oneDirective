@@ -7,7 +7,7 @@ app.controller('ProjectModalCtrl', function () {
   };
 
   vm.ok = function (params) {
-    vm.close(params);
+    vm.close({$value: params});
   };
 
   vm.cancel = function () {
