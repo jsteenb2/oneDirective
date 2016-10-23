@@ -16,5 +16,7 @@
 //= require angular-devise
 //= require angular-animate.min
 //= require ui-bootstrap-tpls-2.2.0.min
-//= require
+//= require textAngular-rangy.min
+//= require textAngular-sanitize.min
+//= require bootstrap
 //= require_tree .
