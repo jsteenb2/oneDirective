@@ -64,14 +64,14 @@ app.factory('ComponentService', ['Restangular', '_', function (Restangular, _) {
 
   srv.create = function (componentParams) {
     return Restangular.all('components')
-      .post({project: componentParams})
+      .post({component: componentParams})
       .then(_cacheOne)
       .catch(_logError);
   };
 
   srv.update = function (componentParams) {
     return Restangular.one('components', projectParams.id)
-      .patch({project: componentParams})
+      .patch({component: componentParams})
       .then(_updateOne)
       .catch(_logError);
   };

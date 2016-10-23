@@ -14,7 +14,7 @@ app.directive("row",
         row: '='
       },
       link: function(scope){
-      };
+      }
     };
-  };
-}]);
+  }]
+);

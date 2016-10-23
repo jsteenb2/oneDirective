@@ -14,7 +14,7 @@ app.directive("component",
         scope.renderHtml = function(html_code) {
           return $sce.trustAsHtml(html_code);
         };
-      };
-    }
-  };
-}]);
+      }
+    };
+  }]
+);
