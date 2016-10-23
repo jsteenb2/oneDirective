@@ -1,4 +1,4 @@
-app.controller('ComponentToolbarCtrl', [function () {
+app.controller('ComponentToolbarCtrl', ['ComponentService', function (ComponentService) {
   var vm = this;
 
   vm.selected = "hello from the toolbar";

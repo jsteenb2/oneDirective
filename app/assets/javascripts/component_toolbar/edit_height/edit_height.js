@@ -1,5 +1,9 @@
-app.controller('EditHeightCtrl', function () {
+app.controller('EditHeightCtrl', ['DimensionsService', function (DimensionsService) {
   var vm = this;
+
+  vm.$onInit = function () {
+    vm.options = DimensionsService.getHeights();
+  };
 
   vm.editHeight = function ($event) {
     vm.onUpdate({$event: $event});
@@ -9,10 +13,7 @@ app.controller('EditHeightCtrl', function () {
     templateUrl: 'templates/component_toolbar/edit_height_popover.html'
   };
 
-  // Placeholder.
-  vm.options = [1, 2, 3, 4, 5];
-
-});
+}]);
 
 app.component('editHeight', {
   controller: 'EditHeightCtrl',

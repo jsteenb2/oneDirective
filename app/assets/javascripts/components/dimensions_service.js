@@ -1,5 +1,5 @@
 app.factory('DimensionsService',
-['ComponentService', '_', function (ComponentService, _) {
+['_', function (_) {
   var srv = {};
   var _data = {
     widths: [],
