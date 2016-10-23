@@ -1,4 +1,4 @@
-app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
+app.factory('ComponentService', ['Restangular', '_', function (Restangular, _) {
   var srv = {};
   var _data = {
     cached: [],
@@ -40,7 +40,7 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
   }
 
   function _queryAll () {
-    return Restangular.all('projects')
+    return Restangular.all('components')
       .getList()
       .then(_cacheAll)
       .catch(_logError);
@@ -54,26 +54,30 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
     }
   };
 
-  srv.get = function(project_id) {
-    return _.filter(_data.cached, {id: parseInt(project_id)})[0];
+  srv.get = function(row_id) {
+    return _.filter(_data.cached, {row_id: row_id});
+  }
+
+  srv.find = function(component_id) {
+    return _.filter(_data.cached, {id: parseInt(component_id)})[0];
   };
 
-  srv.create = function (projectParams) {
-    return Restangular.all('projects')
-      .post({project: projectParams})
+  srv.create = function (componentParams) {
+    return Restangular.all('components')
+      .post({project: componentParams})
       .then(_cacheOne)
       .catch(_logError);
   };
 
-  srv.update = function (projectParams) {
-    return Restangular.one('projects', projectParams.id)
-      .patch({project: projectParams})
+  srv.update = function (componentParams) {
+    return Restangular.one('components', projectParams.id)
+      .patch({project: componentParams})
       .then(_updateOne)
       .catch(_logError);
   };
 
-  srv.destroy = function (project) {
-    return project.remove()
+  srv.destroy = function (component) {
+    return component.remove()
       .then(_removeOne)
       .catch(_logError);
   };
