@@ -10,13 +10,11 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery-2.2.3.min
+//= require jquery
 //= require jquery_ujs
 //= require angular
 //= require angular-devise
 //= require angular-animate.min
-//= require tether.min
 //= require ui-bootstrap-tpls-2.2.0.min
-//= require bootstrap.min
-//= require mdb.min
+//= require
 //= require_tree .
