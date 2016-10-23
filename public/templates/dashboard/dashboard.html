@@ -1,6 +1,7 @@
 <div class='container'>
+  <!-- Map the data to 'params' so that it gets mapped to the 'params' property of $event. -->
   <create-project
-  on-create='dashCtrl.addProject(params)'
+  on-create='dashCtrl.addProject({params: params})'
   style='position: fixed; right: 20em; z-index: 1'>
   </create-project>
 
