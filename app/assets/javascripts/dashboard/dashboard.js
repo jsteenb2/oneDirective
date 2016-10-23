@@ -10,7 +10,6 @@ function (projectData, ProjectService, $state) {
   };
 
   vm.editProject = function ($event) {
-    console.log($event.id);
     $state.go('main.projects.edit', {id: $event.id});
   };
 }]);

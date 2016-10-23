@@ -19,5 +19,5 @@ app.component('createProjectModal', {
     close: '&',
     dismiss: '&'
   },
-  templateUrl: 'templates/dashboard/create_project_modal/create_project_modal.html'
+  templateUrl: 'templates/dashboard/create_project_modal.html'
 });

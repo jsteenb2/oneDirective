@@ -23,5 +23,5 @@ app.component('projectModal', {
     close: '&',
     dismiss: '&'
   },
-  templateUrl: 'templates/dashboard/project_modal/project_modal.html'
+  templateUrl: 'templates/dashboard/project_modal.html'
 });
