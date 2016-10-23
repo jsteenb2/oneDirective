@@ -3,6 +3,7 @@ app.controller('ComponentToolbarCtrl', ['ComponentService', function (ComponentS
 
   vm.selected = "hello from the toolbar";
 
+  // Need to pass down a component object to each button so they can update.
   vm.updateSelected = function ($event) {
     console.log($event);
   };
