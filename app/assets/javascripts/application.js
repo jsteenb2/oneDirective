@@ -15,6 +15,8 @@
 //= require angular
 //= require angular-devise
 //= require angular-animate.min
+//= require textAngular-rangy.min
+//= require textAngular-sanitize.min
 //= require tether.min
 //= require ui-bootstrap-tpls-2.2.0.min
 //= require bootstrap.min
