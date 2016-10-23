@@ -6,9 +6,10 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
   </head>
   <%= render 'static_pages/user_navbar.html.erb' if current_user %>
+
   <body>
     <%= yield %>
-
+    
     <%= javascript_include_tag 'application' %>
 
     <!-- ui-router -->
@@ -19,6 +20,5 @@
 
     <!-- lodash -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js'></script>
-
   </body>
 </html>

@@ -1,0 +1,27 @@
+<div class='modal-content'>
+  <h1 class='modal-header'>{{$ctrl.title}}</h1>
+  <div class='modal-body'>
+    <form ng-submit='$ctrl.ok($ctrl.project)' class='md-form'>
+      <div class='row'>
+        <div class='col-md-12'>
+          <h1>Title</h1>
+          <input type='text' class='input-field' ng-model='$ctrl.project.title'>
+        </div>
+      </div><br>
+
+      <div class='row'>
+        <div class='col-md-12'>
+          <h1>Description</h1>
+          <textarea type='text' class='md-textarea' ng-model='$ctrl.project.description'></textarea>
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class='col-md-12'>
+          <input type='submit' class='btn btn-primary' value='Update Project'>
+          <button class='btn btn-danger' ng-click='$ctrl.cancel()'>Cancel Changes</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
