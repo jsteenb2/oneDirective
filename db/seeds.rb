@@ -5,3 +5,42 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+puts "Destroy users.."
+
+User.destroy_all
+
+puts "Done!"
+
+puts 'Creating a CJ account..'
+
+User.create({
+  email: 'cjv@gmail.com',
+  password: 'cjvirtucio'
+  })
+
+puts "Done!"
+
+puts "Creating Users.."
+
+10.times do |n|
+  User.create({
+    email: Faker::Internet.email,
+    password: 'dsadsaasjaskdj'
+    })
+end
+
+puts "Done!"
+
+puts "Creating CJ's projects.."
+
+user = User.find_by_email('cjv@gmail.com')
+
+10.times do |n|
+  user.projects.push Project.create
+end
+
+user.save
+
+puts "Done!"

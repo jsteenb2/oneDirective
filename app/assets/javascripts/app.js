@@ -1,7 +1,8 @@
 var app = angular.module('materialProto',
 ['ui.router',
 'restangular',
-'Devise']);
+'Devise',
+'ui.bootstrap']);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
@@ -16,7 +17,7 @@ app.config(
   function($stateProvider, $urlRouterProvider, RestangularProvider) {
 
     // Restangular
-    RestangularProvider.setBaseUrl('/api/v1');
+    RestangularProvider.setBaseUrl('api/v1');
     RestangularProvider.setRequestSuffix('.json');
     RestangularProvider.setDefaultHttpFields({timeout: 3000});
 
@@ -31,12 +32,18 @@ app.config(
         url: '/',
         views: {
           '@': {
-            templateUrl: 'templates/dashboard.html',
-            controller: 'DashboardCtrl'
+            templateUrl: 'templates/dashboard/dashboard.html',
+            controller: 'DashboardCtrl',
+            controllerAs: 'dashCtrl'
           }
+        },
+        resolve: {
+          projectsData: ['ProjectService', function (ProjectService) {
+            return ProjectService.all();
+          }]
         }
       })
-      .state('projects.show', {
+      .state('projects.edit', {
         url: '/:id',
         view: {
           '@': {
