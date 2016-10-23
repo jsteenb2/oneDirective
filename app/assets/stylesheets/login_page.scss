@@ -22,5 +22,8 @@ body {
   }
   #submit-button-container {
     text-align: center;
+    span {
+      line-height: 1.8em;
+    }
   }
 }
