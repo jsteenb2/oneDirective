@@ -47,7 +47,7 @@ app.config(
         url: '/:id',
         view: {
           '@': {
-            templateUrl: 'templates/edit.html',
+            templateUrl: 'templates/projects/edit.html',
             controller: 'ProjectEditCtrl'
           }
         }
