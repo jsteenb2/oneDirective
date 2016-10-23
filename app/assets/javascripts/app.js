@@ -42,5 +42,14 @@ app.config(
             return ProjectService.all();
           }]
         }
+      })
+      .state('projects.edit', {
+        url: '/:id',
+        view: {
+          '@': {
+            templateUrl: 'templates/edit.html',
+            controller: 'ProjectEditCtrl'
+          }
+        }
       });
 }]);

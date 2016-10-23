@@ -54,6 +54,10 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
     }
   };
 
+  srv.get = function(project_id) {
+    return _.where(_data.cached, {id: id});
+  };
+
   srv.create = function (projectParams) {
     return Restangular.all('projects')
       .post({project: projectParams})
