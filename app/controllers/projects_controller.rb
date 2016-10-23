@@ -23,6 +23,15 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def update
+    @project = current_user.projects.find_by_id(params[:id])
+    if @project.update(project_params)
+      respond_to do |format|
+        format.json { render json: @project, status: 200 }
+      end
+    end
+  end
+
   private
     def project_params
       params.require(:project).permit(:title, :description)
