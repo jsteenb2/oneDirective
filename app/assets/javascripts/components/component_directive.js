@@ -13,7 +13,8 @@ app.directive('component', ['$compile', "$rootScope", "$window", function($compi
       // CJ: added attrs scope.row and scope.index for DnD
       // Going to row to row: they don't track by index. Need to track by id.
       var template = angular.element(scope.component.content)
-        .attr('tabindex', scope.component.id)
+        .attr('tabindex', scope.component.id);
+      template
         .attr('data-drag', "true")
         .attr('data-drop', "true")
         .attr('ng-model', "row.components")

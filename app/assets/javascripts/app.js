@@ -85,6 +85,9 @@ app.config(
         resolve: {
           componentSelection: ['componentService', function(componentService){
             return componentService.cacheComponentLibrary();
+          }],
+          rowData: ['rowService', function(rowService) {
+            return rowService.getRowData();
           }]
         }
       });
