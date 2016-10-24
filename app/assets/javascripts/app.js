@@ -65,17 +65,17 @@ app.config(
         views: {
           '@' : {
             templateUrl: 'templates/projects/edit.html',
-            controller: 'ProjectEditCtrl',
-            // controllerAs: 'editCtrl'
+            controller: 'ProjectEditCtrl'
+          },
+          'sideBar@main.projects.edit': {
+            templateUrl: 'templates/projects/sidebar.html',
+            controller: 'sideBarCtrl'
           }
         },
         resolve: {
-          rowsData: ['RowService', function (RowService) {
-            return RowService.all();
-          }],
-          componentsData: ['ComponentService', function (ComponentService) {
-            return ComponentService.all();
-          }],
+          componentSelection: ['componentService', function(componentService){
+            return componentService.cacheComponentLibrary();
+          }]
         }
       });
 }]);

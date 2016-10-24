@@ -1,86 +1,170 @@
-app.factory('RowService', ['Restangular', '_', function (Restangular, _) {
-  var srv = {};
-  var _data = {
-    cached: [],
-    created: {},
-    updated: {},
-    destroyed: {}
+app.factory('rowService', ["_", "Restangular", "componentService", function(_, Restangular, componentService){
+  var rowService = {};
+  var _rows = [];
+  var _id = 1;
+
+  rowService.getRows = function(){
+    return _rows;
   };
 
-  function _logError (reason) {
-    console.log(reason);
-    throw new Error ('Failed ajax call!');
-  }
+  var swapArrayElements = function(arr, indexA, indexB) {
+    var temp = arr[indexA];
+    arr[indexA] = arr[indexB];
+    arr[indexB] = temp;
+  };
 
-  function _cacheAll (response) {
-    angular.copy(response, _data.cached);
-    return _data;
-  }
+  Array.prototype.swap = function(indexA, indexB) {
+     swapArrayElements(this, indexA, indexB);
+  };
 
-  function _cacheOne (response) {
-    _data.cached.push(response);
-    angular.copy(response, _data.created);
-    return _data;
-  }
+  var _getRows = function(){
+    return _rows;
+  };
 
-  function _updateOne (response) {
-    var found = _.find(_data.cached, {id: response.id});
-    if (!found) throw new Error ('Nothing to update!');
-    angular.copy(response, found);
-    angular.copy(response, _data.updated);
-    return _data;
-  }
+  var _activateComponent = function(componentType, index, array){
+    var component = componentService.buildComponent(componentType);
+    return component;
+  };
 
-  function _removeOne (response) {
-    var found = _.find(_data.cached, {id: response.id});
-    if (!found) throw new Error ('Nothing to update!');
-    _data.destroyed = found;
-    _.remove(_data.cached, {id: response.id});
-    return _data;
-  }
+  rowService.rebuildComponents = function(compArray){
+    compArray.forEach(_activateComponent);
+  };
 
-  function _queryAll () {
-    return Restangular.all('rows')
-      .getList()
-      .then(_cacheAll)
-      .catch(_logError);
-  }
-
-  srv.all = function () {
-    if (_.isEmpty(_data.cached)) {
-      return _queryAll();
+  rowService.buildNewComponent = function(componentType, rowId){
+    var component = _activateComponent(componentType);
+    if (rowId) {
+      _addComponentToExistingRow(component, rowId);
     } else {
-      return _data;
+      _makeNewRow(component);
+    }
+    _extendComponent(component);
+  };
+
+  var _extendComponent = function(component){
+    component.moveLeft = _moveLeft;
+    component.moveRight = _moveRight;
+    component.moveUp = _moveUp;
+    component.moveDown = _moveDown;
+  };
+
+  var _findRowIdx = function(rowId){
+    var rowIdx = _.findIndex(_rows, function(row){
+      return row.id == rowId;
+    });
+    return rowIdx;
+
+  };
+
+  var _findComponentIdx = function(component, rowIdx){
+    var components = _rows[rowIdx].components;
+    var compIdx = _.findIndex(_rows[rowIdx].components, function(comp){
+      return comp.id == component.id;
+    });
+    return compIdx;
+  };
+
+  var _moveUp = function(){
+    var rowIdx = _findRowIdx(this.rowId);
+    var compIdx = _findComponentIdx(this, rowIdx);
+    var comp;
+    if(rowIdx > 0){
+      comp = _rows[rowIdx].components.splice(compIdx, 1)[0];
+      _addToRow(comp, rowIdx - 1);
+      _checkEmptyRow(rowIdx);
+    } else if( rowIdx === 0 &&
+                _rows[rowIdx].components.length > 1 ){
+      comp = _rows[rowIdx].components.splice(compIdx, 1)[0];
+      _addNewTopRow(comp);
     }
   };
 
-  srv.get = function(project_id) {
-    return _.filter(_data.cached, {project_id: parseInt(project_id)});
-  }
-
-  srv.find = function(row_id) {
-    return _.filter(_data.cached, {id: parseInt(row_id)})[0];
+  var _checkEmptyRow = function(rowIdx){
+    console.log(_rows[rowIdx]);
+    if(_rows[rowIdx].components.length < 1){
+      console.log('deleted');
+      _rows.splice(rowIdx, 1);
+    }
   };
 
-  srv.create = function (rowParams) {
-    return Restangular.all('rows')
-      .post({row: rowParams})
-      .then(_cacheOne)
-      .catch(_logError);
+  var _moveDown = function(){
+    var rowIdx = _findRowIdx(this.rowId);
+    var compIdx = _findComponentIdx(this, rowIdx);
+    var comp;
+    if(rowIdx < _rows.length - 1){
+      comp = _rows[rowIdx].components.splice(compIdx, 1)[0];
+      _addRowBelow(comp, rowIdx + 1);
+      _checkEmptyRow(rowIdx);
+    } else if (_rows[rowIdx].components.length > 1 ){
+      comp = _rows[rowIdx].components.splice(compIdx, 1)[0];
+      _makeNewRow(comp);
+    }
   };
 
-  srv.update = function (rowParams) {
-    return Restangular.one('rows', rowParams.id)
-      .patch({row: rowParams})
-      .then(_updateOne)
-      .catch(_logError);
+  var _addRowBelow = function(component, nextRowIdx){
+    if(_rows[nextRowIdx].components.length){
+      _addToRow(component, nextRowIdx);
+    } else {
+      _makeNewRow(component);
+    }
   };
 
-  srv.destroy = function (row) {
-    return row.remove()
-      .then(_removeOne)
-      .catch(_logError);
+  var _addToRow = function(component, rowIdx){
+    var currentRow = _rows[rowIdx];
+    if (currentRow){
+      component.rowId = currentRow.id;
+      currentRow.components.push(component);
+    } else {
+      console.log("in the not currentRow");
+      _makeNewRow(component);
+    }
   };
 
-  return srv;
+  var _moveLeft = function(){
+    var rowIdx = _findRowIdx(this.rowId);
+    var compIdx = _findComponentIdx(this, rowIdx);
+    var that = this;
+    if(compIdx > 0){
+      _rows[rowIdx].components.swap( compIdx - 1, compIdx );
+    }
+  };
+
+  var _moveRight = function(){
+    var rowIdx = _findRowIdx(this.rowId);
+    var compIdx = _findComponentIdx(this, rowIdx);
+    if(compIdx < (_rows[rowIdx].components.length - 1) ){
+      _rows[rowIdx].components.swap( compIdx + 1, compIdx );
+    }
+  };
+
+  var _addComponentToExistingRow = function(component, rowId){
+    var curRow = _.find(_rows, function(row){
+      return row.id === rowId;
+    });
+    component.rowId = rowId;
+    curRow.components.push(component);
+  };
+
+  var _makeNewRow = function(component){
+    var newRow = {
+      id: _id,
+      components: []
+    };
+    component.rowId = newRow.id;
+    newRow.components.push(component);
+    _rows.push(newRow);
+    _id++;
+  };
+
+  var _addNewTopRow = function(component){
+    var newRow = {
+      id: _id,
+      components: []
+    };
+    component.rowId = newRow.id;
+    newRow.components.push(component);
+    _rows.unshift(newRow);
+    _id++;
+  };
+
+  return rowService;
 }]);
