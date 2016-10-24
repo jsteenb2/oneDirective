@@ -1,4 +1,15 @@
 <%= content_for(:stylesheet) { 'landing_page' }%>
 <div class="row">
-  <h1 class="col-md-6 col-md-offset-3">OneDirective lets you make your website your way</h1>
+  <div class="col-md-8 col-md-offset-2">
+    <h1>OneDirective lets you make your website your way</h1>
+    <h4>OneDirective's interactive Website Builder enables you to create your very own website in just minutes!</h4>
+    <div class="col-md-6 col-md-offset-3">
+      <div class="col-md-8 col-md-offset-2">
+        <button class="btn btn-success btn-raised">
+          Sign Up - It's Free!
+        </button>
+      </div>
+      <p>Already use OneDirective? <%= link_to('Sign In!', user_session_path)%></p>
+    </div>
+  </div>
 </div>

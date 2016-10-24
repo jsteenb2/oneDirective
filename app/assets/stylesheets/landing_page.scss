@@ -1,3 +1,29 @@
-h1 {
-  text-align: center;
+@import 'variables';
+
+
+body {
+  background-color: $color3;
+  color: white;
+  h1 {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+  }
+  h4 {
+    @extend h1;
+    font-weight: normal;
+  }
+  p {
+    font-size: 1.3em;
+    text-align: center;
+    a {
+      color: white;
+      opacity: 0.8;
+      &:hover {
+        color: white;
+        opacity: 1;
+      }
+    }
+  }
 }
+

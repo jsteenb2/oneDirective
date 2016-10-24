@@ -1,5 +1,11 @@
 
+@import 'variables';
+
+.navbar.navbar-inverse {
+  background-color: $brand-primary;
+}
 .navbar {
+
   min-height: 3em;
   height: 3em;
   .navbar-brand {
@@ -15,6 +21,10 @@
       a {
         padding-top: 0.8em;
         padding-bottom: 0.8em;
+      }
+      button {
+        margin-top: 0.8em;
+        margin-left: 0.8em;
       }
     }
   }
