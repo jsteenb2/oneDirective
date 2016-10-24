@@ -23,6 +23,10 @@ end
 gem 'devise'
 gem 'omniauth-github'
 
+#uploads
+gem 'paperclip'
+gem 'aws-sdk', '~> 2.3'
+
 group :development do
   gem 'hirb'
   gem 'guard-rspec', require: false
