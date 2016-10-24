@@ -1,4 +1,8 @@
 <div class="row" ng-click="selectRow()" ng-class="{ 'hovered': hovered}">
-  <component component="component" ng-repeat="component in row.components track by component.id">
+  <component
+  component="component"
+  row="row"
+  ng-repeat="component in row.components"
+  index="$index">
   </component>
 </div>

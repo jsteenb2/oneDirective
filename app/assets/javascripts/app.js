@@ -2,7 +2,9 @@ var app = angular.module('materialProto',
 ['ui.router',
 'restangular',
 'Devise',
-'ui.bootstrap']);
+'ui.bootstrap',
+'angularFileUpload',
+'ngDragDrop']);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
@@ -83,6 +85,9 @@ app.config(
         resolve: {
           componentSelection: ['componentService', function(componentService){
             return componentService.cacheComponentLibrary();
+          }],
+          rowData: ['rowService', function(rowService) {
+            return rowService.getRowData();
           }]
         }
       });

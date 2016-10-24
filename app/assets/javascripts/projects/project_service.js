@@ -24,6 +24,7 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
   }
 
   function _updateOne (response) {
+    console.log(response);
     var found = _.find(_data.cached, {id: response.id});
     if (!found) throw new Error ('Nothing to update!');
     angular.copy(response, found);
@@ -55,7 +56,7 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
   };
 
   srv.get = function(project_id) {
-    return _.filter(_data.cached, {id: parseInt(project_id)})[0];
+    return _.find(_data.cached, {id: parseInt(project_id)});
   };
 
   srv.create = function (params) {

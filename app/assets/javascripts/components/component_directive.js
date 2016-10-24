@@ -3,13 +3,24 @@ app.directive('component', ['$compile', "$rootScope", "$window", function($compi
   return {
     restrict: "E",
     scope: {
-      component: "="
+      component: "=",
+      index: "=",
+      row: "="
     },
     link: function(scope, element, attrs){
       scope.hovered = false;
       scope.doubleClicked = false;
+      // CJ: added attrs scope.row and scope.index for DnD
+      // Going to row to row: they don't track by index. Need to track by id.
       var template = angular.element(scope.component.content)
         .attr('tabindex', scope.component.id);
+      template
+        .attr('data-drag', "true")
+        .attr('data-drop', "true")
+        .attr('ng-model', "row.components")
+        .attr('jqyoui-droppable',"{index:{{index}}}")
+        .attr('jqyoui-draggable',"{index:{{index}},insertInline:true,animate:true}")
+        .attr('data-jqyoui-options',"{revert: 'invalid'}");
       var linkFn = $compile(template);
       var content = linkFn(scope);
       element.append(content);
