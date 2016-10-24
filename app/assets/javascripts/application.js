@@ -22,6 +22,8 @@
 //= require angular-file-upload
 //= require angular-dragdrop
 //= require ui-bootstrap-tpls-2.2.0.min
+//= require tinymce
+//= require angular-tinymce
 //= require bootstrap
 //= require material
 //= require_tree .

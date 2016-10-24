@@ -4,7 +4,8 @@ var app = angular.module('materialProto',
 'Devise',
 'ui.bootstrap',
 'angularFileUpload',
-'ngDragDrop']);
+'ngDragDrop',
+'ui.tinymce']);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
