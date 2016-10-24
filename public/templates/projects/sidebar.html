@@ -1,4 +1,3 @@
 <div>
-    <button ng-click="initiateComponents('toggleButton')">Build Shiny button</button>
-    <button ng-click="initiateComponents('authorBox')">Build Author Box</button>
+    <button ng-repeat="componentType in componentTypes()" ng-click="initiateComponents(componentType)">+ {{componentType}}</button>
 </div>

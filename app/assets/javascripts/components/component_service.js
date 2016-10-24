@@ -24,6 +24,10 @@ function(_, $http){
       .catch(_logError);
   };
 
+  componentService.componentKeys = function(){
+    return Object.keys(componentTypes);
+  };
+
   function _extendContent(component){
     component.content = angular.element(component.content)
       .attr('ng-keydown', 'moveComponent($event)')

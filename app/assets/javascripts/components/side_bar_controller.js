@@ -1,4 +1,4 @@
-app.controller('sideBarCtrl', ["$scope", "rowService", "$rootScope", 'currUser', function($scope, rowService, $rootScope, currUser){
+app.controller('sideBarCtrl', ["$scope", "rowService", "$rootScope", 'currUser', 'componentService', function($scope, rowService, $rootScope, currUser, componentService){
 
   $scope.currentUser = currUser;
 
@@ -6,7 +6,12 @@ app.controller('sideBarCtrl', ["$scope", "rowService", "$rootScope", 'currUser',
   $scope.selectedComponent = false;
 
   $scope.initiateComponents = function(type){
+    console.log(type);
     rowService.buildNewComponent(type, $scope.selectedRow);
+  };
+
+  $scope.componentTypes = function(){
+    return componentService.componentKeys();
   };
 
   $rootScope.$on('selected.row', function(ev, id){
