@@ -1,9 +1,11 @@
-TemplateId :: {{project.id}}
-<br>
-Template :: {{project.title}}
-<br>
-
-<row 
-  ng-repeat="row in rows"
-  row="row">
-</row>
+<div class="container">
+  TemplateId :: {{project.id}}
+  <br>
+  Template :: {{project.title}}
+  <br>
+  <div ui-view="sideBar"></div>
+  <row
+    ng-repeat="row in rows()"
+    row="row">
+  </row>
+</div>

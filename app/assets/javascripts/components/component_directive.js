@@ -1,20 +1,77 @@
-app.directive("component",
-  ['ComponentService', '$sce',
-  function(ComponentService, $sce){
-    return {
-      templateUrl: 
-        `
-        {{renderHtml(component.contents)}}
-        `,
-      restrict: "A",
-      scope: {
-        component: '='
-      },
-      link: function(scope){
-        scope.renderHtml = function(html_code) {
-          return $sce.trustAsHtml(html_code);
-        };
-      }
-    };
-  }]
-);
+app.directive('component', 
+  ['$compile', "$rootScope", "$window", "tinyMCEService",
+  function($compile, $rootScope, $window,tinyMCEService) {
+
+  return {
+    restrict: "E",
+    scope: {
+      component: "="
+    },
+    link: function(scope, element, attrs){
+      scope.hovered = false;
+      scope.doubleClicked = false;
+      var template = angular.element(scope.component.content)
+        .attr('tabindex', scope.component.id);
+      var linkFn = $compile(template);
+      var content = linkFn(scope);
+      element.append(content);
+
+      scope.onClick = function($event){
+        $event.stopPropagation();
+        scope.hovered = !scope.hovered;
+        $rootScope.$emit('selected.component', scope.component.id);
+      };
+
+      scope.dblClick = function($event){
+        $event.stopPropagation();
+        var $ele = angular.element($event.target);
+        if(scope.doubleClicked){
+          $ele.removeClass('hovered');
+          tinyMCEService.clearEditors();
+          debugger;
+        } else {
+          $ele.addClass('hovered');
+          //if 'it' or its parent is textable
+          if ($ele.has('.textable') || $ele.parents().has('.textable').length > 0)
+          {
+            tinyMCEService.callMCE($ele);
+          }
+        }// make a toggleClass('hovered')
+        scope.doubleClicked = !scope.doubleClicked;
+      };
+
+      $rootScope.$on('selected.component', function(ev, id){
+        if (scope.component.id !== id){
+          scope.hovered = false;
+        }
+      });
+
+      scope.moveComponent = function(ev){
+        if (scope.hovered){
+          ev.preventDefault();
+          arrowListener(ev);
+        }
+      };
+
+      var arrowListener = function(ev){
+         if (ev.which == 37){
+           // left arrow
+           scope.component.moveLeft();
+           console.log("left arrow");
+         } else if (ev.which == 39){
+           // right arrow
+           scope.component.moveRight();
+           console.log("right arrow");
+         } else if (ev.which == 40){
+           // down arrow
+           scope.component.moveDown();
+         } else if (ev.which == 38){
+           // up arrow
+           scope.component.moveUp();
+           console.log("up arrow");
+         }
+         $rootScope.$emit('component.moved');
+      };
+    }
+  };
+}]);
