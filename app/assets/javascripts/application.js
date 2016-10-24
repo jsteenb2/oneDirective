@@ -17,7 +17,8 @@
 //= require angular-ui-router.min
 //= require restangular
 //= require angular-devise
-//= require angular-animate.min
+//= require angular-animate
+//= require angular-file-upload
 //= require ui-bootstrap-tpls-2.2.0.min
 //= require bootstrap
 //= require material

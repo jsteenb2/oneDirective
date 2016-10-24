@@ -17,6 +17,8 @@ gem 'angular_rails_csrf'
 source "https://rails-assets.org" do
   gem "rails-assets-angular-wysiwyg"
   gem 'rails-assets-angular-devise'
+  gem 'rails-assets-angular-file-upload'
+  gem 'rails-assets-angular-animate'
 end
 
 #devise

@@ -1,4 +1,7 @@
 class ProjectsController < ApplicationController
+  # process params for file upload
+  before_action :process_photo, only: [:update]
+
   def index
     @projects = current_user.projects
     respond_to do |format|
@@ -34,6 +37,13 @@ class ProjectsController < ApplicationController
 
   private
     def project_params
-      params.require(:project).permit(:title, :description)
+      params.require(:project).permit(:title, :description, :project_photo)
+    end
+
+    def process_photo
+      if params[:project_photo]
+        params[:project] = {} if !params[:project]
+        params[:project][:project_photo] = params[:file]
+      end
     end
 end
