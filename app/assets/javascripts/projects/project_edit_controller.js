@@ -1,20 +1,26 @@
 app.controller('ProjectEditCtrl',
-  ['$stateParams', 'ProjectService', 'RowService', 'currUser', '$scope',
-  function( $stateParams, ProjectService, RowService, currUser, $scope) {
+  ['$stateParams', 'ProjectService', 'currUser', '$scope', 'rowService', "$rootScope",
+  function( $stateParams, ProjectService, currUser, $scope, rowService, $rootScope) {
 
     $scope.currentUser = currUser;
 
-    console.log("still logged in through: ", 
+    console.log("still logged in through: ",
       $scope.currentUser);
     console.log('you are in projectEdit controller');
 
+    $scope.rows = function(){
+      var rows = rowService.getRows();
+      return rows;
+    };
+
+    $rootScope.$on('component.moved', function(ev){
+      $scope.rows();
+    });
 
     //don't really need this
-    $scope.project = ProjectService.get($stateParams.id);
+    // $scope.project = ProjectService.get($stateParams.id);
     //only rows relevant to project
-    $scope.rows = RowService.get($stateParams.id);
+    // $scope.rows = RowService.get($stateParams.id);
 
 
 }]);
-
-

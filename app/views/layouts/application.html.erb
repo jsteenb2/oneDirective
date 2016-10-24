@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html<%= content_for(:angular_app) %>>
   <head>
-    <title>OneDirective</title>
+    <title>oneDirective</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= stylesheet_link_tag yield(:stylesheet) if yield(:stylesheet) %>
@@ -15,15 +15,6 @@
     <%= yield %>
 
     <%= javascript_include_tag 'application' %>
-
-    <!-- ui-router -->
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js'></script>
-
-    <!-- restangular -->
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/restangular/1.5.2/restangular.min.js'></script>
-
-    <!-- lodash -->
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js'></script>
 
     <script>
      $(document).ready(function(){

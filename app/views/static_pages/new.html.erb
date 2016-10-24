@@ -1,15 +1,46 @@
 <%= content_for(:stylesheet) { 'landing_page' }%>
-<div class="row">
+<div id="copy0" class="row">
   <div class="col-md-8 col-md-offset-2">
-    <h1>OneDirective lets you make your website your way</h1>
-    <h4>OneDirective's interactive Website Builder enables you to create your very own website in just minutes!</h4>
+    <h1>oneDirective lets you make your website your way</h1>
+    <h4>oneDirective's interactive Website Builder enables you to create your very own website in just minutes!</h4>
     <div class="col-md-6 col-md-offset-3">
       <div class="col-md-8 col-md-offset-2">
-        <button class="btn btn-success btn-raised">
-          Sign Up - It's Free!
-        </button>
+        <%= button_to("Sign Up - It's Free!", new_user_registration_path, class: 'btn btn-success btn-raised', method: :get)%>
       </div>
-      <p>Already use OneDirective? <%= link_to('Sign In!', user_session_path)%></p>
+      <p>Already use oneDirective? <%= link_to('Sign In!', user_session_path)%></p>
+    </div>
+  </div>
+</div>
+<div id="copy1" class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h1>Templates</h1>
+    <h4>Use our professionally curated templates to jumpstart your website!</h4>
+    <%= image_tag('copy_template1.png', class: 'copy-template')%>
+  </div>
+</div>
+<div id="copy2" class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h1>Editor</h1>
+    <h4>Use our drag and drop editor to get your idea onto the page as quickly as possible -- not html or css required!</h4>
+    <%= image_tag('editor.png', class: 'copy-template')%>
+  </div>
+</div>
+<div id="copy3" class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <h1>Easy Export</h1>
+    <h4>You can export your project to Github to be added to your own domain, or save it here and come back to it later</h4>
+    <%= image_tag('export.png', class: 'copy-template')%>
+  </div>
+</div>
+<div id="copy4" class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h4>What are you waiting for?</h4>
+      <h4><span class="bold">Sign up for free</span> and become one of the dozens of people around the world who have fallin in love with oneDirective!</h4>
+    <div class="col-md-6 col-md-offset-3">
+      <div class="col-md-8 col-md-offset-1">
+        <%= button_to("Sign Up - It's Free!", new_user_registration_path, class: 'btn btn-success btn-raised', method: :get)%>
+      </div>
+      <p class="col-md-12">Already use oneDirective? <%= link_to('Sign In!', user_session_path)%></p>
     </div>
   </div>
 </div>
