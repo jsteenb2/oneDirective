@@ -166,5 +166,17 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     _id++;
   };
 
+  rowService.packageRowsForSave = function(){
+    var packagedRows = _rows.map(_repackage);
+  };
+
+  var _repackage = function(row, index){
+    var newRow = angular.copy(row, {});
+    delete newRow.id;
+    newRow.order = index;
+    newRow.components = componentService.getPackagedComponents(row.components);
+    return newRow;
+  };
+
   return rowService;
 }]);

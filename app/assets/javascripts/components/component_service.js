@@ -28,6 +28,28 @@ function(_, $http){
     return Object.keys(componentTypes);
   };
 
+  componentService.getPackagedComponents = function(components){
+    return components.map(function(component, index){
+      var newComponent = angular.copy(component, {});
+      delete newComponent.id;
+      newComponent.order = index;
+      _cleanContent(newComponent);
+      return newComponent;
+    });
+  };
+
+  function _cleanContent(component){
+    component.content
+      .removeAttr('ng-keydown')
+      .removeAttr('ng-click')
+      .removeAttr('ng-dblclick')
+      .removeAttr('data-head')
+      .removeAttr('ng-class')
+      .removeAttr('tabindex');
+    component.content = angular.element(component.content).prop('outerHTML');
+    return component;
+  }
+
   function _extendContent(component){
     component.content = angular.element(component.content)
       .attr('ng-keydown', 'moveComponent($event)')

@@ -1,4 +1,4 @@
-app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
+app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Restangular, _, rowService) {
   var srv = {};
   var _data = {
     cached: [],
@@ -76,6 +76,14 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
     return project.remove()
       .then(_removeOne)
       .catch(_logError);
+  };
+
+  srv.saveProjectEdits = function(id){
+    console.log(id);
+    var projectParams = rowService.packageRowsForSave();
+    projectParams.id = id;
+    return Promise.resolve(projectParams);
+    // srv.update(projectParams);
   };
 
   return srv;

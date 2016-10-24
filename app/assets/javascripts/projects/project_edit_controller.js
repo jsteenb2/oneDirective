@@ -9,9 +9,19 @@ app.controller('ProjectEditCtrl',
     console.log('you are in projectEdit controller');
 
     $scope.rows = function(){
-      var rows = rowService.getRows();
-      return rows;
+      return rowService.getRows();
     };
+
+    // $rootScope.$on('save.project', function(ev){
+    //   ProjectService.saveProjectEdits($stateparams.id)
+    //     .then(function(response){
+    //       console.log(response);
+    //       return response;
+    //     })
+    //     .catch(function(reason){
+    //       console.log(reason);
+    //     });
+    // });
 
     $rootScope.$on('component.moved', function(ev){
       $scope.rows();
