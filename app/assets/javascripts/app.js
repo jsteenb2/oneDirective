@@ -3,7 +3,7 @@ var app = angular.module('materialProto',
 'restangular',
 'Devise',
 'ui.bootstrap',
-'ui.tinyce',]);
+'ui.tinymce',]);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
