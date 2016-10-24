@@ -3,7 +3,8 @@ var app = angular.module('materialProto',
 'restangular',
 'Devise',
 'ui.bootstrap',
-'angularFileUpload']);
+'angularFileUpload',
+'ngDragDrop']);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));

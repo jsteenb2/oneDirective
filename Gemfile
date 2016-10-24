@@ -19,6 +19,7 @@ source "https://rails-assets.org" do
   gem 'rails-assets-angular-devise'
   gem 'rails-assets-angular-file-upload'
   gem 'rails-assets-angular-animate'
+  gem 'rails-assets-angular-dragdrop'
 end
 
 #devise

@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui.min
 //= require lodash.min
 //= require angular
 //= require angular-ui-router.min
@@ -19,6 +20,7 @@
 //= require angular-devise
 //= require angular-animate
 //= require angular-file-upload
+//= require angular-dragdrop
 //= require ui-bootstrap-tpls-2.2.0.min
 //= require bootstrap
 //= require material
