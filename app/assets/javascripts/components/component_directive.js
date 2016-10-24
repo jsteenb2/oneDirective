@@ -1,4 +1,6 @@
-app.directive('component', ['$compile', "$rootScope", "$window", function($compile, $rootScope, $window) {
+app.directive('component',
+  ['$compile', "$rootScope", "$window", "tinyMCEService",
+  function($compile, $rootScope, $window,tinyMCEService) {
 
   return {
     restrict: "E",
@@ -25,8 +27,14 @@ app.directive('component', ['$compile', "$rootScope", "$window", function($compi
         var $ele = angular.element($event.target);
         if(scope.doubleClicked){
           $ele.removeClass('hovered');
+          tinyMCEService.clearEditors();
         } else {
           $ele.addClass('hovered');
+          //if 'it' or its parent is textable
+          if ($ele.has('.textable') || $ele.parents().has('.textable').length > 0)
+          {
+            tinyMCEService.callMCE($ele);
+          }
         }// make a toggleClass('hovered')
         scope.doubleClicked = !scope.doubleClicked;
       };

@@ -7,7 +7,6 @@
     <%= stylesheet_link_tag yield(:stylesheet) if yield(:stylesheet) %>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
-  <%= render 'static_pages/user_navbar.html.erb' if current_user %>
   <%= render 'static_pages/visitor_navbar.html.erb' if !current_user %>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
 

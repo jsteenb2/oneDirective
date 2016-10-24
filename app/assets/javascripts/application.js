@@ -19,6 +19,8 @@
 //= require angular-devise
 //= require angular-animate.min
 //= require ui-bootstrap-tpls-2.2.0.min
+//= require tinymce
+//= require angular-tinymce
 //= require bootstrap
 //= require material
 //= require ripples

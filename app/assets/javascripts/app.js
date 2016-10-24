@@ -2,7 +2,8 @@ var app = angular.module('materialProto',
 ['ui.router',
 'restangular',
 'Devise',
-'ui.bootstrap']);
+'ui.bootstrap',
+'ui.tinymce',]);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
@@ -52,6 +53,10 @@ app.config(
             templateUrl: 'templates/dashboard/dashboard.html',
             controller: 'DashboardCtrl',
             controllerAs: 'dashCtrl'
+          },
+          'navbar@': {
+            templateUrl: 'templates/nav/navbar.html',
+            controller: 'navbarCtrl'
           }
         },
         resolve: {
@@ -70,6 +75,10 @@ app.config(
           'sideBar@main.projects.edit': {
             templateUrl: 'templates/projects/sidebar.html',
             controller: 'sideBarCtrl'
+          },
+          'saveHandler@main.projects': {
+            templateUrl: 'templates/nav/save_handler.html',
+            controller: 'navbarCtrl'
           }
         },
         resolve: {
