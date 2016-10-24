@@ -15,10 +15,23 @@ function(_, $http){
     $http.get('components.json')
       .then(function(data){
         componentTypes = data.data;
+        _.each(componentTypes, function(component){
+          _extendContent(component);
+        });
+        console.log(componentTypes);
         return data.data;
       })
       .catch(_logError);
   };
+
+  function _extendContent(component){
+    component.content = angular.element(component.content)
+      .attr('ng-keydown', 'moveComponent($event)')
+      .attr('ng-click', 'onClick($event)')
+      .attr('ng-dblclick', 'dblClick($event)')
+      .attr('data-head', 'head')
+      .attr('ng-class', "{ 'hovered': hovered }");
+  }
 
   function _logError (reason) {
     console.log(reason);
