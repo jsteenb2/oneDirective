@@ -1,6 +1,6 @@
 app.controller('ProjectEditCtrl',
-  ['$stateParams', 'ProjectService', 'currUser', '$scope',
-  function( $stateParams, ProjectService, currUser, $scope) {
+  ['$stateParams', 'ProjectService', 'currUser', '$scope', 'rowService', "$rootScope",
+  function( $stateParams, ProjectService, currUser, $scope, rowService, $rootScope) {
 
     $scope.currentUser = currUser;
 
@@ -8,6 +8,14 @@ app.controller('ProjectEditCtrl',
       $scope.currentUser);
     console.log('you are in projectEdit controller');
 
+    $scope.rows = function(){
+      var rows = rowService.getRows();
+      return rows;
+    };
+
+    $rootScope.$on('component.moved', function(ev){
+      $scope.rows();
+    });
 
     //don't really need this
     // $scope.project = ProjectService.get($stateParams.id);

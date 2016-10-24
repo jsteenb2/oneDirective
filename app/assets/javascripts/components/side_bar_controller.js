@@ -2,17 +2,11 @@ app.controller('sideBarCtrl', ["$scope", "rowService", "$rootScope", 'currUser',
 
   $scope.currentUser = currUser;
 
-
   $scope.selectedRow = false;
   $scope.selectedComponent = false;
 
   $scope.initiateComponents = function(type){
     rowService.buildNewComponent(type, $scope.selectedRow);
-  };
-
-  $scope.rows = function(){
-    var rows = rowService.getRows();
-    return rows;
   };
 
   $rootScope.$on('selected.row', function(ev, id){
@@ -21,9 +15,5 @@ app.controller('sideBarCtrl', ["$scope", "rowService", "$rootScope", 'currUser',
     } else {
       $scope.selectedRow = id;
     }
-  });
-
-  $rootScope.$on('component.moved', function(ev){
-    $scope.rows();
   });
 }]);
