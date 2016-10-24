@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   root 'static_pages#index'
+  get 'home' => 'static_pages#new'
 
   scope :api do
     scope :v1 do

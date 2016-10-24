@@ -10,11 +10,11 @@
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item"><a href class=""><%= current_user.name %></a></li>
+        <li class="nav-item"><a href="/users/sign_in" >Log in</a></li>
         <li id="navbar-divider" class="nav-item">|</li>
         <li class="nav-item">
-          <a id="logout-link" class="nav-link" data-method="delete" href="/users/sign_out" rel="nofollow">
-            Logout
+          <a class="nav-link ripple-effect" href="/users/sign_up" rel="nofollow">
+            Sign up
           </a>
         </li>
       </ul>
