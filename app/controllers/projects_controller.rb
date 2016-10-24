@@ -30,7 +30,7 @@ class ProjectsController < ApplicationController
     @project = current_user.projects.find_by_id(params[:id])
     if @project.update(project_params)
       respond_to do |format|
-        format.json { render json: @project, status: 200 }
+        format.json { render json: { project: @project, params: project_params }, status: 200 }
       end
     end
   end
