@@ -1,12 +1,11 @@
-<div id="side-bar">
-
-</div>
 <div class="container">
   TemplateId :: {{project.id}}
   <br>
   Template :: {{project.title}}
   <br>
-  <div ui-view="sideBar"></div>
+  <div id="side-bar" ng-scrollbars ng-scrollbars-config="config">
+    <div ui-view="sideBar"></div>
+  </div>
   <row
       ng-repeat="row in rows()"
       row="row">

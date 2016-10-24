@@ -2,8 +2,15 @@
   position: fixed;
   top: 3em;
   left: 0;
-  border: 1px solid black;
+  border: 1px solid  hsl(203, 30%, 20%);
+  box-shadow: inset 0 0 10px black, 0 0 10px black;
   width: 17%;
   height: 100vh;
   overflow: scroll;
+  background-color: hsl(203, 30%, 27%);
+}
+
+.thing {
+  height: 4em;
+  color: white;
 }
