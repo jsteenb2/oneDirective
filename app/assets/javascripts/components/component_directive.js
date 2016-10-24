@@ -27,6 +27,7 @@ app.directive('component', ['$compile', "$rootScope", "$window", function($compi
           $ele.removeClass('hovered');
         } else {
           $ele.addClass('hovered');
+          tinyMCEService.callMCE($event);
         }// make a toggleClass('hovered')
         scope.doubleClicked = !scope.doubleClicked;
       };
