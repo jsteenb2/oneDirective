@@ -28,7 +28,6 @@ app.directive('component',
         if(scope.doubleClicked){
           $ele.removeClass('hovered');
           tinyMCEService.clearEditors();
-          debugger;
         } else {
           $ele.addClass('hovered');
           //if 'it' or its parent is textable
