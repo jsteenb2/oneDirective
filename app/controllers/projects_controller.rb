@@ -1,8 +1,11 @@
 class ProjectsController < ApplicationController
+  # process params for file upload
+  before_action :process_photo, only: [:update]
+
   def index
     @projects = current_user.projects
     respond_to do |format|
-      format.json { render json: @projects, status: 200 }
+      format.json { render json: @projects.to_json(methods: [:photo_url]), status: 200 }
     end
   end
 
@@ -29,7 +32,11 @@ class ProjectsController < ApplicationController
 
   def update
     @project = current_user.projects.find_by_id(params[:id])
-    p params
+    if @project.update(project_params)
+      respond_to do |format|
+        format.json { render json: @project, status: 200 }
+      end
+    end
     if map_updates
       # respond_to do |format|
       #   format.json { render json: @project, status: 200 }
@@ -40,7 +47,15 @@ class ProjectsController < ApplicationController
 
   private
     def project_params
-      params.require(:project).permit(:title, :description)
+      params.require(:project).permit(:title, :description, :project_photo)
+    end
+
+    def process_photo
+      if params[:project_photo]
+        uploaded = params[:project_photo]
+        params[:project] = {} if !params[:project]
+        params[:project][:project_photo] = uploaded
+      end
     end
 
     def map_updates

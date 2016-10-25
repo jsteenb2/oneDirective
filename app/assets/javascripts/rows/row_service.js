@@ -1,4 +1,5 @@
 app.factory('rowService', ["_", "Restangular", "componentService", function(_, Restangular, componentService){
+  // Is this object being used?
   var data = {
     cachedRows: [],
     created: [],
@@ -7,7 +8,17 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   };
 
   var rowService = {};
+  // trying to data bind the rows.
+  var _data = {
+    rows: []
+  };
+  var _rows = [];
   var _id = 1;
+
+  // for data-binding
+  rowService.getRowData = function () {
+    return _data;
+  };
 
   rowService.getRows = function(){
     return data.cachedRows;
@@ -71,6 +82,21 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     _id++;
   }
 
+  // Duplicate.
+  var _makeNewRow = function(component){
+    var newRow = {
+      id: _id,
+      components: []
+    };
+    component.rowId = newRow.id;
+    newRow.components.push(component);
+    // for data-binding
+    _data.rows.push(newRow);
+    _rows.push(newRow);
+    _id++;
+  };
+
+
   function _addNewTopRow(component){
     var newRow = {
       id: _id,
@@ -82,6 +108,18 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     data.created.unshift(newRow);
     _id++;
   }
+
+  // Duplicate
+  var _addNewTopRow = function(component){
+    var newRow = {
+      id: _id,
+      components: []
+    };
+    component.rowId = newRow.id;
+    newRow.components.push(component);
+    _rows.unshift(newRow);
+    _id++;
+  };
 
   function _addRowBelow(component, nextRowIdx){
     if(data.cachedRows[nextRowIdx].components.length){

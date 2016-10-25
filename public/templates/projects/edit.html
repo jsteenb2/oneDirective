@@ -3,6 +3,19 @@
   <br>
   Template :: {{project.title}}
   <br>
+
+  <!-- <div ui-view="sideBar"></div> -->
+
+  <div class="row">
+    <h1 style='text-align: center;'>Workspace</h1>
+    <div class="col-md-12 panel" id="workspace">
+      <row
+        ng-repeat="row in rowData.rows"
+        row="row">
+      </row>
+    </div>
+  </div>
+
   <div id="side-bar">
     <h4 id="component-library-header">Components</h4>
     <hr>
@@ -16,4 +29,5 @@
         row="row">
     </row>
   </div>
+
 </div>
