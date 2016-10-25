@@ -6,15 +6,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="javascript:void(0)">WYSIA</a>
+      <a class="navbar-brand" href="/home">oneDirective</a>
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
-      <ul ng-controller="navbarCtrl" ng-show="showSubmit()" class="nav navbar-nav">
+      <ul class="nav navbar-nav">
        <li class="nav-item" ng-click="saveProject()"><a href="#">Submit</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href class=""><%= current_user.name %></a></li>
-        <li class="nav-item nav-link"><a id="nav-divider">|</a></li>
+        <li class="nav-item">
+          <%= link_to(current_user.name, '/')%>
+        </li>
+        <li id="navbar-divider" class="nav-item">|</li>
         <li class="nav-item">
           <a id="logout-link" class="nav-link" data-method="delete" href="/users/sign_out" rel="nofollow">
             Logout

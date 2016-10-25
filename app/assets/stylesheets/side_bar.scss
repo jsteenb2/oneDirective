@@ -1,0 +1,19 @@
+#side-bar {
+  position: fixed;
+  top: 3em;
+  left: 0;
+  border: 1px solid  hsl(203, 30%, 20%);
+  box-shadow: inset 0 0 10px black, 0 0 10px black;
+  width: 17%;
+  height: 100vh;
+  background-color: hsl(203, 30%, 27%);
+  hr {
+    margin-bottom: 0;
+  }
+}
+
+#component-library {
+  width: 100%;
+  height: 80%;
+  overflow: scroll;
+}
