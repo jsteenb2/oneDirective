@@ -58,6 +58,15 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
     return _.filter(_data.cached, {id: parseInt(project_id)})[0];
   };
 
+  srv.getProjectData = function(project_id){
+    return Restangular.one('projects', project_id).get()
+      .then(function(data){
+        console.log('resolve running');
+        console.log(data.project);
+        return rowService.rebuildRows(data.project.rows);
+      });
+  };
+
   srv.create = function (params) {
     return Restangular.all('projects')
       .post({project: params})
@@ -69,7 +78,7 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
     return Restangular.one('projects', params.id)
       .patch({project: params})
       .then(function(data){
-        console.log(data.project);
+        return data.project;
       })
       .catch(_logError);
   };
@@ -85,6 +94,7 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
       rows: rowService.packageRowsForSave()
     };
     projectParams.id = id;
+    console.log(projectParams);
     return srv.update(projectParams);
   };
 

@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find(params[:id]).includes(rows: :components)
+    @project = Project.includes(rows: :components).find(params[:id])
   end
 
   def create
@@ -44,14 +44,32 @@ class ProjectsController < ApplicationController
     end
 
     def map_updates
-      params["project"]["rows"].each do |row|
-        new_row = @project.rows.create!(order: row["order"])
-        row["components"].each do |component|
-          new_row.components.create!( order: component["order"],
-                                     name: component["name"],
-                                     content: component["content"] )
-        end
+      if params["project"].keys.include?("rows")
+        update_existing_rows if params["project"]["rows"].keys.include?("updated")
+        add_new_rows if params["project"]["rows"].keys.include?("created")
+        return true
       end
-      return true
+      return false
+    end
+
+    def update_existing_rows
+      params["project"]["rows"]["updated"].each do |row|
+        selected_row = @project.rows.find_by_id(row["id"])
+        selected_row.update( order: row["order"] )
+
+        update_existing_components(row, selected_row) if row["components"].keys.include?("updated")
+
+        add_new_components(row, selected_row) if row["components"].keys.include?("created")
+      end
+    end
+
+    def add_new_rows
+      params["project"]["rows"]["created"].each do |row|
+        selected_row = @project.rows.create(order: row["order"])
+
+        update_existing_components(row, selected_row) if row["components"].keys.include?("updated")
+
+        add_new_components(row, selected_row) if row["components"].keys.include?("created")
+      end
     end
 end

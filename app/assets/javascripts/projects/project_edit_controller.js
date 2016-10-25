@@ -2,6 +2,10 @@ app.controller('ProjectEditCtrl',
   ['$stateParams', 'ProjectService', 'TippedService', 'currUser', '$scope', 'rowService', "$rootScope", 
   function( $stateParams, ProjectService, TippedService, currUser, $scope, rowService, $rootScope) {
     $scope.currentUser = currUser;
+    $scope.config = {
+      theme: 'minimal',
+      scrollInertia: '500'
+    };
 
     $scope.rows = function(){
       return rowService.getRows();
@@ -32,6 +36,4 @@ app.controller('ProjectEditCtrl',
     // $scope.project = ProjectService.get($stateParams.id);
     //only rows relevant to project
     // $scope.rows = RowService.get($stateParams.id);
-
-
 }]);
