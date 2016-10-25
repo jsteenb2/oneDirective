@@ -24,11 +24,10 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
   }
 
   function _updateOne (response) {
-    console.log(response);
-    var found = _.find(_data.cached, {id: response.id});
+    var found = _.find(_data.cached, {id: response.project.id});
     if (!found) throw new Error ('Nothing to update!');
-    angular.copy(response, found);
-    angular.copy(response, _data.updated);
+    angular.copy(response.project, found);
+    angular.copy(response.project, _data.updated);
     return _data;
   }
 

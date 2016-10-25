@@ -227,6 +227,8 @@ GEM
     rails-assets-angular-dragdrop (1.0.13)
       rails-assets-angular
       rails-assets-jquery-ui
+    rails-assets-angular-utf8-base64 (0.0.5)
+      rails-assets-angular (>= 1.0.8)
     rails-assets-angular-wysiwyg (1.2.4)
       rails-assets-angular (>= 1.0.0)
       rails-assets-angular-bootstrap-colorpicker (>= 3.0.0)
@@ -358,6 +360,7 @@ DEPENDENCIES
   rails-assets-angular-animate!
   rails-assets-angular-devise!
   rails-assets-angular-dragdrop!
+  rails-assets-angular-utf8-base64!
   rails-assets-angular-wysiwyg!
   rspec-rails
   sass-rails (~> 5.0)

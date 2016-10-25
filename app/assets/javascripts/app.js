@@ -5,7 +5,8 @@ var app = angular.module('materialProto',
 'ui.bootstrap',
 'angularFileUpload',
 'ngDragDrop',
-'ui.tinymce']);
+'ui.tinymce',
+'ab-base64']);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
