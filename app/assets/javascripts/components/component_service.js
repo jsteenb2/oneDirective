@@ -1,11 +1,19 @@
 app.factory('componentService', ["_", '$http',
 function(_, $http){
+  var data = {
+    cachedComponents: [],
+    created: [],
+    updated: [],
+    deleted: []
+  };
+
   var componentService = {};
   var _id = 1;
   var componentTypes;
 
   componentService.buildComponent = function(componentType){
     var component = angular.copy(componentTypes[componentType], {});
+    
     component.id = _id;
     _id++;
     return component;
