@@ -4,8 +4,13 @@
   Template :: {{project.title}}
   <br>
   <div ui-view="sideBar"></div>
-  <row
-    ng-repeat="row in rowData.rows"
-    row="row">
-  </row>
+
+  <div class="row">
+    <div class="col-md-12" id="workspace">
+      <row
+        ng-repeat="row in rowData.rows"
+        row="row">
+      </row>
+    </div>
+  </div>
 </div>
