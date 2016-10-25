@@ -54,8 +54,8 @@ class ProjectsController < ApplicationController
 
     def update_existing_rows
       params["project"]["rows"]["updated"].each do |row|
-        selected_row = @project.rows.find_by_id(row.id)
-        selected_row.update( order: row.order )
+        selected_row = @project.rows.find_by_id(row["id"])
+        selected_row.update( order: row["order"] )
 
         update_existing_components(row, selected_row) if row["components"].keys.include?("updated")
 
@@ -65,7 +65,7 @@ class ProjectsController < ApplicationController
 
     def add_new_rows
       params["project"]["rows"]["created"].each do |row|
-        selected_row = @project.rows.create(order: row.order)
+        selected_row = @project.rows.create(order: row["order"])
 
         update_existing_components(row, selected_row) if row["components"].keys.include?("updated")
 

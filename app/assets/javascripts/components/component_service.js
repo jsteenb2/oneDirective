@@ -21,8 +21,6 @@ function(_, $http){
   };
 
   componentService.rebuildComponent = function(componentData){
-    // var component = angular.copy(componentTypes[componentData.name], {});
-    // component.id = componentData.id;
     _extendContent(componentData);
     _trackId(componentData.id);
     data.cachedComponents.push(componentData);
@@ -56,7 +54,7 @@ function(_, $http){
   function _cleanPack(obj, components, listNames){
     _.each(listNames, function(name){
       var collection = _packageComponents(components, data[name]);
-      if (collection.length > 0){
+      if (collection.length > 0 && collection[0]){
         obj[name] = collection;
       }
     });
