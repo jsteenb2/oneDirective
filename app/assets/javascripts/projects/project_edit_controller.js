@@ -4,8 +4,7 @@ app.controller('ProjectEditCtrl',
 
     $scope.currentUser = currUser;
 
-    console.log("still logged in through: ",
-      $scope.currentUser);
+    console.log("still logged in through: ", $scope.currentUser);
     console.log('you are in projectEdit controller');
 
     $scope.rowData = rowData;
@@ -13,17 +12,6 @@ app.controller('ProjectEditCtrl',
     $scope.rows = function () {
       return rowService.getRows();
     };
-
-    // $rootScope.$on('save.project', function(ev){
-    //   ProjectService.saveProjectEdits($stateparams.id)
-    //     .then(function(response){
-    //       console.log(response);
-    //       return response;
-    //     })
-    //     .catch(function(reason){
-    //       console.log(reason);
-    //     });
-    // });
 
     $rootScope.$on('component.moved', function(ev){
       $scope.rows();
@@ -33,5 +21,4 @@ app.controller('ProjectEditCtrl',
     // $scope.project = ProjectService.get($stateParams.id);
     //only rows relevant to project
     // $scope.rows = RowService.get($stateParams.id);
-
 }]);
