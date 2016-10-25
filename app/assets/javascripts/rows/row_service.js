@@ -1,38 +1,42 @@
 app.factory('rowService', ["_", "Restangular", "componentService", function(_, Restangular, componentService){
   var data = {
-    created: {},
-    updated: {}
+    cachedRows: [],
+    created: [],
+    updated: [],
+    deleted: []
   };
 
   var rowService = {};
-  var _rows = [];
   var _id = 1;
 
   rowService.getRows = function(){
-    return _rows;
+    return data.cachedRows;
   };
 
-  var swapArrayElements = function(arr, indexA, indexB) {
-    var temp = arr[indexA];
-    arr[indexA] = arr[indexB];
-    arr[indexB] = temp;
-  };
-
-  Array.prototype.swap = function(indexA, indexB) {
-     swapArrayElements(this, indexA, indexB);
-  };
-
-  var _getRows = function(){
-    return _rows;
-  };
-
-  var _activateComponent = function(componentType, index, array){
+  var _activateComponent = function(componentType){
     var component = componentService.buildComponent(componentType);
     return component;
   };
 
-  rowService.rebuildComponents = function(compArray){
-    compArray.forEach(_activateComponent);
+  var _reactivateComponent = function(componentType, index, array){
+    var component = componentService.rebuildComponent(componentType);
+    return component;
+  };
+
+  rowService.rebuildRows = function(rows){
+    rows.forEach(_reactivateRows);
+  };
+
+  function _reactivateRows(ele, index, array){
+    var newRow = angular.copy(ele, {});
+    _rebuildComponents(newRow.components);
+    _trackId(newRow.id);
+    data.cachedRows.push(newRow);
+    data.updated.push(newRow);
+  }
+
+  var _rebuildComponents = function(compArray){
+    compArray.forEach(_reactivateComponent);
   };
 
   rowService.buildNewComponent = function(componentType, rowId){
@@ -45,104 +49,8 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     _extendComponent(component);
   };
 
-  var _extendComponent = function(component){
-    component.moveLeft = _moveLeft;
-    component.moveRight = _moveRight;
-    component.moveUp = _moveUp;
-    component.moveDown = _moveDown;
-  };
-
-  var _findRowIdx = function(rowId){
-    var rowIdx = _.findIndex(_rows, function(row){
-      return row.id == rowId;
-    });
-    return rowIdx;
-
-  };
-
-  var _findComponentIdx = function(component, rowIdx){
-    var components = _rows[rowIdx].components;
-    var compIdx = _.findIndex(_rows[rowIdx].components, function(comp){
-      return comp.id == component.id;
-    });
-    return compIdx;
-  };
-
-  var _moveUp = function(){
-    var rowIdx = _findRowIdx(this.rowId);
-    var compIdx = _findComponentIdx(this, rowIdx);
-    var comp;
-    if(rowIdx > 0){
-      comp = _rows[rowIdx].components.splice(compIdx, 1)[0];
-      _addToRow(comp, rowIdx - 1);
-      _checkEmptyRow(rowIdx);
-    } else if( rowIdx === 0 &&
-                _rows[rowIdx].components.length > 1 ){
-      comp = _rows[rowIdx].components.splice(compIdx, 1)[0];
-      _addNewTopRow(comp);
-    }
-  };
-
-  var _checkEmptyRow = function(rowIdx){
-    console.log(_rows[rowIdx]);
-    if(_rows[rowIdx].components.length < 1){
-      console.log('deleted');
-      _rows.splice(rowIdx, 1);
-    }
-  };
-
-  var _moveDown = function(){
-    var rowIdx = _findRowIdx(this.rowId);
-    var compIdx = _findComponentIdx(this, rowIdx);
-    var comp;
-    if(rowIdx < _rows.length - 1){
-      comp = _rows[rowIdx].components.splice(compIdx, 1)[0];
-      _addRowBelow(comp, rowIdx + 1);
-      _checkEmptyRow(rowIdx);
-    } else if (_rows[rowIdx].components.length > 1 ){
-      comp = _rows[rowIdx].components.splice(compIdx, 1)[0];
-      _makeNewRow(comp);
-    }
-  };
-
-  var _addRowBelow = function(component, nextRowIdx){
-    if(_rows[nextRowIdx].components.length){
-      _addToRow(component, nextRowIdx);
-    } else {
-      _makeNewRow(component);
-    }
-  };
-
-  var _addToRow = function(component, rowIdx){
-    var currentRow = _rows[rowIdx];
-    if (currentRow){
-      component.rowId = currentRow.id;
-      currentRow.components.push(component);
-    } else {
-      console.log("in the not currentRow");
-      _makeNewRow(component);
-    }
-  };
-
-  var _moveLeft = function(){
-    var rowIdx = _findRowIdx(this.rowId);
-    var compIdx = _findComponentIdx(this, rowIdx);
-    var that = this;
-    if(compIdx > 0){
-      _rows[rowIdx].components.swap( compIdx - 1, compIdx );
-    }
-  };
-
-  var _moveRight = function(){
-    var rowIdx = _findRowIdx(this.rowId);
-    var compIdx = _findComponentIdx(this, rowIdx);
-    if(compIdx < (_rows[rowIdx].components.length - 1) ){
-      _rows[rowIdx].components.swap( compIdx + 1, compIdx );
-    }
-  };
-
   var _addComponentToExistingRow = function(component, rowId){
-    var curRow = _.find(_rows, function(row){
+    var curRow = _.find(data.cachedRows, function(row){
       return row.id === rowId;
     });
     component.rowId = rowId;
@@ -156,7 +64,8 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     };
     component.rowId = newRow.id;
     newRow.components.push(component);
-    _rows.push(newRow);
+    data.cachedRows.push(newRow);
+    data.created.push(newRow);
     _id++;
   };
 
@@ -167,21 +76,163 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     };
     component.rowId = newRow.id;
     newRow.components.push(component);
-    _rows.unshift(newRow);
+    data.cachedRows.unshift(newRow);
+    data.created.unshift(newRow);
     _id++;
   };
 
-  rowService.packageRowsForSave = function(){
-    return _rows.map(_repackage);
+  var _addRowBelow = function(component, nextRowIdx){
+    if(data.cachedRows[nextRowIdx].components.length){
+      _addToRow(component, nextRowIdx);
+    } else {
+      _makeNewRow(component);
+    }
   };
+
+  var _addToRow = function(component, rowIdx){
+    var currentRow = data.cachedRows[rowIdx];
+    if (currentRow){
+      component.rowId = currentRow.id;
+      currentRow.components.push(component);
+    } else {
+      console.log("in the not currentRow");
+      _makeNewRow(component);
+    }
+  };
+
+  rowService.packageRowsForSave = function(){
+    var rows = { };
+    _cleanPack(rows, ["created", "updated"]);
+    return rows;
+  };
+
+  function _cleanPack(obj, listNames){
+    _.each(listNames, function(name){
+      var collection = data[name].map(_repackage);
+      if (collection.length > 0){
+        obj[name] = collection;
+      }
+    });
+    return obj;
+  }
 
   var _repackage = function(row, index){
     var newRow = angular.copy(row, {});
     delete newRow.id;
-    newRow.order = index;
+    newRow.order = _findOrder(row);
     newRow.components = componentService.getPackagedComponents(row.components);
     return newRow;
   };
+
+  var _extendComponent = function(component){
+    component.moveLeft = _moveLeft;
+    component.moveRight = _moveRight;
+    component.moveUp = _moveUp;
+    component.moveDown = _moveDown;
+  };
+
+  var _findRowIdx = function(rowId){
+    var rowIdx = _.findIndex(data.cachedRows, function(row){
+      return row.id == rowId;
+    });
+    return rowIdx;
+
+  };
+
+  var _findComponentIdx = function(component, rowIdx){
+    var components = data.cachedRows[rowIdx].components;
+    var compIdx = _.findIndex(data.cachedRows[rowIdx].components, function(comp){
+      return comp.id == component.id;
+    });
+    return compIdx;
+  };
+
+  var _moveUp = function(){
+    var rowIdx = _findRowIdx(this.rowId);
+    var compIdx = _findComponentIdx(this, rowIdx);
+    var comp;
+    if(rowIdx > 0){
+      comp = data.cachedRows[rowIdx].components.splice(compIdx, 1)[0];
+      _addToRow(comp, rowIdx - 1);
+      _checkEmptyRow(rowIdx);
+    } else if( rowIdx === 0 &&
+                data.cachedRows[rowIdx].components.length > 1 ){
+      comp = data.cachedRows[rowIdx].components.splice(compIdx, 1)[0];
+      _addNewTopRow(comp);
+    }
+  };
+
+  var _checkEmptyRow = function(rowIdx){
+    if(data.cachedRows[rowIdx].components.length < 1){
+      console.log('deleted');
+      _removeFromDataObj(rowIdx);
+    }
+  };
+
+  function _removeFromDataObj(idx){
+    var keys = ["created", "updated"];
+    var curRow = data.cachedRows.splice(rowIdx, 1);
+    _.each(keys, function(keyName){
+      var rowIdx = _findOrder(curRow, keyName);
+      if(rowIdx >= 0){
+        data[keyName].splice(rowIdx, 1);
+      }
+    });
+  }
+
+  function _findOrder(row, listName){
+    list = data[listName] || data.cachedRows;
+    return _.findIndex(list, function(_row){
+      return row.id == _row.id;
+    });
+  }
+
+  var _moveDown = function(){
+    var rowIdx = _findRowIdx(this.rowId);
+    var compIdx = _findComponentIdx(this, rowIdx);
+    var comp;
+    if(rowIdx < data.cachedRows.length - 1){
+      comp = data.cachedRows[rowIdx].components.splice(compIdx, 1)[0];
+      _addRowBelow(comp, rowIdx + 1);
+      _checkEmptyRow(rowIdx);
+    } else if (data.cachedRows[rowIdx].components.length > 1 ){
+      comp = data.cachedRows[rowIdx].components.splice(compIdx, 1)[0];
+      _makeNewRow(comp);
+    }
+  };
+
+  var _moveLeft = function(){
+    var rowIdx = _findRowIdx(this.rowId);
+    var compIdx = _findComponentIdx(this, rowIdx);
+    var that = this;
+    if(compIdx > 0){
+      data.cachedRows[rowIdx].components.swap( compIdx - 1, compIdx );
+    }
+  };
+
+  var _moveRight = function(){
+    var rowIdx = _findRowIdx(this.rowId);
+    var compIdx = _findComponentIdx(this, rowIdx);
+    if(compIdx < (data.cachedRows[rowIdx].components.length - 1) ){
+      data.cachedRows[rowIdx].components.swap( compIdx + 1, compIdx );
+    }
+  };
+
+  var swapArrayElements = function(arr, indexA, indexB) {
+    var temp = arr[indexA];
+    arr[indexA] = arr[indexB];
+    arr[indexB] = temp;
+  };
+
+  Array.prototype.swap = function(indexA, indexB) {
+     swapArrayElements(this, indexA, indexB);
+  };
+
+  function _trackId(id){
+    if (id >= _id){
+      _id = id + 1;
+    }
+  }
 
   return rowService;
 }]);
