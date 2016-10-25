@@ -4,7 +4,7 @@ app.factory('TippedService',
   function(_){
   var stub = {};
 
-  var _width = 0;
+  var _width = 12;
   var _offset = 0;
 
   stub.tipped = function () {
@@ -12,7 +12,7 @@ app.factory('TippedService',
     `
     <a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a>
     <p>How big is your grid?</p>
-    <p> Offset: `+ _offset +` | Width: ` + _width + `</p>
+    <p> Offset: `+ `<code id="offset">0</code>` +` | Width: ` + `<code id="width">12</code>` + `</p>
     <div id=\"slider\" class=\"col-xs-6\" style=\"width: 100\%\"></div>
     `,
     { skin: 'white',
@@ -25,16 +25,20 @@ app.factory('TippedService',
       afterUpdate: function(content, element) {
         $( "#slider" ).slider({
           range: true,
-          min: _offset,
-          max: 12 - _width,
+          min: -1,
+          max: 13,
           values: [_offset, _width],
           slide: function(event, ui) {
             // console.log('event: ', event);
             // console.log('ui: ', ui);
             _offset = $('#slider').slider("values", 0);
+            if (parseInt(_offset) === -1) { _offset += 1; };
             _width = $('#slider').slider("values", 1);
+            if (parseInt(_width) === 13) { _offset -= 1; };
 
-            // $('#slider').('max')
+            $("#offset").html(_offset);
+            $("width").html(_width);
+
 
             $("#author-tipped").attr('class', '');
             $("#author-tipped").addClass('col-xs-' + $('#slider').slider("values", 1));
