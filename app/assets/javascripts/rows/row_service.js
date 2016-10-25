@@ -20,6 +20,7 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
 
   function  _reactivateComponent(componentType, index, array){
     var component = componentService.rebuildComponent(componentType);
+    _extendComponent(component);
     return component;
   }
 
@@ -167,7 +168,7 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     }
   }
 
-  function _removeFromDataObj(idx){
+  function _removeFromDataObj(rowIdx){
     var keys = ["created", "updated"];
     var curRow = data.cachedRows.splice(rowIdx, 1);
     _.each(keys, function(keyName){

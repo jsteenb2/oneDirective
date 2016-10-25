@@ -10,6 +10,7 @@ json.project do |project|
       json.name component.name
       json.content component.content
       json.order component.order
+      json.rowId row.id
     end
   end
 end
