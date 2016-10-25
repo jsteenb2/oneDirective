@@ -1,5 +1,6 @@
 app.factory('TippedService', 
   ["_",
+  // johnny inject your component service.
   function(_){
   var stub = {};
 
@@ -7,10 +8,9 @@ app.factory('TippedService',
   var _offset = 0;
 
   stub.tipped = function () {
-
     Tipped.create("#author-tipped",  
     `
-    <a class="btn btn-danger btn-small" style="border: 1px solid red">Delete</a>
+    <a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a>
     <p>How big is your grid?</p>
     <p> Offset: `+ _offset +` | Width: ` + _width + `</p>
     <div id=\"slider\" class=\"col-xs-6\" style=\"width: 100\%\"></div>
@@ -29,8 +29,8 @@ app.factory('TippedService',
           max: 12 - _width,
           values: [_offset, _width],
           slide: function(event, ui) {
-            console.log('event: ', event);
-            console.log('ui: ', ui);
+            // console.log('event: ', event);
+            // console.log('ui: ', ui);
             _offset = $('#slider').slider("values", 0);
             _width = $('#slider').slider("values", 1);
 
@@ -45,6 +45,12 @@ app.factory('TippedService',
         });
       }
     })
+
+    // johnny write your code here.
+    // this where you link up your delete service 
+    angular.element(document).on('click', '#delete-component', function(){
+      console.log('hi johnny');
+    });
   };
 
   return stub;
