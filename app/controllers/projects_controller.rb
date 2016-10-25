@@ -1,11 +1,11 @@
 class ProjectsController < ApplicationController
   # process params for file upload
   before_action :process_photo, only: [:update]
-  before_action :extend_photos, only: [:index]
 
   def index
+    @projects = current_user.projects
     respond_to do |format|
-      format.json { render json: @projects, status: 200 }
+      format.json { render json: @projects.to_json(methods: [:photo_url]), status: 200 }
     end
   end
 
@@ -87,11 +87,5 @@ class ProjectsController < ApplicationController
 
         add_new_components(row, selected_row) if row["components"].keys.include?("created")
       end
-    end
-
-    # for projects' photo urls
-    def extend_photos
-      @projects = current_user.projects
-      @projects.each(&:prepare_photo_url)
     end
 end

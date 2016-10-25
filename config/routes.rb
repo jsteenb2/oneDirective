@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     root 'static_pages#index', as: :authenticated
   end
 
-  root :to => 'home#static_page'
+  # root :to => 'home#static_page'
   root to: 'static_pages#new'
   get 'home' => 'static_pages#new'
 
