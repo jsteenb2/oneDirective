@@ -88,9 +88,6 @@ app.config(
           componentSelection: ['componentService', function(componentService){
             return componentService.cacheComponentLibrary();
           }],
-          rowData: ['rowService', function(rowService) {
-            return rowService.getRowData();
-          }],
           projectData: ["$stateParams", "ProjectService", function($stateParams, ProjectService){
             return ProjectService.getProjectData($stateParams.id);
           }]
