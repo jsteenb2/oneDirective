@@ -15,12 +15,21 @@
 //= require lodash.min
 //= require angular
 //= require angular-ui-router.min
+
+//= require utils
+//= require tether
+
 //= require restangular
 //= require angular-devise
 //= require angular-animate.min
 //= require ui-bootstrap-tpls-2.2.0.min
+
 //= require tinymce
 //= require angular-tinymce
+
+//= require drop
+//= require angular-drop
+
 //= require bootstrap
 //= require material
 //= require_tree .
