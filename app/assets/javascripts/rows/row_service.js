@@ -101,12 +101,20 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   };
 
   rowService.packageRowsForSave = function(){
-    var rows = {
-      created: data.created.map(_repackage),
-      updated: data.updated.map(_repackage)
-    } ;
+    var rows = { };
+    _cleanPack(rows, ["created", "updated"]);
     return rows;
   };
+
+  function _cleanPack(obj, listNames){
+    _.each(listNames, function(name){
+      var collection = data[name].map(_repackage);
+      if (collection.length > 0){
+        obj[name] = collection;
+      }
+    });
+    return obj;
+  }
 
   var _repackage = function(row, index){
     var newRow = angular.copy(row, {});
