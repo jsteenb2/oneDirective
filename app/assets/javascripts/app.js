@@ -3,8 +3,7 @@ var app = angular.module('materialProto',
 'restangular',
 'Devise',
 'ui.bootstrap',
-'ui.tinymce',
-'angularEffDrop']);
+'ui.tinymce']);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
@@ -85,6 +84,9 @@ app.config(
         resolve: {
           componentSelection: ['componentService', function(componentService){
             return componentService.cacheComponentLibrary();
+          }],
+          projectData: ["$stateParams", "ProjectService", function($stateParams, ProjectService){
+            return ProjectService.get($stateParams.id);
           }]
         }
       });

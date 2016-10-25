@@ -10,14 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
+
 //= require lodash.min
 //= require angular
 //= require angular-ui-router.min
 
-//= require utils
-//= require tether
+//= require tipped/js/spinners/spinners.min
+//= require tipped/js/tipped/tipped
+
 
 //= require restangular
 //= require angular-devise
@@ -26,9 +26,6 @@
 
 //= require tinymce
 //= require angular-tinymce
-
-//= require drop
-//= require angular-drop
 
 //= require bootstrap
 //= require material
