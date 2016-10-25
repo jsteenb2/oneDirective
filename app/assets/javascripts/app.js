@@ -89,6 +89,9 @@ app.config(
           }],
           rowData: ['rowService', function(rowService) {
             return rowService.getRowData();
+          }],
+          projectData: ["$stateParams", "ProjectService", function($stateParams, ProjectService){
+            return ProjectService.get($stateParams.id);
           }]
         }
       });
