@@ -17,6 +17,7 @@ class Project < ApplicationRecord
   accepts_nested_attributes_for :rows
   accepts_nested_attributes_for :components
 
+  # For project cards.
   def photo_url
     project_photo.url(:card)
   end

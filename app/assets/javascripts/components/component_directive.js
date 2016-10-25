@@ -6,21 +6,11 @@ app.directive('component',
     restrict: "E",
     scope: {
       component: "=",
-      row: "="
     },
     link: function(scope, element, attrs){
       scope.hovered = false;
       scope.doubleClicked = false;
 
-      scope.updateRowId = function (component) {
-        scope.component.rowId = scope.row.id;
-      };
-
-      scope.logThis = function (event) {
-        console.log(event);
-      };
-
-      console.log(scope.component.content);
       var template = angular.element(scope.component.content)
         .attr('tabindex', scope.component.id);
       var linkFn = $compile(template);
