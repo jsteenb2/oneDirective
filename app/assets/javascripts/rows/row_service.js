@@ -114,7 +114,7 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
 
   rowService.packageRowsForSave = function(){
     var rows = { };
-    _cleanPack(rows, ["created", "updated"]);
+    _cleanPack(rows, ["created", "updated", "deleted"]);
     return rows;
   };
 
@@ -186,6 +186,7 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
       var rowIdx = _findOrder(curRow, keyName);
       if(rowIdx >= 0){
         data[keyName].splice(rowIdx, 1);
+        if(keyName === "updated"){ data.deleted.push(curRow); }
       }
     });
   }
