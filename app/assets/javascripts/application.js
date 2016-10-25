@@ -21,7 +21,6 @@
 //= require angular-animate
 //= require angularjs-file-upload
 //= require angular-utf8-base64
-//= require angular-dragdrop
 //= require ui-bootstrap-tpls-2.2.0.min
 //= require tinymce
 //= require angular-tinymce

@@ -36,8 +36,6 @@ function (ProjectService, $uibModal) {
     modalInstance.result.then(vm.updateProject);
   };
 
-  console.log(vm.project.photo_url);
-
 }]);
 
 app.component('projectCard', {

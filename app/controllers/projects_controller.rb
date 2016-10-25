@@ -33,17 +33,16 @@ class ProjectsController < ApplicationController
   def update
     @project = current_user.projects.find_by_id(params[:id])
     if @project.update(project_params)
-      @project.photo_url = @project.project_photo.url
       respond_to do |format|
         format.json { render json: @project, status: 200 }
       end
     end
-    # if map_updates
-    #   # respond_to do |format|
-    #   #   format.json { render json: @project, status: 200 }
-    #   # end
-    #   render :show
-    # end
+    if map_updates
+      # respond_to do |format|
+      #   format.json { render json: @project, status: 200 }
+      # end
+      render :show
+    end
   end
 
   private
