@@ -1,7 +1,6 @@
 app.factory('componentService', ["_", '$http',
 function(_, $http){
   var data = {
-    cachedComponents: [],
     created: [],
     updated: [],
     deleted: []
@@ -13,9 +12,17 @@ function(_, $http){
 
   componentService.buildComponent = function(componentType){
     var component = angular.copy(componentTypes[componentType], {});
-    
     component.id = _id;
+    data.created.push(component);
     _id++;
+    return component;
+  };
+
+  componentService.rebuildComponent = function(componentData){
+    var component = angular.copy(componentTypes[componentData.name]);
+    component.id = componentData.id;
+    _trackId(componentData.id);
+    data.updated.push(component);
     return component;
   };
 
@@ -45,6 +52,12 @@ function(_, $http){
       return newComponent;
     });
   };
+
+  function _trackId(id){
+    if (id >= _id){
+      _id = id + 1;
+    }
+  }
 
   function _cleanContent(component){
     _removeEditorAttrs(component);

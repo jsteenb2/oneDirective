@@ -58,6 +58,10 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
     return _.filter(_data.cached, {id: parseInt(project_id)})[0];
   };
 
+  srv.getProjectData = function(project_id){
+    return Restangular.one('projects', project_id).get();
+  };
+
   srv.create = function (params) {
     return Restangular.all('projects')
       .post({project: params})

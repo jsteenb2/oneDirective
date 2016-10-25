@@ -86,7 +86,7 @@ app.config(
             return componentService.cacheComponentLibrary();
           }],
           projectData: ["$stateParams", "ProjectService", function($stateParams, ProjectService){
-            return ProjectService.get($stateParams.id);
+            return ProjectService.getProjectData($stateParams.id);
           }]
         }
       });
