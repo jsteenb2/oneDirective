@@ -10,6 +10,10 @@ app.controller('ProjectEditCtrl',
 
     $scope.rowData = rowData;
 
+    $scope.rows = function () {
+      return rowService.getRows();
+    };
+
     $rootScope.$on('component.moved', function(ev){
       $scope.rows();
     });

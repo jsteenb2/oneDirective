@@ -1,6 +1,6 @@
 app.directive('component',
-  ['$compile', "$rootScope", "$window", "tinyMCEService",
-  function($compile, $rootScope, $window,tinyMCEService) {
+  ['$compile', "$rootScope", "$window", "tinyMCEService", 'DragdropService',
+  function($compile, $rootScope, $window,tinyMCEService, DragdropService) {
 
   return {
     restrict: "E",
@@ -12,6 +12,37 @@ app.directive('component',
     link: function(scope, element, attrs){
       scope.hovered = false;
       scope.doubleClicked = false;
+
+      scope.updateRowId = function (component) {
+        scope.component.rowId = scope.row.id;
+      };
+
+      scope.promiseTarget = function () {
+        return DragdropService.promiseTarget(scope.component)
+          .then(function(target) {
+            scope.component.rowId = target.rowId;
+          });
+      };
+
+      scope.getPromise = function () {
+        return DragdropService.getPromise().then(function(target) {
+          var targetId = target.rowId;
+          scope.component.rowId = targetId;
+          target.rowId = scope.component.rowId;
+          return target;
+        });
+      };
+
+[
+  {"type":"toggleButton","content":{"0":{"jQuery112407167617259214201":67},"length":1},"id":1,"rowId":1},
+  {"type":"authorBox","content":{"0":{},"1":{"jQuery112407167617259214201":159},"2":{},"length":3},"id":5,"rowId":2,"undefined":"right"},
+  {"type":"navbarDefault","content":{"0":{"jQuery112407167617259214201":189},"length":1},"id":6,"rowId":2}
+]
+
+      scope.logThis = function () {
+        console.log(scope.row.id);
+      };
+
       // CJ: added attrs scope.row and scope.index for DnD
       // Going to row to row: they don't track by index. Need to track by id.
       var template = angular.element(scope.component.content)

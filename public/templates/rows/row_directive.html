@@ -1,5 +1,7 @@
 <div class="row" ng-click="selectRow()" ng-class="{ 'hovered': hovered}">
+  {{row.components}}
   <component
+  class="col-md-12"
   component="component"
   row="row"
   ng-repeat="component in row.components"
