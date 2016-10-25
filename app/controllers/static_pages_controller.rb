@@ -1,9 +1,9 @@
 class StaticPagesController < ApplicationController
   before_action :authenticate_user!, only: [:index]
 
-  def new
+  def index
   end
 
-  def index
+  def new
   end
 end

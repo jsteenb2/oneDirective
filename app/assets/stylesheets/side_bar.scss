@@ -6,11 +6,14 @@
   box-shadow: inset 0 0 10px black, 0 0 10px black;
   width: 17%;
   height: 100vh;
-  overflow: scroll;
   background-color: hsl(203, 30%, 27%);
+  hr {
+    margin-bottom: 0;
+  }
 }
 
-.thing {
-  height: 4em;
-  color: white;
+#component-library {
+  width: 100%;
+  height: 80%;
+  overflow: scroll;
 }
