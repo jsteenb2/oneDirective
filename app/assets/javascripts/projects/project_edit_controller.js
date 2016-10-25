@@ -1,7 +1,6 @@
 app.controller('ProjectEditCtrl',
-  ['$stateParams', 'ProjectService', 'currUser', '$scope', 'rowService', "$rootScope", "projectData",
-  function( $stateParams, ProjectService, currUser, $scope, rowService, $rootScope, projectData ) {
-    console.log(projectData);
+  ['$stateParams', 'ProjectService', 'currUser', '$scope', 'rowService', "$rootScope",
+  function( $stateParams, ProjectService, currUser, $scope, rowService, $rootScope ) {
 
     $scope.currentUser = currUser;
 

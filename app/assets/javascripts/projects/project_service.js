@@ -59,7 +59,11 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
   };
 
   srv.getProjectData = function(project_id){
-    return Restangular.one('projects', project_id).get();
+    return Restangular.one('projects', project_id).get()
+      .then(function(data){
+        console.log(data.project);
+        return rowService.rebuildRows(data.project.rows);
+      });
   };
 
   srv.create = function (params) {
@@ -89,6 +93,7 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
       rows: rowService.packageRowsForSave()
     };
     projectParams.id = id;
+    console.log(projectParams);
     return srv.update(projectParams);
   };
 

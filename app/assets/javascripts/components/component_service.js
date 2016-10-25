@@ -1,6 +1,7 @@
 app.factory('componentService', ["_", '$http',
 function(_, $http){
   var data = {
+    cachedComponents: [],
     created: [],
     updated: [],
     deleted: []
@@ -13,17 +14,20 @@ function(_, $http){
   componentService.buildComponent = function(componentType){
     var component = angular.copy(componentTypes[componentType], {});
     component.id = _id;
+    data.cachedComponents.push(component);
     data.created.push(component);
     _id++;
     return component;
   };
 
   componentService.rebuildComponent = function(componentData){
-    var component = angular.copy(componentTypes[componentData.name]);
-    component.id = componentData.id;
+    // var component = angular.copy(componentTypes[componentData.name], {});
+    // component.id = componentData.id;
+    _extendContent(componentData);
     _trackId(componentData.id);
-    data.updated.push(component);
-    return component;
+    data.cachedComponents.push(componentData);
+    data.updated.push(componentData);
+    return componentData;
   };
 
   componentService.cacheComponentLibrary = function(){
@@ -44,14 +48,40 @@ function(_, $http){
   };
 
   componentService.getPackagedComponents = function(components){
-    return components.map(function(component, index){
-      var newComponent = angular.copy(component, {});
-      delete newComponent.id;
-      newComponent.order = index;
-      _cleanContent(newComponent);
-      return newComponent;
-    });
+    var componentObj = { };
+    _cleanPack(componentObj, components, ["created", "updated"]);
+    return componentObj;
   };
+
+  function _cleanPack(obj, components, listNames){
+    _.each(listNames, function(name){
+      var collection = _packageComponents(components, data[name]);
+      if (collection.length > 0){
+        obj[name] = collection;
+      }
+    });
+    return obj;
+  }
+
+  function _packageComponents(components, list){
+    return components.map(function(component, index){
+      var compIdx = _.findIndex(list, function(comp){
+        return component.id == comp.id;
+      });
+      if (compIdx >= 0){
+        var newComponent = angular.copy(component, {});
+        newComponent.order = _findOrder(component);
+        _cleanContent(newComponent);
+        return newComponent;
+      }
+    });
+  }
+
+  function _findOrder(component){
+    return _.findIndex(data.cachedComponents, function(comp){
+      return component.id == comp.id;
+    });
+  }
 
   function _trackId(id){
     if (id >= _id){
@@ -60,6 +90,7 @@ function(_, $http){
   }
 
   function _cleanContent(component){
+    console.log(component);
     _removeEditorAttrs(component);
     _removeEditorFunctions(component);
     delete component.rowId;
@@ -75,6 +106,7 @@ function(_, $http){
   }
 
   function _removeEditorAttrs(component){
+    console.log(component);
     component.content
       .removeClass('ng-scope ng-binding')
       .removeAttr('ng-keydown')

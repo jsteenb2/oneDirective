@@ -23,7 +23,19 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     return component;
   };
 
-  rowService.rebuildComponents = function(compArray){
+  rowService.rebuildRows = function(rows){
+    rows.forEach(_reactivateRows);
+  };
+
+  function _reactivateRows(ele, index, array){
+    var newRow = angular.copy(ele, {});
+    _rebuildComponents(newRow.components);
+    _trackId(newRow.id);
+    data.cachedRows.push(newRow);
+    data.updated.push(newRow);
+  }
+
+  var _rebuildComponents = function(compArray){
     compArray.forEach(_reactivateComponent);
   };
 
@@ -89,16 +101,26 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   };
 
   rowService.packageRowsForSave = function(){
-    return data.cachedRows.map(_repackage);
+    var rows = {
+      created: data.created.map(_repackage),
+      updated: data.updated.map(_repackage)
+    } ;
+    return rows;
   };
 
   var _repackage = function(row, index){
     var newRow = angular.copy(row, {});
     delete newRow.id;
-    newRow.order = index;
+    newRow.order = _findOrder(row);
     newRow.components = componentService.getPackagedComponents(row.components);
     return newRow;
   };
+
+  function _findOrder(row){
+    return _.findIndex(data.cachedRows, function(_row){
+      return row.id == _row.id;
+    });
+  }
 
   var _extendComponent = function(component){
     component.moveLeft = _moveLeft;
@@ -186,6 +208,12 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   Array.prototype.swap = function(indexA, indexB) {
      swapArrayElements(this, indexA, indexB);
   };
+
+  function _trackId(id){
+    if (id >= _id){
+      _id = id + 1;
+    }
+  }
 
   return rowService;
 }]);
