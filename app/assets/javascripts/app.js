@@ -4,7 +4,9 @@ var app = angular.module('materialProto',
 'Devise',
 'ui.bootstrap',
  'ui.tinymce',
- 'ngScrollbars']);
+ 'ngScrollbars',
+ 'ngFlash',
+'ngAnimate']);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
@@ -20,6 +22,12 @@ app.config(
       .defaults
       .headers
       .common['X-CSRF-Token'] = token;
+}]);
+
+app.config(['FlashProvider', function(FlashProvider) {
+    FlashProvider.setTimeout(2500);
+    FlashProvider.setShowClose(true);
+    // FlashProvider.setOnDismiss(myCallback);
 }]);
 
 app.factory('_', ['$window', function($window) {
@@ -58,6 +66,10 @@ app.config(
           'navbar@': {
             templateUrl: 'templates/nav/navbar.html',
             controller: 'navbarCtrl'
+          },
+          'flash@':{
+            templateUrl: 'templates/flash/flash.html',
+            controller: 'flashCtrl'
           }
         },
         resolve: {
