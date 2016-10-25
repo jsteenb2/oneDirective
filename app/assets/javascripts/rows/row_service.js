@@ -1,5 +1,4 @@
 app.factory('rowService', ["_", "Restangular", "componentService", function(_, Restangular, componentService){
-  // Is this object being used?
   var data = {
     cachedRows: [],
     created: [],
@@ -8,17 +7,8 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   };
 
   var rowService = {};
-  // trying to data bind the rows.
-  var _data = {
-    rows: []
-  };
   var _rows = [];
   var _id = 1;
-
-  // for data-binding
-  rowService.getRowData = function () {
-    return _data;
-  };
 
   rowService.getRows = function(){
     return data.cachedRows;
@@ -90,8 +80,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     };
     component.rowId = newRow.id;
     newRow.components.push(component);
-    // for data-binding
-    _data.rows.push(newRow);
     _rows.push(newRow);
     _id++;
   };

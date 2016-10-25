@@ -31,23 +31,26 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project = current_user.projects.find_by_id(params[:id])
-    if @project.update(project_params)
-      respond_to do |format|
-        format.json { render json: @project, status: 200 }
-      end
-    end
     if map_updates
       # respond_to do |format|
       #   format.json { render json: @project, status: 200 }
       # end
       render :show
+    else
+      update_cards
     end
   end
 
   private
-    def project_params
-      params.require(:project).permit(:title, :description, :project_photo)
+
+    # Updating the project cards on the dashboard.
+    def update_cards
+      @project = current_user.projects.find_by_id(params[:id])
+      if @project.update(project_params)
+        respond_to do |format|
+          format.json { render json: @project, status: 200 }
+        end
+      end
     end
 
     def process_photo
@@ -56,6 +59,10 @@ class ProjectsController < ApplicationController
         params[:project] = {} if !params[:project]
         params[:project][:project_photo] = uploaded
       end
+    end
+
+    def project_params
+      params.require(:project).permit(:title, :description, :project_photo)
     end
 
     def map_updates

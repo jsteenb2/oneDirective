@@ -3,9 +3,14 @@ app.controller('ProjectCardCtrl',
 function (ProjectService, $uibModal) {
   var vm = this;
 
+  vm.updateView = function (params) {
+    angular.copy(params,vm.project);
+  };
+
   // Update: using the modal.
   vm.updateProject = function (params) {
-    ProjectService.update(params);
+    ProjectService.update(params)
+      .then(vm.updateView);
   };
 
   // Edit: go to edit page.
