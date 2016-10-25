@@ -16,6 +16,11 @@
  *= require _bootstrap
  *= require bootstrap-material-design
  *= require ripples
+
+ *= require tipped/css/tipped/tipped
+ *= require tipped/example/jquery-ui-1.12.1.custom/jquery-ui
+ *= require tipped/example/css/style
+ 
  *= require navbar
  *= require jquery.mCustomScrollbar
  */
