@@ -1,12 +1,7 @@
 app.controller('ProjectEditCtrl',
   ['$stateParams', 'ProjectService', 'currUser', '$scope', 'rowService', "$rootScope",
   function( $stateParams, ProjectService, currUser, $scope, rowService, $rootScope) {
-
     $scope.currentUser = currUser;
-
-    console.log("still logged in through: ",
-      $scope.currentUser);
-    console.log('you are in projectEdit controller');
 
     $scope.rows = function(){
       return rowService.getRows();

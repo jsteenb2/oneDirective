@@ -68,7 +68,9 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
   srv.update = function (params) {
     return Restangular.one('projects', params.id)
       .patch({project: params})
-      .then(_updateOne)
+      .then(function(data){
+        console.log(data.project);
+      })
       .catch(_logError);
   };
 
@@ -79,11 +81,11 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
   };
 
   srv.saveProjectEdits = function(id){
-    console.log(id);
-    var projectParams = rowService.packageRowsForSave();
+    var projectParams = {
+      rows: rowService.packageRowsForSave()
+    };
     projectParams.id = id;
-    return Promise.resolve(projectParams);
-    // srv.update(projectParams);
+    return srv.update(projectParams);
   };
 
   return srv;

@@ -4,7 +4,7 @@ app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams'
 
   $scope.saveProject = function(ev){
     ev.preventDefault();
-    ProjectService.saveProjectEdits($stateParams.id)
+    return ProjectService.saveProjectEdits($stateParams.id)
       .then(function(response){
         console.log(response);
         return response;

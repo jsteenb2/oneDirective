@@ -1,4 +1,9 @@
 app.factory('rowService', ["_", "Restangular", "componentService", function(_, Restangular, componentService){
+  var data = {
+    created: {},
+    updated: {}
+  };
+
   var rowService = {};
   var _rows = [];
   var _id = 1;
@@ -167,7 +172,7 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   };
 
   rowService.packageRowsForSave = function(){
-    var packagedRows = _rows.map(_repackage);
+    return _rows.map(_repackage);
   };
 
   var _repackage = function(row, index){

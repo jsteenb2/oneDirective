@@ -39,15 +39,29 @@ function(_, $http){
   };
 
   function _cleanContent(component){
+    _removeEditorAttrs(component);
+    _removeEditorFunctions(component);
+    delete component.rowId;
+    component.content = angular.element(component.content).prop('outerHTML');
+    return component;
+  }
+
+  function _removeEditorFunctions(component){
+    delete component.moveUp;
+    delete component.moveDown;
+    delete component.moveLeft;
+    delete component.moveRight;
+  }
+
+  function _removeEditorAttrs(component){
     component.content
+      .removeClass('ng-scope ng-binding')
       .removeAttr('ng-keydown')
       .removeAttr('ng-click')
       .removeAttr('ng-dblclick')
       .removeAttr('data-head')
       .removeAttr('ng-class')
       .removeAttr('tabindex');
-    component.content = angular.element(component.content).prop('outerHTML');
-    return component;
   }
 
   function _extendContent(component){
