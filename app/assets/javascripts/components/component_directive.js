@@ -23,17 +23,21 @@ app.directive('component',
 
       // CJ: added attrs scope.row and scope.index for DnD
       // Going to row to row: they don't track by index. Need to track by id.
+      console.log(scope.component.content);
       var template = angular.element(scope.component.content)
         .attr('tabindex', scope.component.id);
-      template
-        .attr('data-drag', "true")
-        .attr('data-drop', "true")
-        .attr('ng-model', "row.components")
-        .attr('jqyoui-droppable',"{index:{{index}},onDrop:'logThis'}")
-        .attr('jqyoui-draggable',"{index:{{index}},insertInline:true,animate:true,containment:'position'}")
-        .attr('data-jqyoui-options',"{revert: 'invalid', containment: 'div#workspace'}");
+      // template
+      //   .attr('data-drag', "true")
+      //   .attr('data-drop', "true")
+      //   .attr('ng-model', "row.components")
+      //   .attr('jqyoui-droppable',"{index:{{index}},onDrop:'logThis'}")
+      //   .attr('jqyoui-draggable',"{index:{{index}},insertInline:true,animate:true}")
+      //   .attr('data-jqyoui-options',"{revert: 'invalid', containment: 'div#workspace'}");
       var linkFn = $compile(template);
       var content = linkFn(scope);
+      console.log(element);
+      // scope.template = content;
+      // element.replaceWith(content);
       element.append(content);
 
       scope.onClick = function($event){

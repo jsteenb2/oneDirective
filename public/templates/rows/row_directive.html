@@ -1,10 +1,17 @@
 <div class="row" ng-click="selectRow()" ng-class="{ 'hovered': hovered}">
-  {{row.components}}
+  <!-- {{row.components}} -->
   <component
   class="col-md-12"
   component="component"
+  tabindex='component.id'
   row="row"
   ng-repeat="component in row.components"
-  index="$index">
+  index="$index"
+  data-drag="true"
+  data-drop="true"
+  ng-model="row.components"
+  jqyoui-droppable="{index:{{$index}}}"
+  jqyoui-draggable="{index:{{$index}},insertInline:true,animate:true}"
+  data-jqyoui-options="{revert: 'invalid', containment: 'div#workspace'}">
   </component>
 </div>
