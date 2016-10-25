@@ -1,4 +1,4 @@
-app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
+app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Restangular, _, rowService) {
   var srv = {};
   var _data = {
     cached: [],
@@ -24,11 +24,10 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
   }
 
   function _updateOne (response) {
-    console.log(response);
-    var found = _.find(_data.cached, {id: response.id});
+    var found = _.find(_data.cached, {id: response.project.id});
     if (!found) throw new Error ('Nothing to update!');
-    angular.copy(response, found);
-    angular.copy(response, _data.updated);
+    angular.copy(response.project, found);
+    angular.copy(response.project, _data.updated);
     return _data;
   }
 
@@ -69,7 +68,9 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
   srv.update = function (params) {
     return Restangular.one('projects', params.id)
       .patch({project: params})
-      .then(_updateOne)
+      .then(function(data){
+        console.log(data.project);
+      })
       .catch(_logError);
   };
 
@@ -77,6 +78,14 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
     return project.remove()
       .then(_removeOne)
       .catch(_logError);
+  };
+
+  srv.saveProjectEdits = function(id){
+    var projectParams = {
+      rows: rowService.packageRowsForSave()
+    };
+    projectParams.id = id;
+    return srv.update(projectParams);
   };
 
   return srv;

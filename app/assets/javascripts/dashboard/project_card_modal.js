@@ -1,23 +1,14 @@
 app.controller('ProjectModalCtrl',
-['FileUploader', 'Restangular', function (FileUploader, Restangular) {
+['PhotoUploadService', 'Restangular', function (PhotoUploadService, Restangular) {
   var vm = this;
 
   vm.$onInit = function () {
-    vm.project = vm.resolve.project;
+    vm.project = {};
+    angular.copy(vm.resolve.project, vm.project);
     vm.title = vm.project.title;
-
-    // angular-file-upload
-    var csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-    vm.uploader = new FileUploader({
-      url: Restangular.one('projects', vm.project.id).getRequestedUrl(),
-      method: 'PATCH',
-      alias: 'project_photo',
-      withCredentials: true,
-      headers: {
-        'X-CSRF-TOKEN': csrf_token
-      }
-    });
+    var url = Restangular.one('projects', vm.project.id).getRequestedUrl();
+    PhotoUploadService.init(url);
+    vm.uploader = PhotoUploadService.getUploader();
   };
 
   vm.ok = function (params) {

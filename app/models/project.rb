@@ -11,5 +11,9 @@ class Project < ApplicationRecord
   validates_attachment_content_type :project_photo, :content_type => /\Aimage\/.*\Z/
 
   belongs_to :user
-  has_many :rows
+  has_many :rows, dependent: :destroy
+  has_many :components, through: :rows, dependent: :destroy
+
+  accepts_nested_attributes_for :rows
+  accepts_nested_attributes_for :components
 end
