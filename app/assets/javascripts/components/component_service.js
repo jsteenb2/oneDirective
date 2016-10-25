@@ -88,7 +88,6 @@ function(_, $http){
   }
 
   function _cleanContent(component){
-    console.log(component);
     _removeEditorAttrs(component);
     _removeEditorFunctions(component);
     delete component.rowId;
@@ -104,15 +103,14 @@ function(_, $http){
   }
 
   function _removeEditorAttrs(component){
-    console.log(component);
     component.content
       .removeClass('ng-scope ng-binding')
       .removeAttr('ng-keydown')
       .removeAttr('ng-click')
       .removeAttr('ng-dblclick')
       .removeAttr('data-head')
-      .removeAttr('ng-class')
-      .removeAttr('tabindex');
+      .removeAttr('ng-class');
+      // .removeAttr('tabindex');
   }
 
   function _extendContent(component){
