@@ -16,12 +16,12 @@ gem 'angular_rails_csrf'
 
 #dependencies from bower
 source "https://rails-assets.org" do
-  gem "rails-assets-angular-wysiwyg"
   gem 'rails-assets-angular-devise'
   # gem 'rails-assets-angular-file-upload'
   gem 'rails-assets-angular-animate'
   gem 'rails-assets-angular-dragdrop'
   gem 'rails-assets-angular-utf8-base64'
+  gem 'rails-assets-bootstrap-material-design'
 end
 
 #devise

@@ -27,4 +27,7 @@
 //= require angular-tinymce
 //= require bootstrap
 //= require material
+//= require ripples
+//= require jquery.mCustomScrollbar
+//= require scrollbars
 //= require_tree .

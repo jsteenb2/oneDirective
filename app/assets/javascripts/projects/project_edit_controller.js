@@ -3,6 +3,10 @@ app.controller('ProjectEditCtrl',
   function( $stateParams, ProjectService, currUser, $scope, rowService, $rootScope, rowData) {
 
     $scope.currentUser = currUser;
+    $scope.config = {
+      theme: 'minimal',
+      scrollInertia: '500'
+    };
 
     console.log("still logged in through: ", $scope.currentUser);
     console.log('you are in projectEdit controller');
