@@ -42,8 +42,9 @@ class ProjectsController < ApplicationController
 
     def process_photo
       if params[:project_photo]
+        uploaded = ActiveSupport::JSON.encode(params[:project_photo])
         params[:project] = {} if !params[:project]
-        params[:project][:project_photo] = params[:file]
+        params[:project][:project_photo] = uploaded
       end
     end
 end

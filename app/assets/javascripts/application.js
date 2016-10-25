@@ -19,7 +19,7 @@
 //= require restangular
 //= require angular-devise
 //= require angular-animate
-//= require angular-file-upload
+//= require angularjs-file-upload
 //= require angular-dragdrop
 //= require ui-bootstrap-tpls-2.2.0.min
 //= require tinymce
