@@ -1,4 +1,5 @@
 class Project < ApplicationRecord
+  attr_reader :photo_url
   # This method associates the attribute ":avatar" with a file attachment
   has_attached_file :project_photo, styles: {
    thumb: '100x100>',
@@ -16,4 +17,8 @@ class Project < ApplicationRecord
 
   accepts_nested_attributes_for :rows
   accepts_nested_attributes_for :components
+
+  def prepare_photo_url
+    photo_url = project_photo.url
+  end
 end

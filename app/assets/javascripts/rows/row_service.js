@@ -227,7 +227,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     }
   }
 
-<<<<<<< HEAD
   var _makeNewRow = function(component){
     var newRow = {
       id: _id,
@@ -241,16 +240,17 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     _id++;
   };
 
-  var _addNewTopRow = function(component){
-    var newRow = {
-      id: _id,
-      components: []
-    };
-    component.rowId = newRow.id;
-    newRow.components.push(component);
-    _rows.unshift(newRow);
-    _id++;
-  };
+  // This was from the merge conflict. I don't know which one johnny is using.
+  // var _addNewTopRow = function(component){
+  //   var newRow = {
+  //     id: _id,
+  //     components: []
+  //   };
+  //   component.rowId = newRow.id;
+  //   newRow.components.push(component);
+  //   _rows.unshift(newRow);
+  //   _id++;
+  // };
 
   function swapArrayElements(arr, indexA, indexB) {
     var temp = arr[indexA];
