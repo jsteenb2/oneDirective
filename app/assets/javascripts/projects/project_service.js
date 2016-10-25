@@ -61,6 +61,7 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
   srv.getProjectData = function(project_id){
     return Restangular.one('projects', project_id).get()
       .then(function(data){
+        console.log('resolve running');
         console.log(data.project);
         return rowService.rebuildRows(data.project.rows);
       });
@@ -77,7 +78,7 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
     return Restangular.one('projects', params.id)
       .patch({project: params})
       .then(function(data){
-        console.log(data.project);
+        return data.project;
       })
       .catch(_logError);
   };

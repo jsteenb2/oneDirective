@@ -1,0 +1,39 @@
+
+@import 'variables';
+
+.navbar.navbar-inverse {
+  background-color: $brand-primary;
+}
+#user-navbar {
+  .nav-container {
+    min-height: 3em;
+    height: 3em;
+    margin-left: 3em;
+    margin-right: 3em;
+  }
+}
+.navbar {
+  min-height: 3em;
+  height: 3em;
+  .navbar-brand {
+    padding-top: 0.4em;
+    padding-bottom: 0;
+    height: 2.4em;
+  }
+  .navbar-nav{
+    #navbar-divider {
+      padding-top: 0.8em;
+      padding-bottom: 0.8em;
+    }
+    .nav-item {
+      a {
+        padding-top: 0.8em;
+        padding-bottom: 0.8em;
+      }
+      button {
+        margin-top: 0.8em;
+        margin-left: 0.8em;
+      }
+    }
+  }
+}

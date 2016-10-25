@@ -3,6 +3,7 @@
   <br>
   Template :: {{project.title}}
   <br>
+
   <div ui-view="sideBar"></div>
 
   <div class="row">
@@ -14,4 +15,19 @@
       </row>
     </div>
   </div>
+
+  <div id="side-bar">
+    <h4 id="component-library-header">Components</h4>
+    <hr>
+    <div id="component-library" ng-scrollbars ng-scrollbars-config="config">
+      <div ui-view="sideBar"></div>
+    </div>
+  </div>
+  <div class="col-md-10 col-md-offset-2" id="workspace">
+    <row
+        ng-repeat="row in rows()"
+        row="row">
+    </row>
+  </div>
+
 </div>

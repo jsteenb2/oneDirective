@@ -6,7 +6,9 @@ var app = angular.module('materialProto',
 'angularFileUpload',
 'ngDragDrop',
 'ui.tinymce',
-'ab-base64']);
+'ab-base64',
+'ui.tinymce',
+'ngScrollbars']);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
@@ -37,7 +39,6 @@ app.config(
     RestangularProvider.setRequestSuffix('.json');
     RestangularProvider.setDefaultHttpFields({timeout: 3000});
 
-    // ADRIAN feel free to change the routing. --- CJ.
     $urlRouterProvider.otherwise('/projects');
 
     $stateProvider

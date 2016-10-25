@@ -30,6 +30,8 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
 
   function  _reactivateComponent(componentType, index, array){
     var component = componentService.rebuildComponent(componentType);
+    _extendComponent(component);
+    console.log(component);
     return component;
   }
 
@@ -127,8 +129,8 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   }
 
   function _repackage(row, index){
+    console.log(row);
     var newRow = angular.copy(row, {});
-    delete newRow.id;
     newRow.order = _findOrder(row);
     newRow.components = componentService.getPackagedComponents(row.components);
     return newRow;
@@ -173,12 +175,11 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
 
   function _checkEmptyRow(rowIdx){
     if(data.cachedRows[rowIdx].components.length < 1){
-      console.log('deleted');
       _removeFromDataObj(rowIdx);
     }
   }
 
-  function _removeFromDataObj(idx){
+  function _removeFromDataObj(rowIdx){
     var keys = ["created", "updated"];
     var curRow = data.cachedRows.splice(rowIdx, 1);
     _.each(keys, function(keyName){
