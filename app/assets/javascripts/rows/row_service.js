@@ -13,15 +13,15 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     return data.cachedRows;
   };
 
-  var _activateComponent = function(componentType){
+  function _activateComponent(componentType){
     var component = componentService.buildComponent(componentType);
     return component;
-  };
+  }
 
-  var _reactivateComponent = function(componentType, index, array){
+  function  _reactivateComponent(componentType, index, array){
     var component = componentService.rebuildComponent(componentType);
     return component;
-  };
+  }
 
   rowService.rebuildRows = function(rows){
     rows.forEach(_reactivateRows);
@@ -35,9 +35,9 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     data.updated.push(newRow);
   }
 
-  var _rebuildComponents = function(compArray){
+  function _rebuildComponents(compArray){
     compArray.forEach(_reactivateComponent);
-  };
+  }
 
   rowService.buildNewComponent = function(componentType, rowId){
     var component = _activateComponent(componentType);
@@ -49,15 +49,15 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     _extendComponent(component);
   };
 
-  var _addComponentToExistingRow = function(component, rowId){
+  function _addComponentToExistingRow(component, rowId){
     var curRow = _.find(data.cachedRows, function(row){
       return row.id === rowId;
     });
     component.rowId = rowId;
     curRow.components.push(component);
-  };
+  }
 
-  var _makeNewRow = function(component){
+  function _makeNewRow(component){
     var newRow = {
       id: _id,
       components: []
@@ -67,9 +67,9 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     data.cachedRows.push(newRow);
     data.created.push(newRow);
     _id++;
-  };
+  }
 
-  var _addNewTopRow = function(component){
+  function _addNewTopRow(component){
     var newRow = {
       id: _id,
       components: []
@@ -79,17 +79,17 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     data.cachedRows.unshift(newRow);
     data.created.unshift(newRow);
     _id++;
-  };
+  }
 
-  var _addRowBelow = function(component, nextRowIdx){
+  function _addRowBelow(component, nextRowIdx){
     if(data.cachedRows[nextRowIdx].components.length){
       _addToRow(component, nextRowIdx);
     } else {
       _makeNewRow(component);
     }
-  };
+  }
 
-  var _addToRow = function(component, rowIdx){
+  function _addToRow(component, rowIdx){
     var currentRow = data.cachedRows[rowIdx];
     if (currentRow){
       component.rowId = currentRow.id;
@@ -98,7 +98,7 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
       console.log("in the not currentRow");
       _makeNewRow(component);
     }
-  };
+  }
 
   rowService.packageRowsForSave = function(){
     var rows = { };
@@ -116,38 +116,37 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     return obj;
   }
 
-  var _repackage = function(row, index){
+  function _repackage(row, index){
     var newRow = angular.copy(row, {});
     delete newRow.id;
     newRow.order = _findOrder(row);
     newRow.components = componentService.getPackagedComponents(row.components);
     return newRow;
-  };
+  }
 
-  var _extendComponent = function(component){
+  function _extendComponent(component){
     component.moveLeft = _moveLeft;
     component.moveRight = _moveRight;
     component.moveUp = _moveUp;
     component.moveDown = _moveDown;
-  };
+  }
 
-  var _findRowIdx = function(rowId){
+  function _findRowIdx(rowId){
     var rowIdx = _.findIndex(data.cachedRows, function(row){
       return row.id == rowId;
     });
     return rowIdx;
+  }
 
-  };
-
-  var _findComponentIdx = function(component, rowIdx){
+  function _findComponentIdx(component, rowIdx){
     var components = data.cachedRows[rowIdx].components;
     var compIdx = _.findIndex(data.cachedRows[rowIdx].components, function(comp){
       return comp.id == component.id;
     });
     return compIdx;
-  };
+  }
 
-  var _moveUp = function(){
+  function _moveUp (){
     var rowIdx = _findRowIdx(this.rowId);
     var compIdx = _findComponentIdx(this, rowIdx);
     var comp;
@@ -160,14 +159,14 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
       comp = data.cachedRows[rowIdx].components.splice(compIdx, 1)[0];
       _addNewTopRow(comp);
     }
-  };
+  }
 
-  var _checkEmptyRow = function(rowIdx){
+  function _checkEmptyRow(rowIdx){
     if(data.cachedRows[rowIdx].components.length < 1){
       console.log('deleted');
       _removeFromDataObj(rowIdx);
     }
-  };
+  }
 
   function _removeFromDataObj(idx){
     var keys = ["created", "updated"];
@@ -187,7 +186,7 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     });
   }
 
-  var _moveDown = function(){
+  function _moveDown(){
     var rowIdx = _findRowIdx(this.rowId);
     var compIdx = _findComponentIdx(this, rowIdx);
     var comp;
@@ -199,30 +198,30 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
       comp = data.cachedRows[rowIdx].components.splice(compIdx, 1)[0];
       _makeNewRow(comp);
     }
-  };
+  }
 
-  var _moveLeft = function(){
+  function _moveLeft(){
     var rowIdx = _findRowIdx(this.rowId);
     var compIdx = _findComponentIdx(this, rowIdx);
     var that = this;
     if(compIdx > 0){
       data.cachedRows[rowIdx].components.swap( compIdx - 1, compIdx );
     }
-  };
+  }
 
-  var _moveRight = function(){
+  function _moveRight(){
     var rowIdx = _findRowIdx(this.rowId);
     var compIdx = _findComponentIdx(this, rowIdx);
     if(compIdx < (data.cachedRows[rowIdx].components.length - 1) ){
       data.cachedRows[rowIdx].components.swap( compIdx + 1, compIdx );
     }
-  };
+  }
 
-  var swapArrayElements = function(arr, indexA, indexB) {
+  function swapArrayElements(arr, indexA, indexB) {
     var temp = arr[indexA];
     arr[indexA] = arr[indexB];
     arr[indexB] = temp;
-  };
+  }
 
   Array.prototype.swap = function(indexA, indexB) {
      swapArrayElements(this, indexA, indexB);
