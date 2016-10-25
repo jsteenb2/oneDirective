@@ -124,12 +124,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     return newRow;
   };
 
-  function _findOrder(row){
-    return _.findIndex(data.cachedRows, function(_row){
-      return row.id == _row.id;
-    });
-  }
-
   var _extendComponent = function(component){
     component.moveLeft = _moveLeft;
     component.moveRight = _moveRight;
@@ -169,12 +163,29 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   };
 
   var _checkEmptyRow = function(rowIdx){
-    console.log(data.cachedRows[rowIdx]);
     if(data.cachedRows[rowIdx].components.length < 1){
       console.log('deleted');
-      data.cachedRows.splice(rowIdx, 1);
+      _removeFromDataObj(rowIdx);
     }
   };
+
+  function _removeFromDataObj(idx){
+    var keys = ["created", "updated"];
+    var curRow = data.cachedRows.splice(rowIdx, 1);
+    _.each(keys, function(keyName){
+      var rowIdx = _findOrder(curRow, keyName);
+      if(rowIdx >= 0){
+        data[keyName].splice(rowIdx, 1);
+      }
+    });
+  }
+
+  function _findOrder(row, listName){
+    list = data[listName] || data.cachedRows;
+    return _.findIndex(list, function(_row){
+      return row.id == _row.id;
+    });
+  }
 
   var _moveDown = function(){
     var rowIdx = _findRowIdx(this.rowId);
