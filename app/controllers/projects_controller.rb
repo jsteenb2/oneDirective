@@ -33,8 +33,9 @@ class ProjectsController < ApplicationController
   def update
     @project = current_user.projects.find_by_id(params[:id])
     if @project.update(project_params)
+      photo_url = @project.project_photo.url
       respond_to do |format|
-        format.json { render json: { project: @project, params: project_params }, status: 200 }
+        format.json { render json: {project: @project, photo_url: photo_url}, status: 200 }
       end
     end
     # if map_updates
@@ -52,8 +53,9 @@ class ProjectsController < ApplicationController
 
     def process_photo
       if params[:project_photo]
+        uploaded = params[:project_photo]
         params[:project] = {} if !params[:project]
-        params[:project][:project_photo] = params[:file]
+        params[:project][:project_photo] = uploaded
       end
     end
 
