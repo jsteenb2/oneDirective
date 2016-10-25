@@ -78,6 +78,7 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
       .patch({project: params})
       .then(function(data){
         console.log(data.project);
+        return data.project;
       })
       .catch(_logError);
   };

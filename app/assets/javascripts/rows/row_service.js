@@ -118,7 +118,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
 
   function _repackage(row, index){
     var newRow = angular.copy(row, {});
-    delete newRow.id;
     newRow.order = _findOrder(row);
     newRow.components = componentService.getPackagedComponents(row.components);
     return newRow;
