@@ -49,8 +49,9 @@ app.factory('TippedService',
                           .data('comp-id');
           compId = parseInt(compId);
           var component = componentService.getComponent(compId);
-          component.remove();
-          $rootScope.$broadcast('component.changed');
+          component.remove().then(function(response){
+            $rootScope.$broadcast('component.changed');
+          });
         });
       },
       afterUpdate: function(content, element) {

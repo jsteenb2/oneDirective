@@ -140,13 +140,14 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   }
 
   function _removeComponent(){
-    var rowIdx = _findRowIdx(this.rowId);
+    var rowIdx = _findRowIdx(this.rowId, data.cahedRows);
     var compIdx = _findComponentIdx(this, rowIdx);
     data.cachedRows[rowIdx].components.splice(compIdx, 1);
-    _checkEmptyRow(rowIdx);
-    console.log(data.cachedRows[rowIdx]);
-    console.log(data);
-    return componentService.deleteComponent(this);
+    return Promise.resolve(componentService.deleteComponent(this)).then(function(response){
+      _checkEmptyRow(rowIdx);
+      return;
+    });
+
   }
 
   function _findRowIdx(rowId, listName){

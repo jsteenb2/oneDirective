@@ -31,6 +31,7 @@ function(_, $http){
       });
       data[name].splice(compIdx, 1);
     });
+    delete component.rowId;
     data.deleted.push(component);
   };
 
