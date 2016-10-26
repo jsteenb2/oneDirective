@@ -1,4 +1,4 @@
-app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
+app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Restangular, _, rowService) {
   var srv = {};
   var _data = {
     cached: [],
@@ -58,6 +58,15 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
     return _.filter(_data.cached, {id: parseInt(project_id)})[0];
   };
 
+  srv.getProjectData = function(project_id){
+    return Restangular.one('projects', project_id).get()
+      .then(function(data){
+        console.log('resolve running');
+        console.log(data.project);
+        return rowService.rebuildRows(data.project.rows);
+      });
+  };
+
   srv.create = function (params) {
     return Restangular.all('projects')
       .post({project: params})
@@ -68,7 +77,9 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
   srv.update = function (params) {
     return Restangular.one('projects', params.id)
       .patch({project: params})
-      .then(_updateOne)
+      .then(function(data){
+        return data.project;
+      })
       .catch(_logError);
   };
 
@@ -76,6 +87,15 @@ app.factory('ProjectService', ['Restangular', '_', function (Restangular, _) {
     return project.remove()
       .then(_removeOne)
       .catch(_logError);
+  };
+
+  srv.saveProjectEdits = function(id){
+    var projectParams = {
+      rows: rowService.packageRowsForSave()
+    };
+    projectParams.id = id;
+    console.log(projectParams);
+    return srv.update(projectParams);
   };
 
   return srv;

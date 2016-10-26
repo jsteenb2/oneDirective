@@ -33,6 +33,28 @@ body {
   }
 }
 
+
 #workspace {
   background-color: white;
+
+  .highlight {
+    border: 1px solid blue;
+  }
+
+  .row {
+    border: 1px solid red;
+    min-height: 3em;
+  }
+  .selected-row {
+    border: 1px solid green;
+  }
+  .draggable {
+    border: 1px solid yellow;
+  }
+  .drop-row {
+  }
+  .sortable-placeholder {
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+  }
 }

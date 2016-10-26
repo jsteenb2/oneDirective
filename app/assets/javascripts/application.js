@@ -26,4 +26,6 @@
 //= require ripples
 //= require jquery.mCustomScrollbar
 //= require scrollbars
+//= require angular-dragdrop
+//= require jquery-ui
 //= require_tree .

@@ -4,7 +4,8 @@ var app = angular.module('materialProto',
 'Devise',
 'ui.bootstrap',
  'ui.tinymce',
- 'ngScrollbars']);
+ 'ngScrollbars',
+ 'ngDragDrop']);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
@@ -85,6 +86,9 @@ app.config(
         resolve: {
           componentSelection: ['componentService', function(componentService){
             return componentService.cacheComponentLibrary();
+          }],
+          projectData: ["$stateParams", "ProjectService", function($stateParams, ProjectService){
+            return ProjectService.getProjectData($stateParams.id);
           }]
         }
       });
