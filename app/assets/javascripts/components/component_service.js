@@ -56,7 +56,7 @@ function(_, $http){
 
   componentService.getPackagedComponents = function(components){
     var componentObj = { };
-    _cleanPack(componentObj, components, ["created", "updated"]);
+    _cleanPack(componentObj, components, ["created", "updated", "deleted"]);
     return componentObj;
   };
 
