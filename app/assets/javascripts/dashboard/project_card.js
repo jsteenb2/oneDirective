@@ -14,6 +14,7 @@ function (ProjectService, $uibModal, FlashService) {
   }
 
   vm.updateView = function (params) {
+    console.log(params);
     angular.copy(params,vm.project);
     return params;
   };
