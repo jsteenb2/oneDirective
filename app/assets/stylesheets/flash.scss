@@ -1,5 +1,7 @@
+// None of the styling other than position: absolute is being applied.
 .alert {
-  z-index: 10000;
+  position: relative;
+  z-index: 1000000000000000;
 }
 
 .alert.ng-enter {

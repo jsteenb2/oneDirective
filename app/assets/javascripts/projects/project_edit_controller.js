@@ -1,5 +1,5 @@
 app.controller('ProjectEditCtrl',
-  ['$stateParams', 'ProjectService', 'TippedService', 'currUser', '$scope', 'rowService', "$rootScope", 
+  ['$stateParams', 'ProjectService', 'TippedService', 'currUser', '$scope', 'rowService', "$rootScope",
   function( $stateParams, ProjectService, TippedService, currUser, $scope, rowService, $rootScope) {
     $scope.currentUser = currUser;
     $scope.config = {
