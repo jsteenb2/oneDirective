@@ -1,4 +1,4 @@
-app.factory('TippedService', 
+app.factory('TippedService',
   ["_",
   // johnny inject your component service.
   function(_){
@@ -8,7 +8,7 @@ app.factory('TippedService',
   var _offset = 0;
 
   stub.tipped = function () {
-    Tipped.create("#author-tipped",  
+    Tipped.create("#author-tipped",
     `
     <a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a>
     <p>How big is your grid?</p>
@@ -29,7 +29,7 @@ app.factory('TippedService',
           max: 13,
           values: [_offset, _width],
           slide: function(event, ui) {
-            
+
             //adjusts for edge cases
             _offset = $('#slider').slider("values", 0);
             if (parseInt(_offset) === -1) { _offset = parseInt(_offset) + 1; };
@@ -42,7 +42,7 @@ app.factory('TippedService',
             $("#author-tipped").attr('class', '');
             $("#author-tipped").addClass('col-xs-' + $('#slider').slider("values", 1));
             $("#author-tipped").addClass('col-xs-offset-' + $('#slider').slider("values", 0));
-            $("#author-tipped").addClass('container-fluid')
+            $("#author-tipped").addClass('container-fluid');
             $("#author-tipped").attr('style', 'border: 1px dotted black');
           }
         });
@@ -51,10 +51,10 @@ app.factory('TippedService',
         console.log('deleting slide');
         $('#slider').remove();
       }
-    })
+    });
 
     // johnny write your code here.
-    // this where you link up your delete service 
+    // this where you link up your delete service
     angular.element(document).on('click', '#delete-component', function(){
       console.log('hi johnny');
     });
