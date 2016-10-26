@@ -34,7 +34,7 @@ function(_, $http, FlashService){
     delete component.rowId;
     data.deleted.push(component);
     // Flash messages.
-    FlashService.destroy('success', 'components');
+    FlashService.destroy('success', 'components', component.name);
   };
 
   componentService.buildComponent = function(componentType){
@@ -44,7 +44,7 @@ function(_, $http, FlashService){
     data.created.push(component);
     _id++;
     // Flash messages.
-    FlashService.create('success', 'components');
+    FlashService.create('success', 'components', component.name);
     return component;
   };
 
