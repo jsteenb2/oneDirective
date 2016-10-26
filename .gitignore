@@ -25,5 +25,8 @@
 
 /public/system
 
+<<<<<<< HEAD
 # Ignore application configuration
+=======
+>>>>>>> 1b14d2e... removed config files and extraneous cj files
 /config/application.yml
