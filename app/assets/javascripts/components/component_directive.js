@@ -8,8 +8,17 @@ app.directive('component',
       component: "="
     },
     link: function(scope, element, attrs){
+
+      $rootScope.$on('component.changed', function(ev, compId){
+        if(scope.component.id == compId){
+          element.remove();
+          scope.$destroy();
+        }
+      });
+
       scope.hovered = false;
       scope.doubleClicked = false;
+      element.attr('data-comp-id', scope.component.id);
       var template = angular.element(scope.component.content)
         .attr('tabindex', scope.component.id);
       var linkFn = $compile(template);
@@ -69,7 +78,7 @@ app.directive('component',
            scope.component.moveUp();
            console.log("up arrow");
          }
-         $rootScope.$emit('component.moved');
+         $rootScope.$emit('component.changed');
       };
     }
   };

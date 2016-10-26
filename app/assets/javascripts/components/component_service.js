@@ -1,5 +1,5 @@
-app.factory('componentService', ["_", '$http',
-function(_, $http){
+app.factory('componentService', ["_", '$http', 'FlashService',
+function(_, $http, FlashService){
   var data = {
     cachedComponents: [],
     created: [],
@@ -17,13 +17,24 @@ function(_, $http){
     });
   };
 
+  componentService.getComponent = function(compId){
+    var compIdx = _.findIndex(data.cachedComponents, function(comp){
+      return comp.id == compId;
+    });
+    return data.cachedComponents[compIdx];
+  };
+
   componentService.deleteComponent = function(component){
     Object.keys(data).forEach(function(name, index, array){
-        _.remove(data[name], function(comp){
-          return component.id == comp.id;
-        });
+      var compIdx = _.findIndex(data[name], function(comp){
+        return component.id == comp.id;
+      });
+      data[name].splice(compIdx, 1);
     });
+    delete component.rowId;
     data.deleted.push(component);
+    // Flash messages.
+    FlashService.destroy('success', 'components');
   };
 
   componentService.buildComponent = function(componentType){
@@ -32,6 +43,8 @@ function(_, $http){
     data.cachedComponents.push(component);
     data.created.push(component);
     _id++;
+    // Flash messages.
+    FlashService.create('success', 'components');
     return component;
   };
 
@@ -118,22 +131,14 @@ function(_, $http){
   }
 
   function _removeEditorAttrs(component){
-    // component.content
-    //   .removeClass('ng-scope ng-binding')
-    //   .removeAttr('ng-keydown')
-    //   .removeAttr('ng-click')
-    //   .removeAttr('ng-dblclick')
-    //   .removeAttr('data-head')
-    //   .removeAttr('ng-class')
-    //   .removeAttr('tabindex');
-
-    angular.element(component.content).find('*')
+    component.content
       .removeClass('ng-scope ng-binding')
       .removeAttr('ng-keydown')
       .removeAttr('ng-click')
       .removeAttr('ng-dblclick')
       .removeAttr('data-head')
-      .removeAttr('ng-class');
+      .removeAttr('ng-class')
+      .removeAttr('tabindex');
   }
 
   function _extendContent(component){

@@ -54,11 +54,11 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
     var projectParams = {
       rows: rowService.packageRowsForSave()
     };
+    console.log(projectParams);
     projectParams.id = id;
     return srv.update(projectParams)
               .then(function(data){
                 rowService.clearCache();
-                console.log(data.project.rows);
                 rowService.rebuildRows(data.project.rows);
                 return data;
               });

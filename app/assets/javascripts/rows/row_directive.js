@@ -19,6 +19,17 @@ function($rootScope) {
             scope.hovered = false;
           }
         });
+
+        $rootScope.$on('component.changed', function(ev){
+          _checkComponentsEmpty();
+        });
+
+        function _checkComponentsEmpty(){
+          if(_.isEmpty(scope.row.components)){
+            element.remove();
+            scope.$destroy();
+          }
+        }
     }
   };
 }]);
