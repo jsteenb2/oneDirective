@@ -115,7 +115,7 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   };
 
   function _cleanPack(obj, listNames){
-    _.each(listNames, function(name){
+    listNames.forEach(function(name){
       var collection = data[name].map(_repackage);
       if (collection.length > 0){
         obj[name] = collection;
@@ -140,10 +140,14 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   }
 
   function _removeComponent(){
-    var compIdx = _findComponentIdx(this, this.rowId);
-    var rowIdx = _findRowIdx(this.rowId);
-    data.cached[rowIdx].splice(compIdx, 1);
-    componentService.deleteComponent(this);
+    var rowIdx = _findRowIdx(this.rowId, data.cahedRows);
+    var compIdx = _findComponentIdx(this, rowIdx);
+    data.cachedRows[rowIdx].components.splice(compIdx, 1);
+    return Promise.resolve(componentService.deleteComponent(this)).then(function(response){
+      _checkEmptyRow(rowIdx);
+      return;
+    });
+
   }
 
   function _findRowIdx(rowId, listName){
@@ -155,7 +159,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   }
 
   function _findComponentIdx(component, rowIdx){
-    var components = data.cachedRows[rowIdx].components;
     var compIdx = _.findIndex(data.cachedRows[rowIdx].components, function(comp){
       return comp.id == component.id;
     });
