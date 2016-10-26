@@ -118,14 +118,22 @@ function(_, $http){
   }
 
   function _removeEditorAttrs(component){
-    component.content
+    // component.content
+    //   .removeClass('ng-scope ng-binding')
+    //   .removeAttr('ng-keydown')
+    //   .removeAttr('ng-click')
+    //   .removeAttr('ng-dblclick')
+    //   .removeAttr('data-head')
+    //   .removeAttr('ng-class')
+    //   .removeAttr('tabindex');
+
+    angular.element(component.content).find('*')
       .removeClass('ng-scope ng-binding')
       .removeAttr('ng-keydown')
       .removeAttr('ng-click')
       .removeAttr('ng-dblclick')
       .removeAttr('data-head')
-      .removeAttr('ng-class')
-      .removeAttr('tabindex');
+      .removeAttr('ng-class');
   }
 
   function _extendContent(component){
