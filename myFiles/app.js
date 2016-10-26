@@ -4,12 +4,10 @@ var app = angular.module('materialProto',
 'Devise',
 'ui.bootstrap',
 'angularFileUpload',
- 'ui.tinymce',
- 'ngScrollbars',
- 'ngFlash',
-'ngAnimate',
-'ab-base64']);
-
+'ui.tinymce',
+'ab-base64',
+'ui.tinymce',
+'ngScrollbars']);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
@@ -27,12 +25,6 @@ app.config(
       .common['X-CSRF-Token'] = token;
 }]);
 
-app.config(['FlashProvider', function(FlashProvider) {
-    FlashProvider.setTimeout(2500);
-    FlashProvider.setShowClose(true);
-    // FlashProvider.setOnDismiss(myCallback);
-}]);
-
 app.factory('_', ['$window', function($window) {
   return $window._;
 }]);
@@ -46,7 +38,6 @@ app.config(
     RestangularProvider.setRequestSuffix('.json');
     RestangularProvider.setDefaultHttpFields({timeout: 3000});
 
-    // ADRIAN feel free to change the routing. --- CJ.
     $urlRouterProvider.otherwise('/projects');
 
     $stateProvider
@@ -69,10 +60,6 @@ app.config(
           'navbar@': {
             templateUrl: 'templates/nav/navbar.html',
             controller: 'navbarCtrl'
-          },
-          'flash@':{
-            templateUrl: 'templates/flash/flash.html',
-            controller: 'flashCtrl'
           }
         },
         resolve: {

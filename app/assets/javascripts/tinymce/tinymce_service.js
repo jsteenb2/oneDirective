@@ -24,25 +24,15 @@ function( _, $timeout) {
   stub.callMCE = function(event) {
     var i = 0;
     angular.element(event).attr('id', 'tinymce');
-    // var nested_targ = event;
-    // var id;
-    // handle edge cases to select textable
-    //if(_previousId) {
+
     var nested_targ = event;
     while (!nested_targ.hasClass("textable")) {
       if (i >= 10){ console.log(i); break;} //debuggerline
-      // if (nested_targ.id) {
-      //   // id = nested_targ.id;
-      //   break;
-      // }
+
       nested_targ = angular.element(nested_targ).parent();
       i++;
     }
-    // } else {
-    //   id = event.target.id;
-    //   _previousId = id;
-    // }
-    // change the element targetted on the dom
+
     var change = nested_targ || event;
 
     change = angular.element(change).clone();
@@ -86,7 +76,7 @@ function( _, $timeout) {
                };
                editor.formatter ? setup() : editor.on('init', setup);
            }
-       })
+       });
     });
   });
 
@@ -95,6 +85,8 @@ function( _, $timeout) {
       selector: ('#tinymce'),
       forced_root_block: false,
       themes: "modern",
+
+      //TODO: Ask adrian about this comment below vvvvvvvvvvv
       //please ignore this for now i will put in configuration rather than defaultMCE()
       style_formats: [
             {title: 'Headers', items: [
