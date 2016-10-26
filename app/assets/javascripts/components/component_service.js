@@ -17,20 +17,14 @@ function(_, $http){
     });
   };
 
-  componentService.getComponent = function(id){
-      return _.find(data.cachedComponents, function(component){
-        return component.id == id;
-      });
-  };
-
   componentService.deleteComponent = function(component){
     Object.keys(data).forEach(function(name, index, array){
-        _.remove(data[name], function(comp){
+        var compIdx = _.findIndex(data[name], function(comp){
           return component.id == comp.id;
         });
+        data[name].splice(compIdx, 1);
     });
     data.deleted.push(component);
-    // return Promise.resolve("successfully deleted");
   };
 
   componentService.buildComponent = function(componentType){
@@ -69,18 +63,16 @@ function(_, $http){
 
   componentService.getPackagedComponents = function(components){
     var componentObj = { };
-    console.log(angular.copy(data, {}));
     _cleanPack(componentObj, components, ["created", "updated", "deleted"]);
     return componentObj;
   };
 
   function _cleanPack(obj, components, listNames){
-    listNames.forEach(function(name){
+    _.each(listNames, function(name){
       var collection = _packageComponents(components, data[name]);
-      if (collection.length > 0){
-          obj[name] = collection;
+      if (collection.length > 0 && collection[0]){
+        obj[name] = collection;
       }
-      console.log(collection);
     });
     return obj;
   }
@@ -127,22 +119,14 @@ function(_, $http){
   }
 
   function _removeEditorAttrs(component){
-    // component.content
-    //   .removeClass('ng-scope ng-binding')
-    //   .removeAttr('ng-keydown')
-    //   .removeAttr('ng-click')
-    //   .removeAttr('ng-dblclick')
-    //   .removeAttr('data-head')
-    //   .removeAttr('ng-class')
-    //   .removeAttr('tabindex');
-
-    angular.element(component.content).find('*')
+    component.content
       .removeClass('ng-scope ng-binding')
       .removeAttr('ng-keydown')
       .removeAttr('ng-click')
       .removeAttr('ng-dblclick')
       .removeAttr('data-head')
-      .removeAttr('ng-class');
+      .removeAttr('ng-class')
+      .removeAttr('tabindex');
   }
 
   function _extendContent(component){
