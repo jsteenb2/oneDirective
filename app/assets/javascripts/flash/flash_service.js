@@ -46,5 +46,12 @@ app.factory('FlashService', ['pluralize', 'Flash', function (pluralize, Flash) {
   srv.update = _buildFlash(_update);
   srv.destroy = _buildFlash(_destroy);
 
+  srv.custom = function (status, message) {
+    return function () {
+      return Promise.resolve(Flash.create(status, message))
+        .then(_fadeFlash);
+    };
+  };
+
   return srv;
 }]);
