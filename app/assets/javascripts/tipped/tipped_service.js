@@ -50,7 +50,7 @@ app.factory('TippedService',
           compId = parseInt(compId);
           var component = componentService.getComponent(compId);
           component.remove().then(function(response){
-            $rootScope.$broadcast('component.changed');
+            $rootScope.$emit('component.changed', compId);
           });
         });
       },

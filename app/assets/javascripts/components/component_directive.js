@@ -8,6 +8,14 @@ app.directive('component',
       component: "="
     },
     link: function(scope, element, attrs){
+
+      $rootScope.$on('component.changed', function(ev, compId){
+        if(scope.component.id == compId){
+          element.remove();
+          scope.$destroy();
+        }
+      });
+
       scope.hovered = false;
       scope.doubleClicked = false;
       element.attr('data-comp-id', scope.component.id);
