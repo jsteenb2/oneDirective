@@ -9,6 +9,13 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   var rowService = {};
   var _id = 1;
 
+  rowService.clearCache = function(){
+    componentService.clearCache();
+    Object.keys(data).forEach(function(listName){
+      data[listName] = [];
+    });
+  };
+
   rowService.getRows = function(){
     return data.cachedRows;
   };
@@ -118,7 +125,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   }
 
   function _repackage(row, index){
-    console.log(row);
     var newRow = angular.copy(row, {});
     newRow.order = _findOrder(row);
     newRow.components = componentService.getPackagedComponents(row.components);
