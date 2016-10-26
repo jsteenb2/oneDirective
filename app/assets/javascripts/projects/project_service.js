@@ -1,4 +1,4 @@
-app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Restangular, _, rowService) {
+app.factory('ProjectService', ['Restangular', '_', 'rowService', 'FlashService', function (Restangular, _, rowService, FlashService) {
   var srv = {};
   var _data = {
     cached: [],
@@ -77,6 +77,7 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
   function _cacheOne (response) {
     _data.cached.push(response);
     angular.copy(response, _data.created);
+    FlashService.create('success', 'components');
     return _data;
   }
 
