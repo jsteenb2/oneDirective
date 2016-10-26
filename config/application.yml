@@ -18,6 +18,10 @@ defaults: &defaults
 
 development:
   <<: *defaults
+<<<<<<< HEAD
+=======
+
+>>>>>>> a6fe2c6... commented out s3 config
 
 production:
   <<: *defaults

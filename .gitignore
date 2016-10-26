@@ -66,4 +66,9 @@ aws_stuff.md
 
 # Ignore application configuration
 /config/application.yml
+<<<<<<< HEAD
 >>>>>>> 5af4c1e... added deployment
+=======
+
+aws_stuff.md
+>>>>>>> a6fe2c6... commented out s3 config
