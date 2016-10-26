@@ -21,7 +21,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   function  _reactivateComponent(componentType, index, array){
     var component = componentService.rebuildComponent(componentType);
     _extendComponent(component);
-    console.log(component);
     return component;
   }
 
