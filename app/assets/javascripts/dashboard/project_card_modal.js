@@ -27,8 +27,13 @@ app.controller('ProjectModalCtrl',
 
   vm.ok = function (params) {
     var fn = _close({$value: params});
+<<<<<<< HEAD
     vm.uploader.onCompleteAll = fn;
     vm.uploader.uploadAll();
+=======
+    PhotoUploadService.setCompleteCallback(fn);
+    PhotoUploadService.uploadAll();
+>>>>>>> aba5628... added callback for file upload
   };
 
   vm.cancel = function () {
