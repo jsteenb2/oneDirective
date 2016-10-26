@@ -1,5 +1,5 @@
-app.factory('componentService', ["_", '$http',
-function(_, $http){
+app.factory('componentService', ["_", '$http', 'FlashService',
+function(_, $http, FlashService){
   var data = {
     cachedComponents: [],
     created: [],
@@ -33,6 +33,8 @@ function(_, $http){
     });
     delete component.rowId;
     data.deleted.push(component);
+    // Flash messages.
+    FlashService.destroy('success', 'components');
   };
 
   componentService.buildComponent = function(componentType){
@@ -41,6 +43,8 @@ function(_, $http){
     data.cachedComponents.push(component);
     data.created.push(component);
     _id++;
+    // Flash messages.
+    FlashService.create('success', 'components');
     return component;
   };
 

@@ -1,5 +1,5 @@
 app.controller('ProjectModalCtrl',
-['PhotoUploadService', 'Restangular', function (PhotoUploadService, Restangular) {
+['PhotoUploadService', 'Restangular', 'FlashService', function (PhotoUploadService, Restangular, FlashService) {
   var vm = this;
 
   function _decouple () {
@@ -9,8 +9,14 @@ app.controller('ProjectModalCtrl',
   }
 
   function _close (value) {
-    return function () {
-      vm.close(value);
+    return function (emptyQueue) {
+      if (emptyQueue) {
+        vm.close(value);
+      } else {
+        Promise.resolve(vm.close(value))
+          .then(FlashService.custom('success', "You've uploaded a photo"))
+          .catch(FlashService.custom('danger', "Upload failed"));
+      }
     };
   }
 
@@ -27,13 +33,19 @@ app.controller('ProjectModalCtrl',
 
   vm.ok = function (params) {
     var fn = _close({$value: params});
-    vm.uploader.onCompleteAll = fn;
-    vm.uploader.uploadAll();
+    if (_.isEmpty(vm.uploader.queue)) {
+      fn(true);
+    } else {
+      vm.uploader.onCompleteAll = fn;
+      vm.uploader.uploadAll();
+    }
   };
 
   vm.cancel = function () {
     vm.dismiss({$value: 'cancel'});
   };
+
+  vm.fire = function () { console.log('hello'); };
 }]);
 
 app.component('projectModal', {
