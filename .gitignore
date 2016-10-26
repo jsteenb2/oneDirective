@@ -27,6 +27,7 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /
 
@@ -34,4 +35,9 @@
 >>>>>>> 67a00f2... gitignore
 # Ignore application configuration
 >>>>>>> c13e104... edited gitignore for figaro
+=======
+# Ignore application configuration
+=======
+>>>>>>> 1b14d2e... removed config files and extraneous cj files
+>>>>>>> ecc1f10... gitignore
 /config/application.yml
