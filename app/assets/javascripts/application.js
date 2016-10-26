@@ -38,6 +38,5 @@
 
 //= require angular-flash.min
 //= require pluralize
-//= require angular-animate
 
 //= require_tree .

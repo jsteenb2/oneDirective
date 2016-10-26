@@ -6,27 +6,26 @@
   </div>
 
   <div class='row'>
-    <div class='col-md-12 dashboard'>
+    <div class='col-md-12'>
       <create-project
       scroll-to-top
       on-create='dashCtrl.addProject($event)'
       class='pull-right'>
       </create-project>
-
-      <div class='row'>
-        <div style='text-align: center' class="col-md-12">
-          <h1>Projects</h1>
-        </div>
-      </div>
-
-      <div class='row' style='padding-left: 45px'>
-        <project-card
-        ng-repeat='project in dashCtrl.projectsData.cached'
-        project='project'
-        on-edit='dashCtrl.editProject($event)'
-        class='col-md-4'></project-card>
-      </div>
     </div>
   </div>
 
+  <div class='row'>
+    <div style='text-align: center' class="col-md-12">
+      <h1>Projects</h1>
+    </div>
+  </div>
+
+  <div class='row' style='padding-left: 45px'>
+    <project-card
+    ng-repeat='project in dashCtrl.projectsData.cached'
+    project='project'
+    on-edit='dashCtrl.editProject($event)'
+    class='col-md-4 col-xs-6'></project-card>
+  </div>
 </div>

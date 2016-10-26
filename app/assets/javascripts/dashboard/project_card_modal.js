@@ -28,12 +28,18 @@ app.controller('ProjectModalCtrl',
   vm.ok = function (params) {
     var fn = _close({$value: params});
     vm.uploader.onCompleteAll = fn;
-    vm.uploader.uploadAll();
+    if (_.isEmpty(vm.uploader.queue)) {
+      fn();
+    } else {
+      vm.uploader.uploadAll();
+    }
   };
 
   vm.cancel = function () {
     vm.dismiss({$value: 'cancel'});
   };
+
+  vm.fire = function () { console.log('hello'); };
 }]);
 
 app.component('projectModal', {
