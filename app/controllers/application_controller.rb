@@ -33,6 +33,10 @@ class ApplicationController < ActionController::Base
   end
 
   def update_existing_components(row, selected_row)
+    puts "SELECTED ROW"
+    p selected_row
+    puts "ROW"
+    p row
     row["components"]["updated"].each do |component|
       _component = Component.find_by_id(component["id"])
       _component.update(order: component["order"],

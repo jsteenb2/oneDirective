@@ -8,6 +8,14 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   var rowService = {};
   var _id = 1;
 
+  rowService.getComponentOrder = function(component){
+    var row = rowService.getRowById(component.rowId);
+    var index = _.findIndex(row.components, function(rowComponent){
+      return rowComponent.id == component.id;
+    });
+    return index;
+  };
+
   function _getComponentRow(component){
     return _.find(data.cachedRows, function(row){
       return row.id == component.rowId;
@@ -24,6 +32,12 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     });
   };
 
+  var _getRowIdx = function(rowId){
+    return _.findIndex(data.cachedRows, function(row){
+      return row.id == rowId;
+    });
+  };
+
   rowService.clearCache = function(){
     componentService.clearCache();
     Object.keys(data).forEach(function(listName){
@@ -37,13 +51,13 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
       return rowComponent.id == component.id;
     });
     row.components.splice(componentIndex, 1);
+    _checkEmptyRow(_getRowIdx(component.rowId));
     component.rowId = undefined;
   };
 
   rowService.moveComponentFromRowToRow = function(component, toRow){
     _removeComponentFromRow(component);
     _addComponentToExistingRow(component, toRow.id);
-    console.log(component);
   };
 
   rowService.getRows = function(){
@@ -88,15 +102,12 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   };
 
   rowService.changeComponentOrder = function(componentIds, row){
-    console.log(componentIds);
     var newComponentArray = [];
     _.forEach(componentIds, function(id){
       var component = componentService.getComponentById(id);
       newComponentArray.push(component);
     });
     angular.copy(newComponentArray, row.components);
-    console.log(row.components);
-    console.log(data.cachedRows);
   };
 
   function _addComponentToExistingRow(component, rowId){
@@ -145,7 +156,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
       component.rowId = currentRow.id;
       currentRow.components.push(component);
     } else {
-      console.log("in the not currentRow");
       _makeNewRow(component);
     }
   }
@@ -170,8 +180,24 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     var newRow = angular.copy(row, {});
     newRow.order = _findOrder(row);
     newRow.components = componentService.getPackagedComponents(row.components);
+    _reorderComponents(newRow);
     return newRow;
   }
+
+  var _getComponentRowId = function(id){
+    return componentService.getComponentById(id).rowId;
+  };
+
+  var _reorderComponents = function(row){
+    _.forEach(row.components.updated, function(component){
+      if(component){
+        component.rowId = _getComponentRowId(component.id);
+        component.order = rowService.getComponentOrder(component);
+      }
+    });
+    return row;
+  };
+
 
   function _extendComponent(component){
     component.moveLeft = _moveLeft;
@@ -240,7 +266,7 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   }
 
   function _findOrder(row, listName){
-    list = data[listName] || data.cachedRows;
+    var list = data[listName] || data.cachedRows;
     var idx =  _.findIndex(list, function(_row){
       return row.id == _row.id;
     });
@@ -292,7 +318,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     var newRow = {id: _id, components: []};
     _rows.push(newRow);
     _id++;
-    console.log('adding row');
   };
 
   var _addNewTopRow = function(component){

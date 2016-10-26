@@ -11,6 +11,7 @@ app.directive('myComponent', ['$compile', "$rootScope", "$window", "tinyMCEServi
       var linkFn = $compile(template);
       var content = linkFn(scope);
       element.append(content);
+      console.log(element);
       element.addClass('col-xs-12');
 
       scope.info = tinyMCEService.info;

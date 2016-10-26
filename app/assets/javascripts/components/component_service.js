@@ -90,12 +90,15 @@ function(_, $http){
       if (compIdx >= 0){
         var newComponent = angular.copy(component, {});
         newComponent.order = _findOrder(component);
+        console.log(newComponent);
+        console.log(data.cachedComponents);
         _cleanContent(newComponent);
         return newComponent;
       }
     });
   }
 
+  //fix this
   function _findOrder(component){
     return _.findIndex(data.cachedComponents, function(comp){
       return component.id == comp.id;

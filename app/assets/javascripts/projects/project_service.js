@@ -36,6 +36,8 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
   };
 
   srv.update = function (params) {
+    console.log('updating with');
+    console.log(params);
     return Restangular.one('projects', params.id)
       .patch({project: params})
       .then(function(data){
@@ -55,6 +57,7 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
       rows: rowService.packageRowsForSave()
     };
     projectParams.id = id;
+    console.log(projectParams);
     return srv.update(projectParams)
               .then(function(data){
                 rowService.clearCache();
