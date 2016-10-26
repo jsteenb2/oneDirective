@@ -1,3 +1,15 @@
 i.icon {
   cursor: pointer;
 }
+
+button.browse-btn {
+  width: 100px;
+}
+
+input[type=file] {
+  z-index: 2;
+  opacity: 0;
+  position: relative;
+  width: 100px;
+  cursor: pointer;
+}
