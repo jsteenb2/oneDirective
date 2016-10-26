@@ -17,6 +17,12 @@ function(_, $http){
     });
   };
 
+  componentService.getComponent = function(id){
+      return _.find(data.cachedComponents, function(component){
+        return component.id == id;
+      });
+  };
+
   componentService.deleteComponent = function(component){
     Object.keys(data).forEach(function(name, index, array){
         _.remove(data[name], function(comp){
@@ -24,6 +30,7 @@ function(_, $http){
         });
     });
     data.deleted.push(component);
+    // return Promise.resolve("successfully deleted");
   };
 
   componentService.buildComponent = function(componentType){
@@ -62,16 +69,18 @@ function(_, $http){
 
   componentService.getPackagedComponents = function(components){
     var componentObj = { };
+    console.log(angular.copy(data, {}));
     _cleanPack(componentObj, components, ["created", "updated", "deleted"]);
     return componentObj;
   };
 
   function _cleanPack(obj, components, listNames){
-    _.each(listNames, function(name){
+    listNames.forEach(function(name){
       var collection = _packageComponents(components, data[name]);
-      if (collection.length > 0 && collection[0]){
-        obj[name] = collection;
+      if (collection.length > 0){
+          obj[name] = collection;
       }
+      console.log(collection);
     });
     return obj;
   }

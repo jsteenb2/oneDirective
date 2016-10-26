@@ -1,7 +1,5 @@
 app.factory('TippedService',
-  ["_",
-  // johnny inject your component service.
-  function(_){
+  ["_", 'rowService', 'componentService', '$rootScope', function(_, rowService, componentService, $rootScope){
   var stub = {};
 
   var _width = 12;
@@ -29,9 +27,9 @@ app.factory('TippedService',
 
             //adjusts for edge cases
             _offset = $('#slider').slider("values", 0);
-            if (parseInt(_offset) === -1) { _offset = parseInt(_offset) + 1; };
+            if (parseInt(_offset) === -1) { _offset = parseInt(_offset) + 1; }
             _width = $('#slider').slider("values", 1);
-            if (parseInt(_width) === 13) { _width = parseInt(_width) - 1; };
+            if (parseInt(_width) === 13) { _width = parseInt(_width) - 1; }
             //displays current offset and width
             $("#off-set").html($('#slider').slider("values", 0));
             $("#width").html($('#slider').slider("values", 1));
@@ -47,13 +45,18 @@ app.factory('TippedService',
 
 
         angular.element(content).on('click', '#delete-component', function(){
-          console.log('hi johnny');
+          var compId = angular.element(element).closest('component')
+                          .first()
+                          .data('comp-id');
+          compId = parseInt(compId);
+          var component = componentService.getComponent(compId);
+          component.remove();
+          $rootScope.$broadcast('component.changed');
         });
       },
       afterUpdate: function(content, element) {
 
-
-        },
+      },
 
       onHide: function(content, element) {
         console.log('deleting tooltip');

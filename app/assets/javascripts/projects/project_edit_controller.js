@@ -1,5 +1,5 @@
 app.controller('ProjectEditCtrl',
-  ['$stateParams', 'ProjectService', 'TippedService', 'currUser', '$scope', 'rowService', "$rootScope", 
+  ['$stateParams', 'ProjectService', 'TippedService', 'currUser', '$scope', 'rowService', "$rootScope",
   function( $stateParams, ProjectService, TippedService, currUser, $scope, rowService, $rootScope) {
     $scope.currentUser = currUser;
     $scope.config = {
@@ -22,7 +22,7 @@ app.controller('ProjectEditCtrl',
       TippedService.tipped();
     });
 
-    $rootScope.$on('component.moved', function(ev){
+    $rootScope.$on('component.changed', function(ev){
       $scope.rows();
     });
 }]);

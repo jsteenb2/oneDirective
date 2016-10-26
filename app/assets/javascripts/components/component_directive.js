@@ -10,6 +10,7 @@ app.directive('component',
     link: function(scope, element, attrs){
       scope.hovered = false;
       scope.doubleClicked = false;
+      element.attr('data-comp-id', scope.component.id);
       var template = angular.element(scope.component.content)
         .attr('tabindex', scope.component.id);
       var linkFn = $compile(template);
@@ -69,7 +70,7 @@ app.directive('component',
            scope.component.moveUp();
            console.log("up arrow");
          }
-         $rootScope.$emit('component.moved');
+         $rootScope.$emit('component.changed');
       };
     }
   };
