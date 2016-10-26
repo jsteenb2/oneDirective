@@ -21,6 +21,9 @@ source "https://rails-assets.org" do
   gem 'rails-assets-angular-dragdrop'
   gem 'rails-assets-angular-utf8-base64'
   gem 'rails-assets-bootstrap-material-design'
+  gem 'rails-assets-angular-flash-alert'
+  gem 'rails-assets-pluralize'
+  gem 'rails-assets-angular-animate'
 end
 
 #devise

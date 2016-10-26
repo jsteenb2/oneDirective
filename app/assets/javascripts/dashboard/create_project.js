@@ -1,5 +1,5 @@
 app.controller('CreateProjectCtrl',
-['$uibModal', function ($uibModal) {
+['$uibModal', 'FlashService', function ($uibModal) {
   var vm = this;
 
   vm.create = function (params) {

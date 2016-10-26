@@ -6,7 +6,9 @@ var app = angular.module('materialProto',
 'angularFileUpload',
  'ui.tinymce',
 'ab-base64',
- 'ngScrollbars']);
+ 'ngScrollbars',
+ 'ngFlash',
+ 'ngAnimate']);
 
 
 app.run(['$rootScope', function($rootScope){
@@ -29,16 +31,21 @@ app.factory('_', ['$window', function($window) {
   return $window._;
 }]);
 
+app.factory('pluralize', ['$window', function($window){
+  return $window.pluralize;
+}]);
+
 app.config(
-  ['$stateProvider', '$urlRouterProvider', 'RestangularProvider',
-  function($stateProvider, $urlRouterProvider, RestangularProvider) {
+  ['$stateProvider', '$urlRouterProvider', 'RestangularProvider', 'FlashProvider',
+  function($stateProvider, $urlRouterProvider, RestangularProvider, FlashProvider) {
+    // Flash
+    FlashProvider.setTimeout(3000);
 
     // Restangular
     RestangularProvider.setBaseUrl('api/v1');
     RestangularProvider.setRequestSuffix('.json');
     RestangularProvider.setDefaultHttpFields({timeout: 3000});
 
-    // ADRIAN feel free to change the routing. --- CJ.
     $urlRouterProvider.otherwise('/projects');
 
     $stateProvider
