@@ -17,12 +17,19 @@ function(_, $http){
     });
   };
 
+  componentService.getComponent = function(compId){
+    var compIdx = _.findIndex(data.cachedComponents, function(comp){
+      return comp.id == compId;
+    });
+    return data.cachedComponents[compIdx];
+  };
+
   componentService.deleteComponent = function(component){
     Object.keys(data).forEach(function(name, index, array){
-        var compIdx = _.findIndex(data[name], function(comp){
-          return component.id == comp.id;
-        });
-        data[name].splice(compIdx, 1);
+      var compIdx = _.findIndex(data[name], function(comp){
+        return component.id == comp.id;
+      });
+      data[name].splice(compIdx, 1);
     });
     data.deleted.push(component);
   };

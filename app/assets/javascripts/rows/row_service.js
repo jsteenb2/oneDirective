@@ -14,7 +14,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     Object.keys(data).forEach(function(listName){
       data[listName] = [];
     });
-    return Promise.resolve("cleared cache");
   };
 
   rowService.getRows = function(){
@@ -144,6 +143,8 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     var rowIdx = _findRowIdx(this.rowId);
     var compIdx = _findComponentIdx(this, rowIdx);
     data.cachedRows[rowIdx].components.splice(compIdx, 1);
+    _checkEmptyRow(rowIdx);
+    console.log(data.cachedRows[rowIdx]);
     console.log(data);
     return componentService.deleteComponent(this);
   }
@@ -157,8 +158,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   }
 
   function _findComponentIdx(component, rowIdx){
-    console.log([component, rowIdx, data]);
-    var components = data.cachedRows[rowIdx].components;
     var compIdx = _.findIndex(data.cachedRows[rowIdx].components, function(comp){
       return comp.id == component.id;
     });

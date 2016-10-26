@@ -12,7 +12,6 @@ app.controller('ProjectEditCtrl',
     };
 
     angular.element(document).on('mouseenter', '.tipped', function(event) {
-      console.log('hovering');
 
       nested_targ = angular.element(event.target);
       while (!nested_targ.hasClass('tipped')) {

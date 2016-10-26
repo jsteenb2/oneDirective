@@ -17,7 +17,6 @@ app.factory('TippedService',
       // closeButton: true,
       hook: 'bottomright',
       onShow: function(content, element) {
-        console.log('showing slider');
         $("#slider" ).slider({
           range: true,
           min: -1,
@@ -59,7 +58,6 @@ app.factory('TippedService',
       },
 
       onHide: function(content, element) {
-        console.log('deleting tooltip');
         Tipped.remove('.tipped-curr');
 
         $('.t_ContentContainer.t_clearfix.t_Content_white').remove();

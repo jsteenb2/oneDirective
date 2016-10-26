@@ -58,9 +58,8 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
     projectParams.id = id;
     return srv.update(projectParams)
               .then(function(data){
-                rowService.clearCache().then(function(response){
-                  rowService.rebuildRows(data.project.rows);
-                });
+                rowService.clearCache();
+                rowService.rebuildRows(data.project.rows);
                 return data;
               });
   };
