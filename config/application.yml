@@ -10,15 +10,15 @@
 #   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
 
+defaults: &defaults
+  AWS_REGION: us-west-2
+  AWS_BUCKET_NAME: one-directive-projects
+  AWS_ACCESS_KEY_ID: AKIAIVM6YI6WTWISP5OA
+  AWS_SECRET_ACCESS_KEY: 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
 
 development:
-  S3_REGION: US Standard
-  S3_BUCKET_NAME: one-directive-projects
-  AWS_ACCESS_KEY_ID: AKIAISE2RACJC6RUO65Q
-  AWS_SECRET_ACCESS_KEY: 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
+  <<: *defaults
+
 
 production:
-  S3_REGION: US Standard
-  S3_BUCKET_NAME: one-directive-projects
-  AWS_ACCESS_KEY_ID: AKIAIR7ZQ4RQJCP5SGOA
-  AWS_SECRET_ACCESS_KEY: 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
+  <<: *defaults
