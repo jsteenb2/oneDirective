@@ -27,5 +27,8 @@ app.component('createProject', {
     onCreate: '&'
   },
   restrict: 'E',
-  template: `<button class='btn btn-primary' ng-click='$ctrl.open()'>Create Project</button>`
+  template:
+  `
+  <button class='btn btn-primary' ng-click='$ctrl.open()'>Create Project</button>
+  `
 });

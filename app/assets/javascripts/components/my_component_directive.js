@@ -13,8 +13,8 @@ app.directive('myComponent', ['$compile', "$rootScope", "$window", "tinyMCEServi
       element.append(content);
       element.addClass('col-xs-4');
 
-
       scope.dblClick = function($event){
+        console.log('fired double');
         $event.stopPropagation();
         var $ele = angular.element($event.target);
         if(scope.doubleClicked){
