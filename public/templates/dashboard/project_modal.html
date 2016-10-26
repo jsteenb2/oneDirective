@@ -3,14 +3,11 @@
   <div class='modal-body'>
     <form ng-submit='$ctrl.ok($ctrl.project)'>
       <div class='form-group'>
-        <label>
-          <i class="fa fa-upload fa-2x icon"></i><input id='projectPhoto' uploader='$ctrl.uploader' nv-file-select type='file' style="display: none;">
-        </label><br>
-
-        <button class='btn btn-success' type="button" ng-click="$ctrl.uploader.queue[0].upload()">Upload</button>
-
-        <div class='progress'>
-          <div class='progress-bar' ng-style="{'width': $ctrl.uploader.queue[0].progress + '%'}">
+        <button class='btn btn-primary browse-btn' type="button">browse</button>
+        <input id='projectPhoto' ng-model='$ctrl.photo_upload' uploader='$ctrl.uploader' nv-file-select type='file'>
+          <div class='progress'>
+            <div class='progress-bar' ng-style="{'width': $ctrl.uploader.queue[0].progress + '%'}">
+            </div>
           </div>
         </div>
       </div>
@@ -26,8 +23,8 @@
       </div>
 
       <div class='form-group'>
-        <input type='submit' class='btn btn-primary' value='Update Project'>
         <button class='btn btn-danger' ng-click='$ctrl.cancel()'>Cancel Changes</button>
+        <input type='submit' class='btn btn-primary pull-right' value='Update Project'>
       </div>
 
     </form>
