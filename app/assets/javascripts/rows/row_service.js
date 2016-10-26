@@ -7,6 +7,7 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   };
 
   var rowService = {};
+  var _rows = [];
   var _id = 1;
 
   rowService.getRows = function(){
@@ -71,6 +72,19 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     _id++;
   }
 
+  // Duplicate.
+  var _makeNewRow = function(component){
+    var newRow = {
+      id: _id,
+      components: []
+    };
+    component.rowId = newRow.id;
+    newRow.components.push(component);
+    _rows.push(newRow);
+    _id++;
+  };
+
+
   function _addNewTopRow(component){
     var newRow = {
       id: _id,
@@ -82,6 +96,18 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     data.created.unshift(newRow);
     _id++;
   }
+
+  // Duplicate
+  var _addNewTopRow = function(component){
+    var newRow = {
+      id: _id,
+      components: []
+    };
+    component.rowId = newRow.id;
+    newRow.components.push(component);
+    _rows.unshift(newRow);
+    _id++;
+  };
 
   function _addRowBelow(component, nextRowIdx){
     if(data.cachedRows[nextRowIdx].components.length){
