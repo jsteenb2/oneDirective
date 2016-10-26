@@ -5,15 +5,15 @@ Rails.application.configure do
   config.cache_classes = true
 
   # Paperclip with S3.
-  config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_credentials => {
-      :s3_region => Rails.application.secrets.s3_region,
-      :bucket => Rails.application.secrets.s3_bucket_name,
-      :access_key_id => Rails.application.secrets.aws_access_key_id,
-      :secret_access_key => Rails.application.secrets.aws_secret_access_key
-    }
-  }
+  # config.paperclip_defaults = {
+  #   :storage => :s3,
+  #   :s3_credentials => {
+  #     :s3_region => Rails.application.secrets.s3_region,
+  #     :bucket => Rails.application.secrets.s3_bucket_name,
+  #     :access_key_id => Rails.application.secrets.aws_access_key_id,
+  #     :secret_access_key => Rails.application.secrets.aws_secret_access_key
+  #   }
+  # }
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers

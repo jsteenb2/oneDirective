@@ -24,7 +24,11 @@
 # seeds
 /db/seeds.rb
 
+.DS_Store
+
 /public/system
 
 # Ignore application configuration
 /config/application.yml
+
+aws_stuff.md
