@@ -8,7 +8,7 @@ function (projectsData, ProjectService, $state, FlashService) {
   vm.addProject = function ($event) {
     FlashService.create('success', 'projects');
     ProjectService.create($event.params);
-    };
+  };
 
   vm.editProject = function ($event) {
     $state.go('main.projects.edit', {id: $event.id});

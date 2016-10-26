@@ -26,11 +26,11 @@ app.factory('FlashService', ['pluralize', 'Flash', function (pluralize, Flash) {
     return function (status,resource) {
       var message = builder(status,resource);
       Promise.resolve(Flash.create(status, message))
-        .then(_fadeInFlash);
+        .then(_fadeFlash);
     };
   }
 
-  function _fadeInFlash () {
+  function _fadeFlash () {
     var $alert = angular.element('div.alert');
     $alert.hide()
       .fadeIn(500)
