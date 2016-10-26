@@ -28,6 +28,7 @@ app.directive('myComponent', ['$compile', "$rootScope", "$window", "tinyMCEServi
 
 
       $rootScope.$on('component-dropped', function(name, params){
+        $rootScope.$emit('component.changed');
         if(params.rowId && params.componentId){
           var component = componentService.getComponentById(params.componentId);
           var row = rowService.getRowById(params.rowId);

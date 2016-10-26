@@ -1,16 +1,19 @@
 app.controller('ProjectCardCtrl',
-['ProjectService', '$uibModal',
-function (ProjectService, $uibModal) {
+['ProjectService', '$uibModal', 'FlashService',
+function (ProjectService, $uibModal, FlashService) {
   var vm = this;
 
   vm.updateView = function (params) {
+    console.log(params);
     angular.copy(params,vm.project);
   };
 
   // Update: using the modal.
   vm.updateProject = function (params) {
     ProjectService.update(params)
-      .then(vm.updateView);
+      .then(vm.updateView)
+      .then(FlashService.update('success', 'projects'))
+      .catch(FlashService.update('danger', 'projects'));
   };
 
   // Edit: go to edit page.

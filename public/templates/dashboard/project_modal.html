@@ -1,32 +1,28 @@
-<div class='modal-content'>
-  <h1 class='modal-header'>{{$ctrl.title}}</h1>
-  <div class='modal-body'>
-    <form ng-submit='$ctrl.ok($ctrl.project)'>
-      <div class='form-group'>
-        <button class='btn btn-primary browse-btn' type="button">browse</button>
-        <input id='projectPhoto' ng-model='$ctrl.photo_upload' uploader='$ctrl.uploader' nv-file-select type='file'>
-          <div class='progress'>
-            <div class='progress-bar' ng-style="{'width': $ctrl.uploader.queue[0].progress + '%'}">
-            </div>
-          </div>
+<h1 class='modal-header'>{{$ctrl.title}}</h1>
+<div class='modal-body'>
+  <form ng-submit='$ctrl.ok($ctrl.project)'>
+    <div class='form-group'>
+      <button class='btn btn-primary browse-btn' type="button">browse</button>
+      <input id='projectPhoto' ng-model='$ctrl.photo_upload' uploader='$ctrl.uploader' nv-file-select type='file'>
+      <div class='progress'>
+        <div class='progress-bar' ng-style="{'width': $ctrl.uploader.queue[0].progress + '%'}">
         </div>
       </div>
+    </div>
 
-      <div class='form-group'>
-        <label for='projectTitle'>Title</label><br>
-        <input id='projectTitle' type='text' class='form-control' ng-model='$ctrl.project.title'>
-      </div>
+    <div class='form-group'>
+      <label for='projectTitle'>Title</label><br>
+      <input id='projectTitle' type='text' class='form-control' ng-model='$ctrl.project.title'>
+    </div>
 
-      <div class='form-group'>
-        <label for='projectDescription'>Description</label><br>
-        <textarea id='projectDescription' type='text' class='form-control' ng-model='$ctrl.project.description'></textarea>
-      </div>
+    <div class='form-group'>
+      <label for='projectDescription'>Description</label><br>
+      <textarea id='projectDescription' type='text' class='form-control' ng-model='$ctrl.project.description'></textarea>
+    </div>
 
-      <div class='form-group'>
-        <button class='btn btn-danger' ng-click='$ctrl.cancel()'>Cancel Changes</button>
-        <input type='submit' class='btn btn-primary pull-right' value='Update Project'>
-      </div>
-
-    </form>
-  </div>
+    <div class='form-group'>
+      <button class='btn btn-danger' ng-click='$ctrl.cancel()'>Cancel Changes</button>
+      <input type='submit' class='btn btn-primary pull-right' value='Update Project'>
+    </div>
+  </form>
 </div>

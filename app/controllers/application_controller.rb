@@ -39,10 +39,11 @@ class ApplicationController < ActionController::Base
     p row
     row["components"]["updated"].each do |component|
       _component = Component.find_by_id(component["id"])
-      _component.update(order: component["order"],
-                        content: component["content"],
-                        name: component["name"],
-                        row_id: selected_row[:id])
+      _component.update( order: component["order"],
+                         content: component["content"],
+                         name: component["name"],
+                         row_id: selected_row[:id],
+                         component_type: component["component_type"])
     end
   end
 
@@ -50,7 +51,8 @@ class ApplicationController < ActionController::Base
     row["components"]["created"].each do |component|
       _component = selected_row.components.create( order: component["order"],
                                                    content: component["content"],
-                                                   name: component["name"])
+                                                   name: component["name"],
+                                                   component_type: component["component_type"] )
     end
   end
 

@@ -1,5 +1,5 @@
-app.factory('componentService', ["_", '$http',
-function(_, $http){
+app.factory('componentService', ["_", '$http', 'FlashService',
+function(_, $http, FlashService){
   var data = {
     cachedComponents: [],
     created: [],
@@ -23,13 +23,24 @@ function(_, $http){
     });
   };
 
+  componentService.getComponent = function(compId){
+    var compIdx = _.findIndex(data.cachedComponents, function(comp){
+      return comp.id == compId;
+    });
+    return data.cachedComponents[compIdx];
+  };
+
   componentService.deleteComponent = function(component){
     Object.keys(data).forEach(function(name, index, array){
-        _.remove(data[name], function(comp){
-          return component.id == comp.id;
-        });
+      var compIdx = _.findIndex(data[name], function(comp){
+        return component.id == comp.id;
+      });
+      data[name].splice(compIdx, 1);
     });
+    delete component.rowId;
     data.deleted.push(component);
+    // Flash messages.
+    FlashService.destroy('success', 'components', component.name);
   };
 
   componentService.buildComponent = function(componentType){
@@ -38,6 +49,8 @@ function(_, $http){
     data.cachedComponents.push(component);
     data.created.push(component);
     _id++;
+    // Flash messages.
+    FlashService.create('success', 'components', component.name);
     return component;
   };
 

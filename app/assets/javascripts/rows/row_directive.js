@@ -27,12 +27,22 @@ app.directive('row', ['$rootScope', '$compile', '$document', function($rootScope
         }
       });
 
-      $rootScope.$on('selected.row', function(ev, id){
-        if (scope.row.id !== id){
-          scope.hovered = false;
-          element.removeClass('selected-row');
+        $rootScope.$on('selected.row', function(ev, id){
+          if (scope.row.id !== id){
+            scope.hovered = false;
+          }
+        });
+
+        $rootScope.$on('component.changed', function(ev){
+          _checkComponentsEmpty();
+        });
+
+        function _checkComponentsEmpty(){
+          if(_.isEmpty(scope.row.components)){
+            element.remove();
+            scope.$destroy();
+          }
         }
-      });
     }
   };
 }]);
