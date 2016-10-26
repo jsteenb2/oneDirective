@@ -16,7 +16,6 @@ app.factory('TippedService',
     <div id=\"slider\" class=\"col-xs-12\" style=\"width: 100\%\"></div>
     `,
     { skin: 'white',
-      // closeButton: true,
       hook: 'bottomright',
       onShow: function(content, element) {
         console.log('showing slider');
@@ -26,13 +25,13 @@ app.factory('TippedService',
           max: 13,
           values: [_offset, _width],
           slide: function(event, ui) {
-            
             //adjusts for edge cases
             _offset = $('#slider').slider("values", 0);
             if (parseInt(_offset) === -1) { _offset = parseInt(_offset) + 1; };
             _width = $('#slider').slider("values", 1);
             if (parseInt(_width) === 13) { _width = parseInt(_width) - 1; };
             //displays current offset and width
+
             $("#off-set").html($('#slider').slider("values", 0));
             $("#width").html($('#slider').slider("values", 1));
             //addes class to author-tipped to give it proper gridding
@@ -45,16 +44,12 @@ app.factory('TippedService',
             }
           });
 
-
         angular.element(content).on('click', '#delete-component', function(){
           console.log('hi johnny');
         });
       },
       afterUpdate: function(content, element) {
-        
-        
-        },
-
+      },
       onHide: function(content, element) {
         console.log('deleting tooltip');
         Tipped.remove('.tipped-curr');
@@ -65,12 +60,9 @@ app.factory('TippedService',
           .removeClass('tipped-curr');
 
         $("#slider").slider("destroy");
-
-
       }
     });
 
-    
   };
 
   return stub;
