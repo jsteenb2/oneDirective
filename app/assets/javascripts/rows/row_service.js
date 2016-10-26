@@ -8,6 +8,44 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   var rowService = {};
   var _id = 1;
 
+  function _getComponentRow(component){
+    return _.find(data.cachedRows, function(row){
+      return row.id == component.rowId;
+    });
+  };
+
+  rowService.getComponentRow = function(component){
+    return _getComponentRow(component);
+  };
+
+  rowService.getRowById = function(id){
+    return _.find(data.cachedRows, function(row){
+      return row.id == id;
+    });
+  };
+
+  rowService.clearCache = function(){
+    componentService.clearCache();
+    Object.keys(data).forEach(function(listName){
+      data[listName] = [];
+    });
+  };
+
+  var _removeComponentFromRow = function(component){
+    var row = rowService.getRowById(component.rowId);
+    var componentIndex = _.findIndex(row.components, function(rowComponent){
+      return rowComponent.id == component.id;
+    });
+    row.components.splice(componentIndex, 1);
+    component.rowId = undefined;
+  };
+
+  rowService.moveComponentFromRowToRow = function(component, toRow){
+    _removeComponentFromRow(component);
+    _addComponentToExistingRow(component, toRow.id);
+    console.log(component);
+  };
+
   rowService.getRows = function(){
     return data.cachedRows;
   };
@@ -20,7 +58,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   function  _reactivateComponent(componentType, index, array){
     var component = componentService.rebuildComponent(componentType);
     _extendComponent(component);
-    console.log(component);
     return component;
   }
 
@@ -48,6 +85,18 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
       _makeNewRow(component);
     }
     _extendComponent(component);
+  };
+
+  rowService.changeComponentOrder = function(componentIds, row){
+    console.log(componentIds);
+    var newComponentArray = [];
+    _.forEach(componentIds, function(id){
+      var component = componentService.getComponentById(id);
+      newComponentArray.push(component);
+    });
+    angular.copy(newComponentArray, row.components);
+    console.log(row.components);
+    console.log(data.cachedRows);
   };
 
   function _addComponentToExistingRow(component, rowId){
@@ -118,7 +167,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   }
 
   function _repackage(row, index){
-    console.log(row);
     var newRow = angular.copy(row, {});
     newRow.order = _findOrder(row);
     newRow.components = componentService.getPackagedComponents(row.components);
@@ -130,10 +178,19 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     component.moveRight = _moveRight;
     component.moveUp = _moveUp;
     component.moveDown = _moveDown;
+    component.remove = _removeComponent;
+  };
+
+  function _removeComponent(){
+    var compIdx = _findComponentIdx(this, this.rowId);
+    var rowIdx = _findRowIdx(this.rowId);
+    data.cached[rowIdx].splice(compIdx, 1);
+    componentService.deleteComponent(this);
   }
 
-  function _findRowIdx(rowId){
-    var rowIdx = _.findIndex(data.cachedRows, function(row){
+  function _findRowIdx(rowId, listName){
+    var list = data[listName] || data.cachedRows;
+    var rowIdx = _.findIndex(list, function(row){
       return row.id == rowId;
     });
     return rowIdx;
@@ -170,21 +227,24 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
 
   function _removeFromDataObj(rowIdx){
     var keys = ["created", "updated"];
-    var curRow = data.cachedRows.splice(rowIdx, 1);
-    _.each(keys, function(keyName){
+    var curRow = data.cachedRows.splice(rowIdx, 1)[0];
+    keys.forEach(function(keyName, index, arr){
       var rowIdx = _findOrder(curRow, keyName);
       if(rowIdx >= 0){
         data[keyName].splice(rowIdx, 1);
-        if(keyName === "updated"){ data.deleted.push(curRow); }
+        if(keyName === "updated"){
+          data.deleted.push(curRow);
+        }
       }
     });
   }
 
   function _findOrder(row, listName){
     list = data[listName] || data.cachedRows;
-    return _.findIndex(list, function(_row){
+    var idx =  _.findIndex(list, function(_row){
       return row.id == _row.id;
     });
+    return idx;
   }
 
   function _moveDown(){

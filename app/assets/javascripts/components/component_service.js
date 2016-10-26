@@ -11,6 +11,27 @@ function(_, $http){
   var _id = 1;
   var componentTypes;
 
+  componentService.getComponentById = function(id){
+    return _.find(data.cachedComponents, function(component){
+      return component.id == id;
+    });
+  };
+
+  componentService.clearCache = function(){
+    Object.keys(data).forEach(function(listName){
+      data[listName] = [];
+    });
+  };
+
+  componentService.deleteComponent = function(component){
+    Object.keys(data).forEach(function(name, index, array){
+        _.remove(data[name], function(comp){
+          return component.id == comp.id;
+        });
+    });
+    data.deleted.push(component);
+  };
+
   componentService.buildComponent = function(componentType){
     var component = angular.copy(componentTypes[componentType], {});
     component.id = _id;
@@ -47,7 +68,7 @@ function(_, $http){
 
   componentService.getPackagedComponents = function(components){
     var componentObj = { };
-    _cleanPack(componentObj, components, ["created", "updated"]);
+    _cleanPack(componentObj, components, ["created", "updated", "deleted"]);
     return componentObj;
   };
 
@@ -109,8 +130,8 @@ function(_, $http){
       .removeAttr('ng-click')
       .removeAttr('ng-dblclick')
       .removeAttr('data-head')
-      .removeAttr('ng-class');
-      // .removeAttr('tabindex');
+      .removeAttr('ng-class')
+      .removeAttr('tabindex');
   }
 
   function _extendContent(component){

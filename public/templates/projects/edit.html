@@ -1,9 +1,4 @@
 <div class="row">
-
-  TemplateId :: {{project.id}}
-  <br>
-  Template :: {{project.title}}
-  <br>
   <div id="side-bar">
     <h4 id="component-library-header">Components</h4>
     <hr>
@@ -14,6 +9,7 @@
   <div class="col-md-10 col-md-offset-2" id="workspace">
     <div
         row="row"
+        data-row-id="{{row.id}}"
         class="row droppable"
         ng-repeat="row in rows()"
         droppable
@@ -21,3 +17,13 @@
     </div>
   </div>
 </div>
+
+<style type="text/css">
+  .navbar .navbar-nav > .active > a, .navbar .navbar-nav > .active > a:hover, .navbar .navbar-nav > .active > a:focus {
+   padding-top: 10px;
+  }
+
+  .navbar .navbar-nav > li > a {
+  padding-top: 10px !important;
+  }
+</style>

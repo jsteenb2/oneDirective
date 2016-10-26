@@ -7,7 +7,7 @@ app.controller('CreateProjectModalCtrl', function () {
   };
 
   vm.cancel = function () {
-    vm.dismiss('cancel');
+    vm.dismiss({$value: 'cancel'});
   };
 });
 

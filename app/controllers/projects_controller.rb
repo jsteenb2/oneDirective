@@ -69,29 +69,9 @@ class ProjectsController < ApplicationController
       if params["project"].keys.include?("rows")
         update_existing_rows if params["project"]["rows"].keys.include?("updated")
         add_new_rows if params["project"]["rows"].keys.include?("created")
+        delete_existing_rows if params["project"]["rows"].keys.include?("deleted")
         return true
       end
       return false
-    end
-
-    def update_existing_rows
-      params["project"]["rows"]["updated"].each do |row|
-        selected_row = @project.rows.find_by_id(row["id"])
-        selected_row.update( order: row["order"] )
-
-        update_existing_components(row, selected_row) if row["components"].keys.include?("updated")
-
-        add_new_components(row, selected_row) if row["components"].keys.include?("created")
-      end
-    end
-
-    def add_new_rows
-      params["project"]["rows"]["created"].each do |row|
-        selected_row = @project.rows.create(order: row["order"])
-
-        update_existing_components(row, selected_row) if row["components"].keys.include?("updated")
-
-        add_new_components(row, selected_row) if row["components"].keys.include?("created")
-      end
     end
 end
