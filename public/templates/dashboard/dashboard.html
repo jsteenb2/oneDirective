@@ -1,10 +1,18 @@
 <div class='container'>
-  <create-project
-  scroll-to-top
-  on-create='dashCtrl.addProject($event)'
-  class='pull-right'
-  style='z-index: 1'>
-  </create-project>
+  <div class='row'>
+    <div class='col-xs-6 col-xs-offset-4 flash-container'>
+      <flash-message></flash-message>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-6 col-md-offset-5'>
+      <create-project
+      on-create='dashCtrl.addProject($event)'
+      class='pull-right'>
+      </create-project>
+    </div>
+  </div>
 
   <div class='row'>
     <div style='text-align: center' class="col-md-12">
@@ -17,6 +25,6 @@
     ng-repeat='project in dashCtrl.projectsData.cached'
     project='project'
     on-edit='dashCtrl.editProject($event)'
-    class='col-md-4'></project-card>
+    class='col-md-4 col-xs-6'></project-card>
   </div>
 </div>

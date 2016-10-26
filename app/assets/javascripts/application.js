@@ -35,4 +35,8 @@
 //= require ripples
 //= require jquery.mCustomScrollbar
 //= require scrollbars
+
+//= require angular-flash.min
+//= require pluralize
+
 //= require_tree .
