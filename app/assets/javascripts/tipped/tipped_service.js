@@ -40,7 +40,7 @@ app.factory('TippedService',
             $("#author-tipped").attr('class', '');
             $("#author-tipped").addClass('col-xs-' + $('#slider').slider("values", 1));
             $("#author-tipped").addClass('col-xs-offset-' + $('#slider').slider("values", 0));
-            $("#author-tipped").addClass('container-fluid')
+            $("#author-tipped").addClass('container-fluid');
             $("#author-tipped").attr('style', 'border: 1px dotted black');
           }
         });
@@ -49,7 +49,7 @@ app.factory('TippedService',
         console.log('deleting slide');
         $('#slider').remove();
       }
-    })
+    });
 
     angular.element(document).on('click', '#delete-component', function(){
       console.log('hi johnny');

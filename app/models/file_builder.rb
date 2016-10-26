@@ -40,8 +40,24 @@ class FileBuilder
           end
         }
         doc.body {
-          if
-          doc.div["class"] = "container"
+          @project.rows.each do |row|
+            if row.components.pluck(:type).include?('nav')
+              row.components.each do |component|
+                if(component.type == "nav")
+                  doc.nav(component.content)
+                end
+              end
+            end
+            # doc.div["class"] = "container" {
+            #   doc.div("class", "row") {
+            #     row.components.each do |component|
+            #         unless (component.type == "nav")
+            #           doc.div(component.content)
+            #         end
+            #     end
+            #   }
+            # }
+          end
         }
       }
     end
