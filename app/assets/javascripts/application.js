@@ -22,6 +22,8 @@
 //= require restangular
 //= require angular-devise
 //= require angular-animate.min
+//= require angularjs-file-upload
+//= require angular-utf8-base64
 //= require ui-bootstrap-tpls-2.2.0.min
 
 //= require tinymce

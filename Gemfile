@@ -7,6 +7,8 @@ gem 'awesome_print', require: 'ap'
 gem 'tinymce-rails'
 gem 'pg'
 gem 'font-awesome-rails'
+gem 'materialize-sass'
+gem 'angularjs-file-upload-rails', '~> 2.2.0'
 
 #angular
 gem 'angularjs-rails'
@@ -15,12 +17,20 @@ gem 'angular_rails_csrf'
 #dependencies from bower
 source "https://rails-assets.org" do
   gem 'rails-assets-angular-devise'
+  gem 'rails-assets-angular-animate'
+  gem 'rails-assets-angular-dragdrop'
+  gem 'rails-assets-angular-utf8-base64'
   gem 'rails-assets-bootstrap-material-design'
 end
 
 #devise
 gem 'devise'
 gem 'omniauth-github'
+
+#uploads
+gem 'paperclip'
+gem 'aws-sdk', '~> 2.3'
+
 
 group :development do
   gem 'hirb'
@@ -61,7 +71,6 @@ gem 'coffee-rails', '~> 4.2'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production

@@ -1,9 +1,14 @@
-app.controller('ProjectModalCtrl', function () {
+app.controller('ProjectModalCtrl',
+['PhotoUploadService', 'Restangular', function (PhotoUploadService, Restangular) {
   var vm = this;
 
   vm.$onInit = function () {
-    vm.project = vm.resolve.project;
+    vm.project = {};
+    angular.copy(vm.resolve.project, vm.project);
     vm.title = vm.project.title;
+    var url = Restangular.one('projects', vm.project.id).getRequestedUrl();
+    PhotoUploadService.init(url);
+    vm.uploader = PhotoUploadService.getUploader();
   };
 
   vm.ok = function (params) {
@@ -11,9 +16,9 @@ app.controller('ProjectModalCtrl', function () {
   };
 
   vm.cancel = function () {
-    vm.dismiss('cancel');
+    vm.dismiss({$value: 'cancel'});
   };
-});
+}]);
 
 app.component('projectModal', {
   controller: 'ProjectModalCtrl',

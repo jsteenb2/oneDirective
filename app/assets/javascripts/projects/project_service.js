@@ -7,6 +7,63 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
     destroyed: {}
   };
 
+  srv.all = function () {
+    if (_.isEmpty(_data.cached)) {
+      return _queryAll();
+    } else {
+      return _data;
+    }
+  };
+
+  srv.get = function(project_id) {
+    return _.find(_data.cached, {id: parseInt(project_id)});
+  };
+
+  srv.getProjectData = function(project_id){
+    return Restangular.one('projects', project_id).get()
+      .then(function(data){
+        console.log('resolve running');
+        console.log(data.project);
+        return rowService.rebuildRows(data.project.rows);
+      });
+  };
+
+  srv.create = function (params) {
+    return Restangular.all('projects')
+      .post({project: params})
+      .then(_cacheOne)
+      .catch(_logError);
+  };
+
+  srv.update = function (params) {
+    return Restangular.one('projects', params.id)
+      .patch({project: params})
+      .then(function(data){
+        return data;
+      })
+      .catch(_logError);
+  };
+
+  srv.destroy = function (project) {
+    return project.remove()
+      .then(_removeOne)
+      .catch(_logError);
+  };
+
+  srv.saveProjectEdits = function(id){
+    var projectParams = {
+      rows: rowService.packageRowsForSave()
+    };
+    projectParams.id = id;
+    return srv.update(projectParams)
+              .then(function(data){
+                rowService.clearCache();
+                console.log(data.project.rows);
+                rowService.rebuildRows(data.project.rows);
+                return data;
+              });
+  };
+
   function _logError (reason) {
     console.log(reason);
     throw new Error ('Failed ajax call!');
@@ -45,58 +102,6 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
       .then(_cacheAll)
       .catch(_logError);
   }
-
-  srv.all = function () {
-    if (_.isEmpty(_data.cached)) {
-      return _queryAll();
-    } else {
-      return _data;
-    }
-  };
-
-  srv.get = function(project_id) {
-    return _.filter(_data.cached, {id: parseInt(project_id)})[0];
-  };
-
-  srv.getProjectData = function(project_id){
-    return Restangular.one('projects', project_id).get()
-      .then(function(data){
-        console.log('resolve running');
-        console.log(data.project);
-        return rowService.rebuildRows(data.project.rows);
-      });
-  };
-
-  srv.create = function (params) {
-    return Restangular.all('projects')
-      .post({project: params})
-      .then(_cacheOne)
-      .catch(_logError);
-  };
-
-  srv.update = function (params) {
-    return Restangular.one('projects', params.id)
-      .patch({project: params})
-      .then(function(data){
-        return data.project;
-      })
-      .catch(_logError);
-  };
-
-  srv.destroy = function (project) {
-    return project.remove()
-      .then(_removeOne)
-      .catch(_logError);
-  };
-
-  srv.saveProjectEdits = function(id){
-    var projectParams = {
-      rows: rowService.packageRowsForSave()
-    };
-    projectParams.id = id;
-    console.log(projectParams);
-    return srv.update(projectParams);
-  };
 
   return srv;
 }]);

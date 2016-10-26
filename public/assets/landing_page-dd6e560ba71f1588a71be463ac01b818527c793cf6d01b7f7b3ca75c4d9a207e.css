@@ -1,0 +1,149 @@
+/*
+
+To get this list of colors inject jQuery at http://www.google.com/design/spec/style/color.html#color-color-palette
+
+Then, run this script to get the list@mixin (function(){
+  var colors = {}, main = {};
+  $(".color-group")@mixin each(function(){
+    var color = $(this).find(".name").text().trim().toLowerCase().replace(" ", "-");
+    colors[color] = {};
+
+    $(this)@mixin find(".color").not(".main-color").each(function(){
+      var shade = $(this).find(".shade").text().trim(),
+          hex   = $(this).find(".hex").text().trim();
+
+      colors[color][shade] = hex;
+    });
+    main[color] = color + "-" + $(this).find(".main-color .shade").text().trim();
+
+  });
+  var LESS = "";
+  $@mixin each(colors, function(name, shades){
+    LESS += "\n\n";
+    $@mixin each(shades, function(shade, hex){
+      LESS += "$" + name + "-" + shade + ": " + hex + ";\n" !default;
+    });
+    if (main[name]) {
+      LESS += "$" + name + ": " + main[name] + ";\n" !default;
+    }
+  });
+  console.log(LESS);
+})();
+
+
+*/
+/* ANIMATION */
+/* SHADOWS */
+/* line 3, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+#user-navbar {
+  margin-bottom: 0;
+}
+/* line 5, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+#user-navbar .container {
+  /* padding: inherit !important; */
+}
+
+/* line 9, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+.container {
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  width: 100%;
+}
+
+/* line 15, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body {
+  color: white;
+}
+/* line 17, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body .row {
+  margin-top: 0;
+  height: 120vh;
+}
+/* line 21, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body h1, body h4 {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+/* line 26, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body h4 {
+  font-weight: normal;
+}
+/* line 30, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body p {
+  font-size: 1.3em;
+  text-align: center;
+}
+/* line 33, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body p a {
+  color: white;
+  opacity: 0.8;
+}
+/* line 36, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body p a:hover {
+  color: white;
+  opacity: 1;
+}
+/* line 42, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body img {
+  border: 1px solid grey;
+  border-radius: 3px;
+}
+/* line 46, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body .copy-template {
+  width: 100%;
+}
+/* line 49, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body .bold {
+  font-weight: bold;
+}
+/* line 52, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body #copy0 {
+  margin-top: 3em;
+  /* padding-bottom: 11em; */
+  background-color: #2F4858;
+}
+/* line 56, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body #copy0 .col-md-8 {
+  margin-top: 8em;
+}
+/* line 60, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body #copy1 {
+  background-color: #F6AE2D;
+}
+/* line 62, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body #copy1 .col-md-10 {
+  margin-top: 6em;
+}
+/* line 66, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body #copy2 {
+  background-color: #F26419;
+}
+/* line 68, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body #copy2 .col-md-10 {
+  margin-top: 6em;
+}
+/* line 72, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body #copy3 {
+  background-color: #55DDE0;
+}
+/* line 74, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body #copy3 h1, body #copy3 h4, body #copy3 h4 {
+  color: black;
+}
+/* line 77, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body #copy3 .col-md-10 {
+  margin-top: 6em;
+}
+/* line 81, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body #copy4 {
+  background-color: #FFFFFF;
+}
+/* line 83, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body #copy4 h1, body #copy4 h4, body #copy4 h4, body #copy4 p, body #copy4 a {
+  color: black;
+}
+/* line 86, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/landing_page.scss */
+body #copy4 .col-md-6 {
+  margin-top: 6em;
+}
