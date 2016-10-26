@@ -1,11 +1,12 @@
 app.controller('DashboardCtrl',
-['projectsData', 'ProjectService', '$state',
-function (projectsData, ProjectService, $state) {
+['projectsData', 'ProjectService', '$state', 'FlashService',
+function (projectsData, ProjectService, $state, FlashService) {
   var vm = this;
 
   vm.projectsData = projectsData;
 
   vm.addProject = function ($event) {
+    FlashService.create('success', 'projects');
     ProjectService.create($event.params);
   };
 
