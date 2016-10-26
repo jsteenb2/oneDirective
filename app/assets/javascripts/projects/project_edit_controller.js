@@ -11,8 +11,10 @@ app.controller('ProjectEditCtrl',
       return rowService.getRows();
     };
 
-    angular.element(document).on('mouseenter', '#author-tipped', function() {
+    angular.element(document).on('mouseenter', '#tipped', function(event) {
+      console.log('event');
       console.log('hovering');
+      debugger;
       TippedService.tipped();
     });
 
