@@ -19,11 +19,17 @@ class FileBuilder
   }
 
   def initialize(project_id)
-    @project = Project.find_by_id(project_id)
+    @project = Project.includes(rows: :components).find_by_id(project_id)
+    build_html
+    build_html_file
   end
 
-    @builder = Nokogiri::HTML::Builder.new(:encoding => 'UTF-8') do |doc|
+  def build_html
+    build_shell
+  end
 
+  def build_shell
+    @builder = Nokogiri::HTML::Builder.new(:encoding => 'UTF-8') do |doc|
       doc.html{
         doc.head{
           CDN_HASH[:css][:names].each do |link|
@@ -34,9 +40,18 @@ class FileBuilder
           end
         }
         doc.body {
+          if
           doc.div["class"] = "container"
         }
       }
-
     end
+  end
+
+
+  def build_html_file
+    html = @builder.to_html
+    File.open('public/repo/index.html', "w") do |file|
+      file.write html
+    end
+  end
 end

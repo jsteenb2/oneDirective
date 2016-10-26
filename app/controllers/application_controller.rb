@@ -38,6 +38,7 @@ class ApplicationController < ActionController::Base
       _component.update(order: component["order"],
                         content: component["content"],
                         name: component["name"],
+                        type: component["type"],
                         row_id: selected_row[:id])
     end
   end
@@ -46,6 +47,7 @@ class ApplicationController < ActionController::Base
     row["components"]["created"].each do |component|
       _component = selected_row.components.create( order: component["order"],
                                                    content: component["content"],
+                                                   type: component["type"],
                                                    name: component["name"])
     end
   end
