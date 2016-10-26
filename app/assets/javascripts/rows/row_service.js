@@ -185,21 +185,24 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
 
   function _removeFromDataObj(rowIdx){
     var keys = ["created", "updated"];
-    var curRow = data.cachedRows.splice(rowIdx, 1);
-    _.each(keys, function(keyName){
+    var curRow = data.cachedRows.splice(rowIdx, 1)[0];
+    keys.forEach(function(keyName, index, arr){
       var rowIdx = _findOrder(curRow, keyName);
       if(rowIdx >= 0){
         data[keyName].splice(rowIdx, 1);
-        if(keyName === "updated"){ data.deleted.push(curRow); }
+        if(keyName === "updated"){
+          data.deleted.push(curRow);
+        }
       }
     });
   }
 
   function _findOrder(row, listName){
     list = data[listName] || data.cachedRows;
-    return _.findIndex(list, function(_row){
+    var idx =  _.findIndex(list, function(_row){
       return row.id == _row.id;
     });
+    return idx;
   }
 
   function _moveDown(){

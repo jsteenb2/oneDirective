@@ -39,7 +39,6 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
     return Restangular.one('projects', params.id)
       .patch({project: params})
       .then(function(data){
-        console.log(data);
         return data;
       })
       .catch(_logError);
@@ -56,8 +55,13 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
       rows: rowService.packageRowsForSave()
     };
     projectParams.id = id;
-    console.log(projectParams);
-    return srv.update(projectParams);
+    return srv.update(projectParams)
+              .then(function(data){
+                rowService.clearCache();
+                console.log(data.project.rows);
+                rowService.rebuildRows(data.project.rows);
+                return data;
+              });
   };
 
   function _logError (reason) {
