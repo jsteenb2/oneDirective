@@ -26,40 +26,26 @@ class FileBuilder
 
   def build_html
     build_shell
+    puts @builder.to_html
   end
 
   def build_shell
     @builder = Nokogiri::HTML::Builder.new(:encoding => 'UTF-8') do |doc|
-      doc.html{
-        doc.head{
-          CDN_HASH[:css][:names].each do |link|
-            doc.link["href"] = "css/#{link}"
-          end
-          CDN_HASH[:js][:names].each do |link|
-            doc.script["src"] = "js/#{link}"
-          end
-        }
-        doc.body {
-          @project.rows.each do |row|
-            if row.components.pluck(:type).include?('nav')
-              row.components.each do |component|
-                if(component.type == "nav")
-                  doc.nav(component.content)
-                end
-              end
-            end
-            # doc.div["class"] = "container" {
-            #   doc.div("class", "row") {
-            #     row.components.each do |component|
-            #         unless (component.type == "nav")
-            #           doc.div(component.content)
-            #         end
-            #     end
-            #   }
-            # }
-          end
-        }
+      doc.html{}
+    end
+  end
+
+  def add_head
+    head = Nokogiri::HTML::Builder.new do |doc|
+      doc.head{
+        CDN_HASH[:css][:names].each do |link|
+          doc.link["href"] = "css/#{link}"
+        end
+        CDN_HASH[:js][:names].each do |link|
+          doc.script["src"] = "js/#{link}"
+        end
       }
+      @builder.add_child(head)
     end
   end
 
