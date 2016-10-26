@@ -31,8 +31,6 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project = current_user.projects.find_by_id(params[:id])
-    p params
     if map_updates
       # respond_to do |format|
       #   format.json { render json: @project, status: 200 }
@@ -44,8 +42,10 @@ class ProjectsController < ApplicationController
   end
 
   private
+
     # Updating the project cards on the dashboard.
     def update_cards
+      @project = current_user.projects.find_by_id(params[:id])
       if @project.update(project_params)
         respond_to do |format|
           format.json { render json: @project, status: 200 }

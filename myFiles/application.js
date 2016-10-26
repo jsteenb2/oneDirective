@@ -12,12 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui.min
 //= require lodash.min
 //= require angular
 //= require angular-ui-router.min
 //= require restangular
 //= require angular-devise
-//= require angular-animate.min
+//= require angular-animate
 //= require angularjs-file-upload
 //= require angular-utf8-base64
 //= require ui-bootstrap-tpls-2.2.0.min
