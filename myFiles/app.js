@@ -4,10 +4,10 @@ var app = angular.module('materialProto',
 'Devise',
 'ui.bootstrap',
 'angularFileUpload',
- 'ui.tinymce',
+'ui.tinymce',
 'ab-base64',
- 'ngScrollbars']);
-
+'ui.tinymce',
+'ngScrollbars']);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));
@@ -38,7 +38,6 @@ app.config(
     RestangularProvider.setRequestSuffix('.json');
     RestangularProvider.setDefaultHttpFields({timeout: 3000});
 
-    // ADRIAN feel free to change the routing. --- CJ.
     $urlRouterProvider.otherwise('/projects');
 
     $stateProvider
