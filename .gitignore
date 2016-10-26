@@ -30,3 +30,6 @@
 =======
 >>>>>>> 1b14d2e... removed config files and extraneous cj files
 /config/application.yml
+
+# Ignore application configuration
+/config/application.yml
