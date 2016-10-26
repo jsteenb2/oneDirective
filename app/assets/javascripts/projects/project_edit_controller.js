@@ -19,7 +19,6 @@ app.controller('ProjectEditCtrl',
         nested_targ = nested_targ.parent();
       }
       nested_targ.addClass('tipped-curr');
-
       TippedService.tipped();
     });
 

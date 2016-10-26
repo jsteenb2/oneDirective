@@ -7,7 +7,7 @@ app.factory('TippedService',
   var _width = 12;
   var _offset = 0;
 
-  stub.tipped = function (eventElement) {
+  stub.tipped = function () {
     Tipped.create('.tipped-curr',  
     `
     <a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a>
