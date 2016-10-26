@@ -38,9 +38,6 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
   srv.update = function (params) {
     return Restangular.one('projects', params.id)
       .patch({project: params})
-      .then(function(data){
-        return data;
-      })
       .catch(_logError);
   };
 
