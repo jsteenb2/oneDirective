@@ -6,6 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
+/*.DS_Store
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -23,15 +24,9 @@
 # seeds
 /db/seeds.rb
 
+# Ignore application configuration
+/config/application.yml
+
 /public/system
-
-<<<<<<< HEAD
-# Ignore application configuration
-=======
->>>>>>> 1b14d2e... removed config files and extraneous cj files
-/config/application.yml
-
-# Ignore application configuration
-/config/application.yml
 
 aws_stuff.md
