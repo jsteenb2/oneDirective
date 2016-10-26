@@ -31,9 +31,7 @@ class FileBuilder
 
   def build_shell
     @builder = Nokogiri::HTML::Builder.new(:encoding => 'UTF-8') do |doc|
-      doc.html{
-        @root_HTML = parent
-      }
+      doc.html{}
     end
   end
 
