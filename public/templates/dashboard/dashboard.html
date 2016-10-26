@@ -1,24 +1,32 @@
 <div class='container'>
-  <flash-message></flash-message>
-
-  <create-project
-  scroll-to-top
-  on-create='dashCtrl.addProject($event)'
-  class='pull-right'
-  style='z-index: 1'>
-  </create-project>
-
   <div class='row'>
-    <div style='text-align: center' class="col-md-12">
-      <h1>Projects</h1>
+    <div class='col-md-12' style='height: 50px'>
+      <flash-message></flash-message>
     </div>
   </div>
 
-  <div class='row' style='padding-left: 45px'>
-    <project-card
-    ng-repeat='project in dashCtrl.projectsData.cached'
-    project='project'
-    on-edit='dashCtrl.editProject($event)'
-    class='col-md-4'></project-card>
+  <div class='row'>
+    <div class='col-md-12 dashboard'>
+      <create-project
+      scroll-to-top
+      on-create='dashCtrl.addProject($event)'
+      class='pull-right'>
+      </create-project>
+
+      <div class='row'>
+        <div style='text-align: center' class="col-md-12">
+          <h1>Projects</h1>
+        </div>
+      </div>
+
+      <div class='row' style='padding-left: 45px'>
+        <project-card
+        ng-repeat='project in dashCtrl.projectsData.cached'
+        project='project'
+        on-edit='dashCtrl.editProject($event)'
+        class='col-md-4'></project-card>
+      </div>
+    </div>
   </div>
+
 </div>
