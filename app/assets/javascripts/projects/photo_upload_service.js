@@ -20,10 +20,6 @@ function (FileUploader, Restangular, base64) {
     return item;
   }
 
-  function _logResponse(response) {
-    console.log(response);
-  }
-
   srv.setConfigUrl = function (url) {
     _config.url = url;
   };
@@ -32,11 +28,18 @@ function (FileUploader, Restangular, base64) {
     return _uploader;
   };
 
+  srv.setCompleteCallback = function (fn) {
+    _uploader.onCompleteAll = fn;
+  };
+
+  srv.uploadAll = function () {
+    _uploader.onBeforeUploadItem = _processed;
+    _uploader.uploadAll();
+  };
+
   srv.init = function (url) {
     _config.url = url;
     _uploader = new FileUploader(_config);
-    _uploader.onBeforeUploadItem(_processed);
-    _uploader.onSuccessItem(_logResponse);
   };
 
   return srv;
