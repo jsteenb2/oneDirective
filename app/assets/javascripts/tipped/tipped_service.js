@@ -70,8 +70,5 @@ app.factory('TippedService',
       }
     });
 
-
-  };
-
   return stub;
 }]);
