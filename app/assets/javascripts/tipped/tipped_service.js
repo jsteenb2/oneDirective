@@ -4,7 +4,7 @@ app.factory('TippedService',
   function(_){
   var stub = {};
 
-  var _width = 12;
+  var _width = 0;
   var _offset = 0;
 
   stub.tipped = function () {
@@ -12,7 +12,7 @@ app.factory('TippedService',
     `
     <a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a>
     <p>How big is your grid?</p>
-    <p> Offset: <code id="off-set">` + _offset + `</code> | Width: <code id="width">` + _width + `</code></p>
+    <p> Offset: `+ _offset +` | Width: ` + _width + `</p>
     <div id=\"slider\" class=\"col-xs-6\" style=\"width: 100\%\"></div>
     `,
     { skin: 'white',
@@ -25,20 +25,17 @@ app.factory('TippedService',
       afterUpdate: function(content, element) {
         $( "#slider" ).slider({
           range: true,
-          min: -1,
-          max: 13,
+          min: _offset,
+          max: 12 - _width,
           values: [_offset, _width],
           slide: function(event, ui) {
-            
-            //adjusts for edge cases
+            // console.log('event: ', event);
+            // console.log('ui: ', ui);
             _offset = $('#slider').slider("values", 0);
-            if (parseInt(_offset) === -1) { _offset = parseInt(_offset) + 1; };
             _width = $('#slider').slider("values", 1);
-            if (parseInt(_width) === 13) { _width = parseInt(_width) - 1; };
-            //displays current offset and width
-            $("#off-set").html(_offset);
-            $("#width").html(_width);
-            //addes class to author-tipped to give it proper gridding
+
+            // $('#slider').('max')
+
             $("#author-tipped").attr('class', '');
             $("#author-tipped").addClass('col-xs-' + $('#slider').slider("values", 1));
             $("#author-tipped").addClass('col-xs-offset-' + $('#slider').slider("values", 0));
@@ -46,10 +43,6 @@ app.factory('TippedService',
             $("#author-tipped").attr('style', 'border: 1px dotted black');
           }
         });
-      },
-      onHide: function(content, element) {
-        console.log('deleting slide');
-        $('#slider').remove();
       }
     })
 
