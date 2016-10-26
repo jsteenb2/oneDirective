@@ -30,6 +30,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /
 
@@ -54,3 +55,6 @@ aws_stuff.md
 =======
 /config/application.yml
 >>>>>>> cc19d91... Finished first draft of readme
+=======
+/config/application.yml
+>>>>>>> 1b14d2e... removed config files and extraneous cj files
