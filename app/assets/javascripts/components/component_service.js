@@ -11,6 +11,15 @@ function(_, $http){
   var _id = 1;
   var componentTypes;
 
+  componentService.deleteComponent = function(component){
+    Object.keys(data).forEach(function(name, index, array){
+        _.remove(data[name], function(comp){
+          return component.id == comp.id;
+        });
+    });
+    data.deleted.push(component);
+  };
+
   componentService.buildComponent = function(componentType){
     var component = angular.copy(componentTypes[componentType], {});
     component.id = _id;
@@ -109,8 +118,8 @@ function(_, $http){
       .removeAttr('ng-click')
       .removeAttr('ng-dblclick')
       .removeAttr('data-head')
-      .removeAttr('ng-class');
-      // .removeAttr('tabindex');
+      .removeAttr('ng-class')
+      .removeAttr('tabindex');
   }
 
   function _extendContent(component){

@@ -131,10 +131,19 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     component.moveRight = _moveRight;
     component.moveUp = _moveUp;
     component.moveDown = _moveDown;
+    component.remove = _removeComponent;
   }
 
-  function _findRowIdx(rowId){
-    var rowIdx = _.findIndex(data.cachedRows, function(row){
+  function _removeComponent(){
+    var compIdx = _findComponentIdx(this, this.rowId);
+    var rowIdx = _findRowIdx(this.rowId);
+    data.cached[rowIdx].splice(compIdx, 1);
+    componentService.deleteComponent(this);
+  }
+
+  function _findRowIdx(rowId, listName){
+    var list = data[listName] || data.cachedRows;
+    var rowIdx = _.findIndex(list, function(row){
       return row.id == rowId;
     });
     return rowIdx;
