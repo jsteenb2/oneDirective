@@ -86,6 +86,9 @@ app.config(
         resolve: {
           componentSelection: ['componentService', function(componentService){
             return componentService.cacheComponentLibrary();
+          }],
+          projectData: ["$stateParams", "ProjectService", function($stateParams, ProjectService){
+            return ProjectService.getProjectData($stateParams.id);
           }]
         }
       });
