@@ -7,45 +7,6 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
     destroyed: {}
   };
 
-  function _logError (reason) {
-    console.log(reason);
-    throw new Error ('Failed ajax call!');
-  }
-
-  function _cacheAll (response) {
-    angular.copy(response, _data.cached);
-    return _data;
-  }
-
-  function _cacheOne (response) {
-    _data.cached.push(response);
-    angular.copy(response, _data.created);
-    return _data;
-  }
-
-  function _updateOne (response) {
-    var found = _.find(_data.cached, {id: response.id});
-    if (!found) throw new Error ('Nothing to update!');
-    angular.copy(response, found);
-    angular.copy(response, _data.updated);
-    return _data;
-  }
-
-  function _removeOne (response) {
-    var found = _.find(_data.cached, {id: response.id});
-    if (!found) throw new Error ('Nothing to update!');
-    _data.destroyed = found;
-    _.remove(_data.cached, {id: response.id});
-    return _data;
-  }
-
-  function _queryAll () {
-    return Restangular.all('projects')
-      .getList()
-      .then(_cacheAll)
-      .catch(_logError);
-  }
-
   srv.all = function () {
     if (_.isEmpty(_data.cached)) {
       return _queryAll();
@@ -94,9 +55,53 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
       rows: rowService.packageRowsForSave()
     };
     projectParams.id = id;
-    console.log(projectParams);
-    return srv.update(projectParams);
+    return srv.update(projectParams)
+              .then(function(data){
+                rowService.clearCache();
+                console.log(data.project.rows);
+                rowService.rebuildRows(data.project.rows);
+                return data;
+              });
   };
+
+  function _logError (reason) {
+    console.log(reason);
+    throw new Error ('Failed ajax call!');
+  }
+
+  function _cacheAll (response) {
+    angular.copy(response, _data.cached);
+    return _data;
+  }
+
+  function _cacheOne (response) {
+    _data.cached.push(response);
+    angular.copy(response, _data.created);
+    return _data;
+  }
+
+  function _updateOne (response) {
+    var found = _.find(_data.cached, {id: response.id});
+    if (!found) throw new Error ('Nothing to update!');
+    angular.copy(response, found);
+    angular.copy(response, _data.updated);
+    return _data;
+  }
+
+  function _removeOne (response) {
+    var found = _.find(_data.cached, {id: response.id});
+    if (!found) throw new Error ('Nothing to update!');
+    _data.destroyed = found;
+    _.remove(_data.cached, {id: response.id});
+    return _data;
+  }
+
+  function _queryAll () {
+    return Restangular.all('projects')
+      .getList()
+      .then(_cacheAll)
+      .catch(_logError);
+  }
 
   return srv;
 }]);

@@ -64,7 +64,8 @@ app.config(
           }
         },
         resolve: {
-          projectsData: ['ProjectService', function (ProjectService) {
+          projectsData: ['ProjectService', 'rowService', function (ProjectService, rowService) {
+            rowService.clearCache();
             return ProjectService.all();
           }]
         }
@@ -89,7 +90,9 @@ app.config(
           componentSelection: ['componentService', function(componentService){
             return componentService.cacheComponentLibrary();
           }],
-          projectData: ["$stateParams", "ProjectService", function($stateParams, ProjectService){
+          projectData: ["$stateParams", "ProjectService",
+          'rowService', function($stateParams, ProjectService, rowService){
+            rowService.clearCache();
             return ProjectService.getProjectData($stateParams.id);
           }]
         }
