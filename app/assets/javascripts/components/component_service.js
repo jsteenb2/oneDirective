@@ -1,5 +1,5 @@
-app.factory('componentService', ["_", '$http',
-function(_, $http){
+app.factory('componentService', ["_", '$http', 'FlashService',
+function(_, $http, FlashService){
   var data = {
     cachedComponents: [],
     created: [],
@@ -32,6 +32,7 @@ function(_, $http){
     data.cachedComponents.push(component);
     data.created.push(component);
     _id++;
+    FlashService.create('success', 'components');
     return component;
   };
 
