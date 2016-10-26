@@ -33,6 +33,8 @@ function(_, $http, FlashService){
     });
     delete component.rowId;
     data.deleted.push(component);
+    // Flash messages.
+    FlashService.destroy('success', 'components');
   };
 
   componentService.buildComponent = function(componentType){
@@ -41,6 +43,7 @@ function(_, $http, FlashService){
     data.cachedComponents.push(component);
     data.created.push(component);
     _id++;
+    // Flash messages.
     FlashService.create('success', 'components');
     return component;
   };
