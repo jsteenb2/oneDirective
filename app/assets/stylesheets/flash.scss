@@ -1,14 +1,14 @@
 // None of the styling other than position: absolute is being applied.
-.alert {
+div#alert-message.alert {
   position: relative;
   z-index: 1000000000000000;
 }
 
-.alert.ng-enter {
+div#alert-message.alert.ng-enter {
   animation: 2s appear;
 }
 
-.alert.ng-leave {
+div#alert-message.alert.ng-leave {
   animation: 1s disappear;
 }
 

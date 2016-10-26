@@ -36,10 +36,8 @@ app.factory('pluralize', ['$window', function($window){
 }]);
 
 app.config(
-  ['$stateProvider', '$urlRouterProvider', 'RestangularProvider', 'FlashProvider',
-  function($stateProvider, $urlRouterProvider, RestangularProvider, FlashProvider) {
-    // Flash
-    FlashProvider.setTimeout(3000);
+  ['$stateProvider', '$urlRouterProvider', 'RestangularProvider',
+  function($stateProvider, $urlRouterProvider, RestangularProvider) {
 
     // Restangular
     RestangularProvider.setBaseUrl('api/v1');
