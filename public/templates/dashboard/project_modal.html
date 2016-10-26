@@ -3,14 +3,16 @@
   <div class='modal-body'>
     <form ng-submit='$ctrl.ok($ctrl.project)'>
       <div class='form-group'>
-        <label>
-          <i class="fa fa-upload fa-2x icon"></i><input id='projectPhoto' uploader='$ctrl.uploader' nv-file-select type='file' style="display: none;">
-        </label><br>
+        <div style="position:absolute;top:0px;right:0px;">
+          <label>
+            <i class="fa fa-upload fa-2x icon"></i><input id='projectPhoto' uploader='$ctrl.uploader' nv-file-select type='file' style="display: none;">
+          </label><br>
 
-        <button class='btn btn-success' type="button" ng-click="$ctrl.uploader.queue[0].upload()">Upload</button>
+          <button class='btn btn-success' type="button" ng-click="$ctrl.uploader.queue[0].upload()">Upload</button>
 
-        <div class='progress'>
-          <div class='progress-bar' ng-style="{'width': $ctrl.uploader.queue[0].progress + '%'}">
+          <div class='progress'>
+            <div class='progress-bar' ng-style="{'width': $ctrl.uploader.queue[0].progress + '%'}">
+            </div>
           </div>
         </div>
       </div>
