@@ -11,10 +11,15 @@ app.controller('ProjectEditCtrl',
       return rowService.getRows();
     };
 
-    angular.element(document).on('mouseenter', '#tipped', function(event) {
-      console.log('event');
+    angular.element(document).on('mouseenter', '.tipped', function(event) {
       console.log('hovering');
-      debugger;
+
+      nested_targ = angular.element(event.target);
+      while (!nested_targ.hasClass('tipped')) {
+        nested_targ = nested_targ.parent();
+      }
+      nested_targ.addClass('tipped-curr');
+
       TippedService.tipped();
     });
 
