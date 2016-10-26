@@ -18,10 +18,11 @@ function(_, $http){
   };
 
   componentService.deleteComponent = function(component){
-    Object.keys(data).forEach(function(name, index, array){
-        _.remove(data[name], function(comp){
-          return component.id == comp.id;
-        });
+    ["cachedComponents", "created", "updated"].forEach(function(name, index, array){
+      var compIdx = _.findIndex(data[name], function(comp){
+        return component.id == comp.id;
+      });
+      data[name].splice(compIdx, 1);
     });
     data.deleted.push(component);
   };
