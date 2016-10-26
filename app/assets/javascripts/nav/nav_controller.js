@@ -13,9 +13,4 @@ app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams'
         console.log(reason);
       });
   };
-
-
-  // $scope.saveProject = function(){
-  //   $rootScope.$broadcast('save.project');
-  // };
 }]);
