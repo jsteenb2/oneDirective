@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 app.factory('TippedService', 
-=======
-app.factory('TippedService',
->>>>>>> ef2c383b35bc5fa0b29e15725a1aebba60cbfa18
   ["_",
   // johnny inject your component service.
   function(_){
