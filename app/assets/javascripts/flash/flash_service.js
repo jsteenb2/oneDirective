@@ -16,22 +16,26 @@ app.factory('FlashService', ['pluralize', 'Flash', function (pluralize, Flash) {
   }
 
   function _buildMessage (action) {
-    return function (status, resource) {
+    return function (status, resource, item) {
       var statusMessage = _checkStatus(status);
-      return "You've " + statusMessage + " " + action + " a " + _caps(resource) + "!";
+      var built = "You've " + statusMessage + " " + action + " a " + _caps(resource) + "!";
+      if (item) { built += " (" + item + ")"; }
+      return built;
     };
   }
 
   function _buildFlash (builder) {
-    return function (status,resource) {
-      var message = builder(status,resource);
+    return function (status, resource, item) {
+      var message = builder(status, resource, item);
+      var $alert = angular.element('div.alert');
+      $alert.stop(true,false);
       Promise.resolve(Flash.create(status, message))
         .then(_fadeFlash);
     };
   }
 
   function _fadeFlash () {
-    var $alert = angular.element('div.alert');
+    var $alert = angular.element('div.alert').last();
     $alert.hide()
       .fadeIn(500)
       .delay(3000)
