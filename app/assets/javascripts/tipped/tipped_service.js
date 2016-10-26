@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 app.factory('TippedService', 
+=======
+app.factory('TippedService',
+>>>>>>> ef2c383b35bc5fa0b29e15725a1aebba60cbfa18
   ["_",
   // johnny inject your component service.
   function(_){
@@ -7,7 +11,7 @@ app.factory('TippedService',
   var _width = 12;
   var _offset = 0;
 
-  stub.tipped = function (eventElement) {
+  stub.tipped = function() {
     Tipped.create('.tipped-curr',  
     `
     <a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a>
@@ -16,17 +20,19 @@ app.factory('TippedService',
     <div id=\"slider\" class=\"col-xs-12\" style=\"width: 100\%\"></div>
     `,
     { skin: 'white',
-      // closeButton: true,
+      closeButton: true,
       hook: 'bottomright',
       onShow: function(content, element) {
         console.log('showing slider');
-        $("#slider" ).slider({
+        $( "#slider" ).slider();
+      },
+      afterUpdate: function(content, element) {
+        $( "#slider" ).slider({
           range: true,
           min: -1,
           max: 13,
           values: [_offset, _width],
           slide: function(event, ui) {
-            
             //adjusts for edge cases
             _offset = $('#slider').slider("values", 0);
             if (parseInt(_offset) === -1) { _offset = parseInt(_offset) + 1; };
@@ -45,7 +51,7 @@ app.factory('TippedService',
             }
           });
 
-
+        //johnny the element u are selecting to delete is angular.element(element)
         angular.element(content).on('click', '#delete-component', function(){
           console.log('hi johnny');
         });
@@ -53,7 +59,7 @@ app.factory('TippedService',
       afterUpdate: function(content, element) {
         
         
-        },
+      },
 
       onHide: function(content, element) {
         console.log('deleting tooltip');
@@ -69,8 +75,6 @@ app.factory('TippedService',
 
       }
     });
-
-    
   };
 
   return stub;
