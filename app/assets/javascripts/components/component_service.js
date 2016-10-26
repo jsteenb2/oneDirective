@@ -11,6 +11,12 @@ function(_, $http){
   var _id = 1;
   var componentTypes;
 
+  componentService.clearCache = function(){
+    Object.keys(data).forEach(function(listName){
+      data[listName] = [];
+    });
+  };
+
   componentService.deleteComponent = function(component){
     Object.keys(data).forEach(function(name, index, array){
         _.remove(data[name], function(comp){
