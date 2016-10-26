@@ -22,3 +22,7 @@
 
 # seeds
 /db/seeds.rb
+# Ignore application configuration
+/config/application.yml
+
+/public/system/*

@@ -55,7 +55,7 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
   };
 
   srv.get = function(project_id) {
-    return _.filter(_data.cached, {id: parseInt(project_id)})[0];
+    return _.find(_data.cached, {id: parseInt(project_id)});
   };
 
   srv.getProjectData = function(project_id){
@@ -78,7 +78,8 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
     return Restangular.one('projects', params.id)
       .patch({project: params})
       .then(function(data){
-        return data.project;
+        console.log(data);
+        return data;
       })
       .catch(_logError);
   };

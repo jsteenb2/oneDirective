@@ -1,21 +1,21 @@
 app.directive('component',
-  ['$compile', "$rootScope", "$window", "tinyMCEService",
-  function($compile, $rootScope, $window,tinyMCEService) {
+  ['$compile', "$rootScope", "$window", "tinyMCEService", 'DragdropService',
+  function($compile, $rootScope, $window,tinyMCEService, DragdropService) {
 
   return {
     restrict: "E",
     scope: {
-      component: "="
+      component: "=",
     },
     link: function(scope, element, attrs){
       scope.hovered = false;
       scope.doubleClicked = false;
+
       var template = angular.element(scope.component.content)
         .attr('tabindex', scope.component.id);
       var linkFn = $compile(template);
       var content = linkFn(scope);
       element.append(content);
-
       scope.onClick = function($event){
         $event.stopPropagation();
         scope.hovered = !scope.hovered;
