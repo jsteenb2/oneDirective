@@ -1,5 +1,5 @@
 app.controller('ProjectEditCtrl',
-  ['$stateParams', 'ProjectService', 'TippedService', 'currUser', '$scope', 'rowService', "$rootScope", 
+  ['$stateParams', 'ProjectService', 'TippedService', 'currUser', '$scope', 'rowService', "$rootScope",
   function( $stateParams, ProjectService, TippedService, currUser, $scope, rowService, $rootScope) {
     $scope.currentUser = currUser;
     $scope.config = {
@@ -11,12 +11,17 @@ app.controller('ProjectEditCtrl',
       return rowService.getRows();
     };
 
-    angular.element(document).on('mouseenter', '#author-tipped', function() {
-      console.log('hovering');
+    angular.element(document).on('mouseenter', '.tipped', function(event) {
+
+      nested_targ = angular.element(event.target);
+      while (!nested_targ.hasClass('tipped')) {
+        nested_targ = nested_targ.parent();
+      }
+      nested_targ.addClass('tipped-curr');
       TippedService.tipped();
     });
 
-    $rootScope.$on('component.moved', function(ev){
+    $rootScope.$on('component.changed', function(ev){
       $scope.rows();
     });
 }]);
