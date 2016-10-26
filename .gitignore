@@ -26,9 +26,12 @@
 /public/system
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /
 
+=======
+>>>>>>> 67a00f2... gitignore
 # Ignore application configuration
 >>>>>>> c13e104... edited gitignore for figaro
 /config/application.yml
