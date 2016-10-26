@@ -5,6 +5,10 @@ app.controller('sideBarCtrl', ["$scope", "rowService", "$rootScope", 'currUser',
   $scope.selectedRow = false;
   $scope.selectedComponent = false;
 
+  $scope.addRow = function(){
+    rowService.addEmptyRow();
+  };
+
   $scope.initiateComponents = function(type){
     console.log(type);
     rowService.buildNewComponent(type, $scope.selectedRow);

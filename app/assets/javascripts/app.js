@@ -4,7 +4,8 @@ var app = angular.module('materialProto',
 'Devise',
 'ui.bootstrap',
  'ui.tinymce',
- 'ngScrollbars']);
+ 'ngScrollbars',
+ 'ngDragDrop']);
 
 app.run(['$rootScope', function($rootScope){
   $rootScope.$on("$stateChangeError", console.log.bind(console));

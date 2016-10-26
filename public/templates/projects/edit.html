@@ -1,4 +1,5 @@
-<div class="container">
+<div class="row">
+
   TemplateId :: {{project.id}}
   <br>
   Template :: {{project.title}}
@@ -11,9 +12,12 @@
     </div>
   </div>
   <div class="col-md-10 col-md-offset-2" id="workspace">
-    <row
+    <div
+        row="row"
+        class="row droppable"
         ng-repeat="row in rows()"
-        row="row">
-    </row>
+        droppable
+    >
+    </div>
   </div>
 </div>

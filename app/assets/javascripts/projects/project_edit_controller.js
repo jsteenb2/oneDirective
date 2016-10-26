@@ -9,7 +9,7 @@ app.controller('ProjectEditCtrl',
     };
 
     console.log("still logged in through: ",
-      $scope.currentUser);
+                $scope.currentUser);
     console.log('you are in projectEdit controller');
 
     $scope.rows = function(){

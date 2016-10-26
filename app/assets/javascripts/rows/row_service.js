@@ -155,6 +155,13 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     _id++;
   };
 
+  rowService.addEmptyRow = function(){
+    var newRow = {id: _id, components: []};
+    _rows.push(newRow);
+    _id++;
+    console.log('adding row');
+  };
+
   var _addNewTopRow = function(component){
     var newRow = {
       id: _id,

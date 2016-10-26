@@ -1,6 +1,6 @@
 app.directive('component',
   ['$compile', "$rootScope", "$window", "tinyMCEService",
-  function($compile, $rootScope, $window,tinyMCEService) {
+  function($compile, $rootScope, $window, tinyMCEService) {
 
   return {
     restrict: "E",
@@ -15,6 +15,9 @@ app.directive('component',
       var linkFn = $compile(template);
       var content = linkFn(scope);
       element.append(content);
+      console.log(element);
+      content.attr('draggable', true);
+      content.addClass('draggable');
 
       scope.onClick = function($event){
         $event.stopPropagation();

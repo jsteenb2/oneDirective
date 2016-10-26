@@ -16,6 +16,7 @@ gem 'angular_rails_csrf'
 source "https://rails-assets.org" do
   gem 'rails-assets-angular-devise'
   gem 'rails-assets-bootstrap-material-design'
+  gem 'rails-assets-angular-dragdrop'
 end
 
 #devise
