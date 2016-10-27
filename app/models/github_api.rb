@@ -56,9 +56,7 @@ class GithubApi
 
   def push_final_html_to_github
     repo_name = create_repo
-    # puts 'Created Repo: ' + repo_name
     commit_directory(repo_name, 'new page', 'public/repo/')
-    # puts "https://github.com/AnglifiedBootstrap/#{repo_name}"
     repo = {
       name: repo_name,
       url: "https://github.com/AnglifiedBootstrap/#{repo_name}",

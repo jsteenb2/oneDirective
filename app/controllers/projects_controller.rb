@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   # process params for file upload
   before_action :process_photo, only: [:update]
-  before_action :set_github_instance, only: [:publish]
+  # before_action :set_github_instance, only: [:publish]
 
 
   def index
@@ -47,8 +47,15 @@ class ProjectsController < ApplicationController
 
   def publish
     @project = current_user.projects.find_by_id(params[:id])
+    @github = GithubApi.new
     FileBuilder.new(@project.id)
-    repo = @github.push_final_html_to_github
+    @repo = @github.push_final_html_to_github
+    p @repo
+    respond_to do |format|
+      format.json {
+        render json: @repo, status: 200
+      }
+    end
   end
 
   private

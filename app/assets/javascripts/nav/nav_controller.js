@@ -1,4 +1,4 @@
-app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams', 'ProjectService', function( $scope, $rootScope, currUser, $stateParams, ProjectService ){
+app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams', 'ProjectService', 'Restangular', function( $scope, $rootScope, currUser, $stateParams, ProjectService, Restangular ){
 
   $scope.currentUser = currUser;
 
@@ -13,4 +13,23 @@ app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams'
         console.log(reason);
       });
   };
+
+  $scope.publishProject = function(ev){
+    ev.preventDefault();
+    $scope.saveProject(ev)
+      .then(function(ev){
+        publish($stateParams.id)
+        ;
+      });
+  };
+
+  function publish(projectId){
+    return Restangular.oneUrl('projects', "api/v1/projects/" + projectId + "/publish.json")
+      .get()
+      .then(function(response){
+        console.log(response);
+      }).catch(function(reason){
+        console.error(reason);
+      });
+  }
 }]);

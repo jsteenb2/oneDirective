@@ -18,13 +18,6 @@ class FileBuilder
            '<meta name="viewport" content="width=device-width, initial-scale=1">']
   }
 
-
-  #
-  # <!-- Material Design fonts -->
-  # <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-  # <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-
   def initialize(project_id)
     @project = Project.includes(rows: :components).find_by_id(project_id)
     @rows = @project.rows
