@@ -1,5 +1,5 @@
-app.factory('componentService', ["_", '$http', 'FlashService',
-function(_, $http, FlashService){
+app.factory('componentService', ["_", '$http',
+function(_, $http){
   var data = {
     cachedComponents: [],
     created: [],
@@ -33,8 +33,6 @@ function(_, $http, FlashService){
     });
     delete component.rowId;
     data.deleted.push(component);
-    // Flash messages.
-    FlashService.destroy('success', 'components', component.name);
   };
 
   componentService.buildComponent = function(componentType){
@@ -43,8 +41,6 @@ function(_, $http, FlashService){
     data.cachedComponents.push(component);
     data.created.push(component);
     _id++;
-    // Flash messages.
-    FlashService.create('success', 'components', component.name);
     return component;
   };
 
@@ -131,23 +127,29 @@ function(_, $http, FlashService){
   }
 
   function _removeEditorAttrs(component){
-    component.content
+    angular.element(component.content).find('*')
       .removeClass('ng-scope ng-binding')
       .removeAttr('ng-keydown')
       .removeAttr('ng-click')
       .removeAttr('ng-dblclick')
       .removeAttr('data-head')
-      .removeAttr('ng-class')
-      .removeAttr('tabindex');
+      .removeAttr('ng-class');
   }
 
   function _extendContent(component){
+
+    // var wrapped = angular.element('<div class="col-xs-12 tipped">');
+    // var newContent = angular.element(component.content).wrap(wrapped).parent();
+    
+    // newContent
+
     component.content = angular.element(component.content)
       .attr('ng-keydown', 'moveComponent($event)')
       .attr('ng-click', 'onClick($event)')
       .attr('ng-dblclick', 'dblClick($event)')
       .attr('data-head', 'head')
-      .attr('ng-class', "{ 'hovered': hovered }");
+      .attr('ng-class', "{ 'hovered': hovered }")
+
   }
 
   function _logError (reason) {
