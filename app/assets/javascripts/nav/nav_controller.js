@@ -36,7 +36,6 @@ app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams'
         return response;
       }).then(function(response) {
         Cog.repoReady();
-        console.log(response)
       }).catch(function(reason){
         Cog.failed();
         console.error(reason);
