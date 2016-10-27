@@ -58,10 +58,11 @@ class GithubApi
     repo_name = create_repo
     commit_directory(repo_name, 'new page', 'public/repo/')
     repo = {
-      name: repo_name,
-      url: "https://github.com/AnglifiedBootstrap/#{repo_name}",
-      preview: "https://htmlpreview.github.io/?https://github.com/AnglifiedBootstrap/#{repo_name}/blob/master/public/repo/index.html"
-    }
+        repo:{
+          url: "https://github.com/AnglifiedBootstrap/#{repo_name}",
+          preview: "https://htmlpreview.github.io/?https://github.com/AnglifiedBootstrap/#{repo_name}/blob/master/public/repo/index.html"
+        }
+      }
     return repo
   end
 end

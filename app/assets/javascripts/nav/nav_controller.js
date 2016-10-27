@@ -1,4 +1,4 @@
-app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams', 'ProjectService', 'Publish', function( $scope, $rootScope, currUser, $stateParams, ProjectService, Publish ){
+app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams', 'ProjectService', 'Publish', 'Restangular', function( $scope, $rootScope, currUser, $stateParams, ProjectService, Publish, Restangular ){
 
   $scope.currentUser = currUser;
 
@@ -16,7 +16,7 @@ app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams'
         console.log(reason);
       });
   };
-  
+
   $scope.publishProject = function(ev){
     ev.preventDefault();
     $scope.saveProject(ev)
