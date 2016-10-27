@@ -38,7 +38,6 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
   // use this data to display the element being hovered over.
   function _initializeSlider (content, element) {
     _buildSlider(_data.sliderConfig);
-    console.log(element);
     _data.element = element;
     angular.element(content).on('click', '#delete-component', function(){
       var compId = angular.element(element).closest('component')
@@ -74,6 +73,12 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
         .addClass('container-fluid')
         .attr('style', 'border: 1px dotted black');
     }
+    var compParams = {
+      width: _width,
+      offset: _offset,
+      component: _data.element
+    };
+    $rootScope.$emit('dimensions.update', compParams);
     // var newWidth = "col-xs-" + _width;
     // var newOffset;
     // if (_offset > 0) {

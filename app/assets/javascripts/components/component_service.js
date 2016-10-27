@@ -53,6 +53,9 @@ function(_, $http, FlashService, Restangular){
   componentService.buildComponent = function(componentType){
     var component = angular.copy(componentTypes[componentType], {});
     component.id = _id;
+    // Need to give the component's html content an id to match later on.
+    angular.element(component.content[0]).attr('data-component-id', _id);
+    console.log(component);
     data.cachedComponents.push(component);
     data.created.push(component);
     _id++;
@@ -76,7 +79,6 @@ function(_, $http, FlashService, Restangular){
         _.each(componentTypes, function(component){
           _extendContent(component);
         });
-        console.log(componentTypes);
         return data.data;
       })
       .catch(_logError);
