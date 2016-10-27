@@ -1,4 +1,4 @@
-app.directive('component', ['$compile', "$rootScope", "$window", "tinyMCEService", 'componentService', 'rowService', function($compile, $rootScope, $window,tinyMCEService, componentService, rowService) {
+app.directive('component', ['$compile', "$rootScope", "$window", "tinyMCEService", 'componentService', 'rowService', '$stateParams', 'ProjectService', function($compile, $rootScope, $window,tinyMCEService, componentService, rowService, $stateParams, ProjectService) {
 
   return {
     restrict: "E",
@@ -25,26 +25,14 @@ app.directive('component', ['$compile', "$rootScope", "$window", "tinyMCEService
           console.log('enabled');
         }
       });
+      // adds col-xs-12 and tipped
+      angular.element(element)
+        .addClass('col-xs-12 tipped');
 
       $rootScope.$on('component.changed', function(ev, compId){
         if(scope.component.id == compId){
           element.remove();
           scope.$destroy();
-        }
-      });
-
-
-      $rootScope.$on('component-dropped', function(name, params){
-        console.log('dropped');
-        $rootScope.$emit('component.changed', scope.component.id);
-        if(params.rowId && params.componentId){
-          var component = componentService.getComponentById(params.componentId);
-          var row = rowService.getRowById(params.rowId);
-          if(row.id == component.rowId && !_.isEmpty(params.componentIds)){
-            rowService.changeComponentOrder(params.componentIds, row);
-          } else {
-            rowService.moveComponentFromRowToRow(component, row);
-          }
         }
       });
 

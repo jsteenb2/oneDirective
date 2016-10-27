@@ -1,4 +1,4 @@
-app.directive('draggable', ['$rootScope', function($rootScope) {
+app.directive('draggable', ['$rootScope', 'rowService', 'componentService', function($rootScope, rowService, componentService) {
   return {
     restrict:'A',
     link: function(scope, element, attrs) {
@@ -21,7 +21,7 @@ app.directive('draggable', ['$rootScope', function($rootScope) {
             componentId: $component.data('component-id'),
             componentIds: ids
           };
-          $rootScope.$broadcast('component-dropped', params);
+          updateComponent(params);
         }
       });
       $rootScope.$on('disable-dragging', function(){
@@ -34,6 +34,21 @@ app.directive('draggable', ['$rootScope', function($rootScope) {
         });
         element.draggable('enable');
       });
+
+      var updateComponent = function(params){
+        console.log('dropped');
+        if(params.rowId && params.componentId){
+          $rootScope.$emit('component.changed', scope.component.id);
+          var component = componentService.getComponentById(params.componentId);
+          var row = rowService.getRowById(params.rowId);
+          if(row.id == component.rowId && !_.isEmpty(params.componentIds)){
+            rowService.changeComponentOrder(params.componentIds, row);
+          } else {
+            rowService.moveComponentFromRowToRow(component, row);
+          }
+        }
+      };
+
     }
   };
 }]);

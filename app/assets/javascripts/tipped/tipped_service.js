@@ -1,4 +1,5 @@
-app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope', function(_, rowService, componentService, $rootScope){
+app.factory('TippedService', 
+  ["_", 'rowService', 'componentService', '$rootScope', function(_, rowService, componentService, $rootScope){
   var stub = {};
 
   var _width = 12;
@@ -80,6 +81,7 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
 
   function _deleteTipped (content, element) {
     Tipped.remove('.tipped-curr');
+    angular.element('t_Tooltip.t_Tooltip_white.t_hidden').remove();
     $('.t_ContentContainer.t_clearfix.t_Content_white').remove();
     angular.element(element)
       .attr('style', '')
@@ -88,6 +90,8 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
   }
 
   stub.tipped = function () {
+    Tipped.remove('.tipped-curr');
+    $('.t_ContentContainer.t_clearfix.t_Content_white').remove();
     Tipped.create('.tipped-curr',_data.template(),_data.tippedConfig);
   };
 
