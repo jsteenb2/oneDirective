@@ -7,31 +7,48 @@ app.factory('Cog', [function () {
     getPub: function () {
       return angular.element('p.publish-success');
     },
+    getRepoReady: function () {
+      return angular.element('a.repo-ready');
+    },
     getCog: function () {
       return angular.element('i.fa-spin');
     }
   };
 
+  function _killAnim (key) {
+    _dom[key]().stop(true,true)
+      .hide();
+  }
+
+  function _killAnims () {
+    var keys = Object.keys(_dom);
+    keys.forEach(_killAnim);
+  }
+
   srv.saving = function () {
-    _dom.getSave().stop(true,false);
-    _dom.getSave().hide();
+    _killAnims();
     _dom.getCog().show();
   };
 
   srv.success = function () {
     _dom.getCog().hide();
     _dom.getSave()
-      .fadeIn(1000)
+      .fadeIn(500)
       .delay(3000)
-      .fadeOut(1000);
+      .fadeOut(500);
   };
 
   srv.published = function () {
     _dom.getCog().hide();
     _dom.getPub()
-      .fadeIn(1000)
+      .fadeIn(500)
       .delay(3000)
-      .fadeOut(1000);
+      .fadeOut(500);
+  };
+
+  srv.repoReady = function () {
+    _killAnims();
+    _dom.getRepoReady().show();
   };
 
   srv.failed = function () {

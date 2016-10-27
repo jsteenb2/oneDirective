@@ -32,7 +32,10 @@ app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams'
       .get()
       .then(function(response){
         Cog.published();
-        console.log(response);
+        $scope.response = response;
+        return response;
+      }).then(function(response) {
+        Cog.repoReady();
       }).catch(function(reason){
         Cog.failed();
         console.error(reason);
