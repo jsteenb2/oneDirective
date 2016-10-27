@@ -11,33 +11,33 @@
     margin-left: 3em;
     margin-right: 3em;
   }
-  .navbar {
-    min-height: 3em;
-    height: 3em;
-    .navbar-brand {
-      padding-top: 0.4em;
-      padding-bottom: 0;
-      height: 2.4em;
+}
+#user-navbar.navbar {
+  min-height: 3em;
+  height: 3em;
+  .navbar-brand {
+    padding-top: 0.4em;
+    padding-bottom: 0;
+    height: 2.4em;
+  }
+  .navbar-nav{
+    #navbar-divider {
+      padding-top: 0.8em;
+      padding-bottom: 0.8em;
     }
-    .navbar-nav{
-      #navbar-divider {
+    .nav-item {
+      a {
         padding-top: 0.8em;
         padding-bottom: 0.8em;
       }
-      .nav-item {
+      button {
+        margin-top: 0.8em;
+        margin-left: 0.8em;
         a {
-          padding-top: 0.8em;
-          padding-bottom: 0.8em;
-        }
-        button {
-          margin-top: 0.8em;
-          margin-left: 0.8em;
-          a {
+          color: white;
+          &:hover {
             color: white;
-            &:hover {
-              color: white;
-              text-decoration: none;
-            }
+            text-decoration: none;
           }
         }
       }
