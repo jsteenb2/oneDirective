@@ -1,6 +1,8 @@
 class ProjectsController < ApplicationController
   # process params for file upload
   before_action :process_photo, only: [:update]
+  before_action :set_github_instance, only: [:publish]
+
 
   def index
     @projects = current_user.projects
@@ -43,8 +45,16 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def publish
+
+  end
+
   private
     # Updating the project cards on the dashboard.
+    def set_github_instance
+      @github = GithubApi.new
+    end
+
     def update_cards
       if @project.update(project_params)
         respond_to do |format|
