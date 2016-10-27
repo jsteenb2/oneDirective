@@ -2,11 +2,6 @@ app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams'
 
   $scope.currentUser = currUser;
 
-  $scope.signOut = function(){
-    $http.delete('users/sign_out');
-    $window.location.reload();
-  };
-
   $scope.saveProject = function(ev){
     ev.preventDefault();
     return ProjectService.saveProjectEdits($stateParams.id)
