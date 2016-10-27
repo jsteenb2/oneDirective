@@ -3,6 +3,60 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
 
   var _width = 12;
   var _offset = 0;
+  var _data = {
+    slider: undefined,
+    config: {
+        range: true,
+        min: -1,
+        max: 13,
+        values: [_offset, _width],
+        slide: _updateDimensions
+    }
+  };
+
+  function _buildSlider (config) {
+    var $slider = $("#slider" );
+    $slider.slider(config);
+    _data.slider = $slider;
+  }
+
+  // use this data to display the element being hovered over.
+  function _initializeSlider (content, element) {
+    _buildSlider(_data.config);
+
+    angular.element(content).on('click', '#delete-component', function(){
+      var compId = angular.element(element).closest('component')
+                      .first()
+                      .data('comp-id');
+      compId = parseInt(compId);
+      var component = componentService.getComponent(compId);
+      component.remove().then(function(response){
+        $rootScope.$emit('component.changed', compId);
+      });
+    });
+  }
+
+  function _updateDimensions (event, ui) {
+    // whenever the slider slides.
+    // there's two ticks in the sldier; val 0 is the first drag handle, val 1 is the second drag handle;
+    // it's like a double range slider
+    // adjusts for edge cases
+    _offset = _data.slider.slider("values", 0);
+    if (parseInt(_offset) === -1) { _offset = parseInt(_offset) + 1; }
+    _width = $('#slider').slider("values", 1);
+    if (parseInt(_width) === 13) { _width = parseInt(_width) - 1; }
+    //displays current offset and width
+    $("#off-set").html($('#slider').slider("values", 0));
+    $("#width").html($('#slider').slider("values", 1));
+    //addes class to author-tipped to give it proper gridding
+    $(element).attr('class', '')
+      .addClass('tipped')
+      .addClass('col-xs-' + _width)
+      .addClass('col-xs-offset-' + _offset)
+      .addClass('container-fluid')
+      .attr('style', 'border: 1px dotted black');
+    }
+  }
 
   stub.tipped = function () {
     Tipped.create('.tipped-curr',
@@ -12,44 +66,7 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
     { skin: 'white',
       // closeButton: true,
       hook: 'bottomright',
-      onShow: function(content, element) {
-        $("#slider" ).slider({
-          range: true,
-          min: -1,
-          max: 13,
-          values: [_offset, _width],
-          slide: function(event, ui) {
-
-            //adjusts for edge cases
-            _offset = $('#slider').slider("values", 0);
-            if (parseInt(_offset) === -1) { _offset = parseInt(_offset) + 1; }
-            _width = $('#slider').slider("values", 1);
-            if (parseInt(_width) === 13) { _width = parseInt(_width) - 1; }
-            //displays current offset and width
-            $("#off-set").html($('#slider').slider("values", 0));
-            $("#width").html($('#slider').slider("values", 1));
-            //addes class to author-tipped to give it proper gridding
-            $(element).attr('class', '')
-              .addClass('tipped')
-              .addClass('col-xs-' + _width)
-              .addClass('col-xs-offset-' + _offset)
-              .addClass('container-fluid')
-              .attr('style', 'border: 1px dotted black');
-            }
-          });
-
-
-        angular.element(content).on('click', '#delete-component', function(){
-          var compId = angular.element(element).closest('component')
-                          .first()
-                          .data('comp-id');
-          compId = parseInt(compId);
-          var component = componentService.getComponent(compId);
-          component.remove().then(function(response){
-            $rootScope.$emit('component.changed', compId);
-          });
-        });
-      },
+      onShow: _updateDimensions,
       afterUpdate: function(content, element) {
 
       },

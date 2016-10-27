@@ -1,7 +1,8 @@
-app.factory('componentService', ["_", '$http', 'FlashService',
-function(_, $http, FlashService){
+app.factory('componentService', ["_", '$http', 'FlashService', 'Restangular',
+function(_, $http, FlashService, Restangular){
   var data = {
     cachedComponents: [],
+    cachedFromRails: [],
     created: [],
     updated: [],
     deleted: []
@@ -10,6 +11,18 @@ function(_, $http, FlashService){
   var componentService = {};
   var _id = 1;
   var componentTypes;
+
+  function _cacheAll (response) {
+    console.log(response);
+    // angular.copy(response,data.cachedFromRails)
+  }
+
+  componentService.queryAll = function () {
+    return Restangular.all('components')
+      .getList()
+      .then(_cacheAll)
+      .catch(_logError);
+  };
 
   componentService.clearCache = function(){
     Object.keys(data).forEach(function(listName){
