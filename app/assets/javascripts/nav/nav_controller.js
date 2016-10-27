@@ -1,14 +1,15 @@
-app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams', 'ProjectService', function( $scope, $rootScope, currUser, $stateParams, ProjectService ){
+app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams', 'ProjectService', 'Publish', function( $scope, $rootScope, currUser, $stateParams, ProjectService, Publish ){
 
   $scope.currentUser = currUser;
 
   $scope.saveProject = function(ev){
 
     ev.preventDefault();
-    _saving();
+    // Publish service to handle save anims.
+    Publish.saving();
     return ProjectService.saveProjectEdits($stateParams.id)
       .then(function(response){
-        _success();
+        Publish.success();
         return response;
       })
       .catch(function(reason){
@@ -16,21 +17,4 @@ app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams'
       });
   };
 
-  // saving UX
-  function _saving () {
-    var $save = angular.element('p.save-success');
-    var $cog = angular.element('i.fa-spin');
-    $save.stop(true,false);
-    $save.hide();
-    $cog.show();
-  }
-
-  function _success () {
-    var $save = angular.element('p.save-success');
-    var $cog = angular.element('i.fa-spin');
-    $cog.hide();
-    $save.fadeIn(1000)
-      .delay(3000)
-      .fadeOut(1000);
-  }
 }]);
