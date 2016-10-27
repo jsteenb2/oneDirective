@@ -3,11 +3,11 @@ app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams'
   $scope.currentUser = currUser;
 
   $scope.saveProject = function(ev){
-    $scope.saving = true;
+
     ev.preventDefault();
+    _saving();
     return ProjectService.saveProjectEdits($stateParams.id)
       .then(function(response){
-        _toggleSave();
         _success();
         return response;
       })
@@ -17,17 +17,15 @@ app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams'
   };
 
   // saving UX
-  $scope.saving = false;
-
-  function _toggleSave () {
-    $scope.saving = !$scope.saving;
+  function _saving () {
+    angular.element('i.fa-spin').show();
   }
 
   function _success () {
-    angular.element('span.save-success')
+    angular.element('i.fa-spin').hide();
+    angular.element('p.save-success')
       .fadeIn(1000)
       .delay(3000)
-      .fadeOut(1000)
-      .removeClass('save-success');
+      .fadeOut(1000);
   }
 }]);
