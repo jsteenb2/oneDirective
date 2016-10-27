@@ -136,6 +136,22 @@ function(_, $http){
       .removeAttr('ng-class');
   }
 
+  //adds textable class to every text-type element
+  //so that tinymce listeners can proc it.
+  function _addTextable($content) {
+    //has content
+    $content.find('a').addClass('textable');
+    $content.find('p').addClass('textable');
+    $content.find('h1').addClass('textable');
+    $content.find('h2').addClass('textable');
+    $content.find('h3').addClass('textable');
+    $content.find('code').addClass('textable');
+    $content.find('span').addClass('textable'); 
+    
+    // is content
+    $content.addClass('textable');
+  }
+
   function _extendContent(component){
 
     // var wrapped = angular.element('<div class="col-xs-12 tipped">');
@@ -149,8 +165,10 @@ function(_, $http){
       .attr('ng-dblclick', 'dblClick($event)')
       .attr('data-head', 'head')
       .attr('ng-class', "{ 'hovered': hovered }")
-
+    _addTextable(component.content);
   }
+
+  
 
   function _logError (reason) {
     console.log(reason);

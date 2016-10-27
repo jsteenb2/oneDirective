@@ -1,7 +1,7 @@
 {
   "toggleButton": {
     "name": "toggleButton",
-    "content": "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"button\" aria-pressed=\"false\" autocomplete=\"off\" data-head=\"head\"> Single toggle</button>",
+    "content": "<button type=\"button\" class=\"btn btn-primary textable\" data-toggle=\"button\" aria-pressed=\"false\" autocomplete=\"off\" data-head=\"head\"> Single toggle</button>",
     "width": 6,
     "offset": 0
   },
@@ -13,7 +13,7 @@
   },
   "navbarDefault": {
     "name": "navbarDefault",
-    "content": "<div class=\"navbar navbar-default\"><div class=\"navbar-header\"><a class=\"navbar-brand\" href=\"#\">Brand</a></div><ul class=\"nav navbar-nav\"><li class=\"active\"><a href=\"#\">Home</a></li><li><a href=\"#\">Link</a></li><li><a href=\"#\">Link</a></li><li class=\"divider-vertical\"></li><li><a href=\"#\">More</a></li><li><a href=\"#\">Options</a></li></ul></div>",
+    "content": "<div class=\"navbar navbar-default\"><div class=\"navbar-header\"><a class=\"navbar-brand\" >Brand</a></div><ul class=\"nav navbar-nav\"><li class=\"active\"><a >Home</a></li><li><a >Link</a></li><li><a >Link</a></li><li class=\"divider-vertical\"></li><li><a >More</a></li><li><a >Options</a></li></ul></div>",
     "width": 12,
     "offset": 0
   },
