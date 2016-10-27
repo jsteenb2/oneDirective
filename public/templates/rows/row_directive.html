@@ -1,2 +1,4 @@
-<component class="draggable" data-component-id="{{component.id}}" component="component" draggable ng-repeat="component in row.components track by component.id">
-</component>
+<div class="row" ng-click="selectRow()" ng-class="{ 'hovered': hovered}">
+  <component component="component" ng-repeat="component in row.components track by component.id">
+  </component>
+</div>

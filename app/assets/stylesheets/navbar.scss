@@ -12,7 +12,7 @@
     margin-right: 3em;
   }
 }
-#user-navbar.navbar {
+.navbar {
   min-height: 3em;
   height: 3em;
   .navbar-brand {
@@ -33,13 +33,6 @@
       button {
         margin-top: 0.8em;
         margin-left: 0.8em;
-        a {
-          color: white;
-          &:hover {
-            color: white;
-            text-decoration: none;
-          }
-        }
       }
     }
   }
