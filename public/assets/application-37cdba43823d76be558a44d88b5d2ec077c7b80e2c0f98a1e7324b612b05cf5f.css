@@ -79,10 +79,11 @@ body {
 /* line 12, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/static_pages.scss */
 #component-library-header {
   color: white;
+  font-weight: bold;
   text-align: center;
 }
 
-/* line 17, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/static_pages.scss */
+/* line 18, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/static_pages.scss */
 .component-button {
   background-color: #233743;
   margin-bottom: 0.5em;
@@ -92,20 +93,42 @@ body {
   border-radius: 3px;
   height: 4em;
 }
-/* line 25, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/static_pages.scss */
+/* line 26, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/static_pages.scss */
 .component-button:hover {
   cursor: pointer;
   box-shadow: inset 0 0 3px white, 0 0 3px white;
 }
-/* line 29, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/static_pages.scss */
+/* line 30, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/static_pages.scss */
 .component-button .component-button-header {
   color: white;
   text-align: center;
 }
 
-/* line 35, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/static_pages.scss */
+/* line 37, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/static_pages.scss */
 #workspace {
   background-color: white;
+}
+/* line 40, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/static_pages.scss */
+#workspace .highlight {
+  border: 1px solid blue;
+}
+/* line 44, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/static_pages.scss */
+#workspace .row {
+  min-height: 3em;
+}
+/* line 48, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/static_pages.scss */
+#workspace .selected-row {
+  /* border: 1px solid green; */
+  box-shadow: 0 0 10px green;
+}
+/* line 54, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/static_pages.scss */
+#workspace .drop-row {
+  box-shadow: 0 0 10px red;
+}
+/* line 57, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/static_pages.scss */
+#workspace .sortable-placeholder {
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
 }
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
@@ -16208,29 +16231,53 @@ Then, run this script to get the list@mixin (function(){
 }
 
 /* line 15, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/navbar.scss */
-.navbar {
+#user-navbar.navbar {
   min-height: 3em;
   height: 3em;
 }
 /* line 18, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/navbar.scss */
-.navbar .navbar-brand {
+#user-navbar.navbar .navbar-brand {
   padding-top: 0.4em;
   padding-bottom: 0;
   height: 2.4em;
 }
 /* line 24, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/navbar.scss */
-.navbar .navbar-nav #navbar-divider {
+#user-navbar.navbar .navbar-nav #navbar-divider {
   padding-top: 0.8em;
   padding-bottom: 0.8em;
 }
 /* line 29, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/navbar.scss */
-.navbar .navbar-nav .nav-item a {
+#user-navbar.navbar .navbar-nav .nav-item a {
   padding-top: 0.8em;
   padding-bottom: 0.8em;
 }
 /* line 33, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/navbar.scss */
-.navbar .navbar-nav .nav-item button {
+#user-navbar.navbar .navbar-nav .nav-item button {
   margin-top: 0.8em;
+  margin-left: 0.8em;
+}
+/* line 36, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/navbar.scss */
+#user-navbar.navbar .navbar-nav .nav-item button a {
+  color: white;
+}
+/* line 38, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/navbar.scss */
+#user-navbar.navbar .navbar-nav .nav-item button a:hover {
+  color: white;
+  text-decoration: none;
+}
+/* line 44, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/navbar.scss */
+#user-navbar.navbar .navbar-nav .nav-item i.save-icon {
+  margin-top: 5px;
+  margin-left: 0.8em;
+}
+/* line 48, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/navbar.scss */
+#user-navbar.navbar .navbar-nav .nav-item p.save-success {
+  margin-top: 10px;
+  margin-left: 0.8em;
+}
+/* line 52, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/navbar.scss */
+#user-navbar.navbar .navbar-nav .nav-item p.publish-success {
+  margin-top: 10px;
   margin-left: 0.8em;
 }
 /*
@@ -17507,11 +17554,6 @@ i.icon {
 }
 
 /* line 5, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/dashboard.scss */
-button.browse-btn {
-  width: 100px;
-}
-
-/* line 9, /Users/jonathansteenbergen/vcs_prep/skeletor_material_design/app/assets/stylesheets/dashboard.scss */
 input[type=file] {
   z-index: 2;
   opacity: 0;
