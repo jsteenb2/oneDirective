@@ -1,6 +1,6 @@
 app.controller('DashboardCtrl',
-['projectsData', 'ProjectService', '$state', 'FlashService',
-function (projectsData, ProjectService, $state, FlashService) {
+['projectsData', 'ProjectService', '$state', 'FlashService', 'componentService',
+function (projectsData, ProjectService, $state, FlashService, componentService) {
   var vm = this;
 
   vm.projectsData = projectsData;
