@@ -47,6 +47,8 @@ class ProjectsController < ApplicationController
 
   def publish
     @project = current_user.projects.find_by_id(params[:id])
+    FileBuilder.new(@project.id)
+    repo = @github.push_final_html_to_github
   end
 
   private

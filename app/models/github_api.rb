@@ -18,7 +18,8 @@ class GithubApi
   end
 
   def commit_directory(repo_name, commit_message, directory_path)
-    Dir.glob("#{directory_path}*") do |f|
+    puts directory_path
+    Dir.glob("#{directory_path}**/*") do |f|
       create_commit(repo_name, commit_message, f) if File.file?(f)
     end
   end
@@ -55,9 +56,14 @@ class GithubApi
 
   def push_final_html_to_github
     repo_name = create_repo
-    puts 'Created Repo: ' + repo_name
+    # puts 'Created Repo: ' + repo_name
     commit_directory(repo_name, 'new page', 'public/repo/')
-    puts "https://github.com/AnglifiedBootstrap/#{repo_name}"
-    return "https://github.com/AnglifiedBootstrap/#{repo_name}"
+    # puts "https://github.com/AnglifiedBootstrap/#{repo_name}"
+    repo = {
+      name: repo_name,
+      url: "https://github.com/AnglifiedBootstrap/#{repo_name}",
+      preview: "https://htmlpreview.github.io/?https://github.com/AnglifiedBootstrap/#{repo_name}/blob/master/public/repo/index.html"
+    }
+    return repo
   end
 end
