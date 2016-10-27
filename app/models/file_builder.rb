@@ -3,10 +3,10 @@ class FileBuilder
   CDN_HASH = {
     css: {
       names: ['//fonts.googleapis.com/css?family=Roboto:300,400,500,700"',
-        '//fonts.googleapis.com/icon?family=Material+Icons',
-        'bootstrap.min.css',
-        "bootstrap-material-design.min.css",
-        "ripples.min.css"],
+              '//fonts.googleapis.com/icon?family=Material+Icons',
+              'bootstrap.min.css',
+              "bootstrap-material-design.min.css",
+              "ripples.min.css"],
       rel: "stylsheet"
     },
     js: {
