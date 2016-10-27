@@ -34,6 +34,7 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
 
   // use this data to display the element being hovered over.
   function _initializeSlider (content, element) {
+    _data.element = element;
     _buildSlider(_data.sliderConfig);
     angular.element(content).on('click', '#delete-component', function(){
       var compId = angular.element(element).closest('component')
@@ -62,7 +63,7 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
     $("#off-set").html($('#slider').slider("values", 0));
     $("#width").html($('#slider').slider("values", 1));
     //addes class to author-tipped to give it proper gridding
-    $(element).attr('class', '')
+    $(_data.element).attr('class', '')
       .addClass('tipped')
       .addClass('col-xs-' + _width)
       .addClass('col-xs-offset-' + _offset)
@@ -71,6 +72,7 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
   }
 
   function _deleteTipped (content, element) {
+    console.log(Tipped);
     Tipped.remove('.tipped-curr');
     $('.t_ContentContainer.t_clearfix.t_Content_white').remove();
     angular.element(element)
@@ -80,6 +82,7 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
   }
 
   stub.tipped = function () {
+    _initializeSlider();
     Tipped.create('.tipped-curr',_data.template,_data.tippedConfig);
   };
 
