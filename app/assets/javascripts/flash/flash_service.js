@@ -29,7 +29,8 @@ app.factory('FlashService', ['pluralize', 'Flash', function (pluralize, Flash) {
       var message = builder(status, resource, item);
       var $alert = angular.element('div.alert');
       $alert.stop(true,false);
-      return Promise.resolve(Flash.create(status, message));
+      return Promise.resolve(Flash.create(status, message))
+        .then(_fadeFlash);
     };
   }
 
