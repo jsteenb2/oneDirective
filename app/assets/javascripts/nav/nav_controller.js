@@ -24,7 +24,7 @@ app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams'
   };
 
   function publish(projectId){
-    return Restangular.oneUrl('projects', "api/v1/projects/" + projectId + "/publish.json")
+    return Restangular.oneUrl('projects', "api/v1/projects/" + projectId + "/publish.json").withHttpConfig({timeout: 60000})
       .get()
       .then(function(response){
         console.log(response);
