@@ -3,8 +3,6 @@ app.controller('DashboardCtrl',
 function (projectsData, ProjectService, $state, FlashService, componentService) {
   var vm = this;
 
-  componentService.queryAll();
-
   vm.projectsData = projectsData;
 
   vm.addProject = function ($event) {

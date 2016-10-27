@@ -50,7 +50,7 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
       });
     });
   }
-  
+
   function _updateDimensions (event, ui) {
     // adjusts for edge cases
     _offset = $("#slider").slider("values", 0);
