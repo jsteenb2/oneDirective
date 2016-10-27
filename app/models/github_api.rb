@@ -58,5 +58,6 @@ class GithubApi
     puts 'Created Repo: ' + repo_name
     commit_directory(repo_name, 'new page', 'public/repo/')
     puts "https://github.com/AnglifiedBootstrap/#{repo_name}"
+    return "https://github.com/AnglifiedBootstrap/#{repo_name}"
   end
 end

@@ -46,7 +46,7 @@ class ProjectsController < ApplicationController
   end
 
   def publish
-
+    @project = current_user.projects.find_by_id(params[:id])
   end
 
   private
