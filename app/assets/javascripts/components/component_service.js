@@ -1,6 +1,5 @@
-app.factory('componentService', 
-  ["_", '$http', 'FlashService',
-function(_, $http, FlashService){
+app.factory('componentService', ["_", '$http', 'FlashService', 'Restangular',
+function(_, $http, FlashService, Restangular){
   var data = {
     cachedComponents: [],
     created: [],
@@ -75,7 +74,6 @@ function(_, $http, FlashService){
         _.each(componentTypes, function(component){
           _extendContent(component);
         });
-        console.log(componentTypes);
         return data.data;
       })
       .catch(_logError);

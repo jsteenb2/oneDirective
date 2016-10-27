@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :projects
       resources :rows
       resources :components
+      get 'projects/:id/publish' => 'projects#publish'
     end
   end
 end

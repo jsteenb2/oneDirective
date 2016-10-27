@@ -3,17 +3,26 @@ app.controller('ProjectCardCtrl',
 function (ProjectService, $uibModal, FlashService) {
   var vm = this;
 
+  function _success (params) {
+    FlashService.update('success', 'projects');
+    return params;
+  }
+
+  function _failure (params) {
+    FlashService.update('danger', 'projects');
+    return params;
+  }
+
   vm.updateView = function (params) {
-    console.log(params);
     angular.copy(params,vm.project);
+    return params;
   };
 
   // Update: using the modal.
   vm.updateProject = function (params) {
     ProjectService.update(params)
       .then(vm.updateView)
-      .then(FlashService.update('success', 'projects'))
-      .catch(FlashService.update('danger', 'projects'));
+      .then(_success,_failure);
   };
 
   // Edit: go to edit page.
@@ -42,6 +51,15 @@ function (ProjectService, $uibModal, FlashService) {
     });
 
     modalInstance.result.then(vm.updateProject);
+  };
+
+  // fallback
+  vm.showPhoto = function () {
+    if (vm.project.photo_url.match(/missing.jpg/)) {
+      return "https://s-media-cache-ak0.pinimg.com/originals/0c/e3/9b/0ce39bdb5f239eb6dd46bb2795c2a685.jpg";
+    } else {
+      return vm.project.photo_url;
+    }
   };
 
 }]);

@@ -6,7 +6,6 @@ app.controller('sideBarCtrl', ["$scope", "rowService", "$rootScope", 'currUser',
   $scope.selectedComponent = false;
 
   $scope.initiateComponents = function(type){
-    console.log(type);
     rowService.buildNewComponent(type, $scope.selectedRow);
   };
 
