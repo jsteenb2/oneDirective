@@ -74,14 +74,14 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
         .addClass('container-fluid')
         .attr('style', 'border: 1px dotted black');
     }
-    var newWidth = "col-xs-" + _width;
-    var newOffset;
-    if (_offset > 0) {
-      newOffset = "col-xs-offset-" + _offset;
-    }
-    if (_data.element) {
-      $(_data.element).css(newWidth + " " + newOffset);
-    }
+    // var newWidth = "col-xs-" + _width;
+    // var newOffset;
+    // if (_offset > 0) {
+    //   newOffset = "col-xs-offset-" + _offset;
+    // }
+    // if (_data.element) {
+    //   $(_data.element).css(newWidth + " " + newOffset);
+    // }
   }
 
   function _deleteTipped (content, element) {

@@ -228,7 +228,6 @@ GEM
       rails-assets-jquery-ui
     rails-assets-angular-flash-alert (2.3.0)
       rails-assets-angular (>= 1.4.8)
-    rails-assets-angular-tipped (1.0.0.1)
     rails-assets-angular-utf8-base64 (0.0.5)
       rails-assets-angular (>= 1.0.8)
     rails-assets-bootstrap (3.3.7)
@@ -363,7 +362,6 @@ DEPENDENCIES
   rails-assets-angular-devise!
   rails-assets-angular-dragdrop!
   rails-assets-angular-flash-alert!
-  rails-assets-angular-tipped!
   rails-assets-angular-utf8-base64!
   rails-assets-bootstrap-material-design!
   rails-assets-pluralize!
