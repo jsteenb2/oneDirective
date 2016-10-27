@@ -6,10 +6,19 @@ function(_, $http, FlashService, Restangular){
     updated: [],
     deleted: []
   };
+  var _baseComponents;
+
 
   var componentService = {};
   var _id = 1;
   var componentTypes;
+
+  componentService.getData = function() {
+    return data;
+  };
+  componentService.getBase = function() {
+    return _baseComponents;
+  };
 
   componentService.clearCache = function(){
     Object.keys(data).forEach(function(listName){
@@ -60,6 +69,7 @@ function(_, $http, FlashService, Restangular){
   componentService.cacheComponentLibrary = function(){
     $http.get('components.json')
       .then(function(data){
+        _baseComponents = data;
         componentTypes = data.data;
         _.each(componentTypes, function(component){
           _extendContent(component);
@@ -131,24 +141,48 @@ function(_, $http, FlashService, Restangular){
   }
 
   function _removeEditorAttrs(component){
-    component.content
+    angular.element(component.content).find('*')
       .removeClass('ng-scope ng-binding')
       .removeAttr('ng-keydown')
       .removeAttr('ng-click')
       .removeAttr('ng-dblclick')
       .removeAttr('data-head')
-      .removeAttr('ng-class')
-      .removeAttr('tabindex');
+      .removeAttr('ng-class');
+  }
+
+  //adds textable class to every text-type element
+  //so that tinymce listeners can proc it.
+  function _addTextable($content) {
+    //has content
+    $content.find('a').addClass('textable');
+    $content.find('p').addClass('textable');
+    $content.find('h1').addClass('textable');
+    $content.find('h2').addClass('textable');
+    $content.find('h3').addClass('textable');
+    $content.find('code').addClass('textable');
+    $content.find('span').addClass('textable'); 
+    
+    // is content
+    $content.addClass('textable');
   }
 
   function _extendContent(component){
+
+    // var wrapped = angular.element('<div class="col-xs-12 tipped">');
+    // var newContent = angular.element(component.content).wrap(wrapped).parent();
+    
+    // newContent
+
     component.content = angular.element(component.content)
       .attr('ng-keydown', 'moveComponent($event)')
       .attr('ng-click', 'onClick($event)')
       .attr('ng-dblclick', 'dblClick($event)')
       .attr('data-head', 'head')
-      .attr('ng-class', "{ 'hovered': hovered }");
+      .attr('ng-class', "{ 'hovered': hovered }")
+    _addTextable(component.content);
   }
+
+  
 
   function _logError (reason) {
     console.log(reason);
