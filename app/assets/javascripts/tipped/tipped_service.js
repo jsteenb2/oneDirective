@@ -7,7 +7,7 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
   var _template = function () {
     return '<a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a><p>How big is your grid?</p><p> Offset: <code id="off-set">' +
           _offset +
-          '</code> | Width: <code id="width">` + _width + `</code></p><div id=\"slider\" class=\"col-xs-12\" style=\"width: 100\%\"></div>';
+          '</code> | Width: <code id="width">' + _width + '</code></p><div id=\"slider\" class=\"col-xs-12\" style=\"width: 100\%\"></div>';
   };
 
   var _data = {
