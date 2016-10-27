@@ -8,6 +8,9 @@ app.directive('component',
       component: "="
     },
     link: function(scope, element, attrs){
+      // adds col-xs-12 and tipped
+      angular.element(element)
+        .addClass('col-xs-12 tipped');
 
       $rootScope.$on('component.changed', function(ev, compId){
         if(scope.component.id == compId){

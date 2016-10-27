@@ -1,4 +1,5 @@
-app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope', function(_, rowService, componentService, $rootScope){
+app.factory('TippedService', 
+  ["_", 'rowService', 'componentService', '$rootScope', function(_, rowService, componentService, $rootScope){
   var stub = {};
 
   var _width = 12;

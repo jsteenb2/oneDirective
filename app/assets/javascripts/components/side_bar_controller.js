@@ -10,6 +10,7 @@ app.controller('sideBarCtrl', ["$scope", "rowService", "$rootScope", 'currUser',
   };
 
   $scope.componentTypes = function(){
+    
     return componentService.componentKeys();
   };
 
