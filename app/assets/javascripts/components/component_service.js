@@ -1,5 +1,6 @@
-app.factory('componentService', ["_", '$http',
-function(_, $http){
+app.factory('componentService', 
+  ["_", '$http', 'FlashService',
+function(_, $http, FlashService){
   var data = {
     cachedComponents: [],
     created: [],
@@ -47,9 +48,14 @@ function(_, $http){
   componentService.buildComponent = function(componentType){
     var component = angular.copy(componentTypes[componentType], {});
     component.id = _id;
+    // Need to give the component's html content an id to match later on.
+    angular.element(component.content[0]).attr('data-component-id', _id);
+    console.log(component);
     data.cachedComponents.push(component);
     data.created.push(component);
     _id++;
+    // Flash messages.
+    FlashService.create('success', 'components', component.name);
     return component;
   };
 

@@ -29,7 +29,7 @@ app.factory('FlashService', ['pluralize', 'Flash', function (pluralize, Flash) {
       var message = builder(status, resource, item);
       var $alert = angular.element('div.alert');
       $alert.stop(true,false);
-      Promise.resolve(Flash.create(status, message))
+      return Promise.resolve(Flash.create(status, message))
         .then(_fadeFlash);
     };
   }
@@ -40,6 +40,7 @@ app.factory('FlashService', ['pluralize', 'Flash', function (pluralize, Flash) {
       .fadeIn(500)
       .delay(3000)
       .fadeOut(500);
+    return $alert;
   }
 
   var _create = _buildMessage('created');

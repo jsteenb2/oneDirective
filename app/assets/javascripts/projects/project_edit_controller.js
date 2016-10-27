@@ -24,4 +24,15 @@ app.controller('ProjectEditCtrl',
     $rootScope.$on('component.changed', function(ev){
       $scope.rows();
     });
+
+    // updating dimensions
+      $rootScope.$on('dimensions.update', function (ev, arg) {
+        var compId = arg.component.attributes['data-component-id'].value;
+        var newWidth = arg.width;
+        var newOffset = arg.offset;
+        var component = componentService.getComponent(compId);
+        component.width = arg.width;
+        component.offset = arg.offset;
+      });
+
 }]);
