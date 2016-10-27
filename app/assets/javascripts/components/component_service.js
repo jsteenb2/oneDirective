@@ -13,7 +13,7 @@ function(_, $http, FlashService, Restangular){
   var componentTypes;
 
   function _cacheAll (response) {
-    console.log(response);
+    // console.log(response);
     // angular.copy(response,data.cachedFromRails)
   }
 

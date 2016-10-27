@@ -54,6 +54,16 @@ function (ProjectService, $uibModal, FlashService) {
     modalInstance.result.then(vm.updateProject);
   };
 
+  // fallback
+  vm.showPhoto = function () {
+    console.log(vm.project.photo_url.match(/missing.jpg/));
+    if (vm.project.photo_url.match(/missing.jpg/)) {
+      return "https://s-media-cache-ak0.pinimg.com/originals/0c/e3/9b/0ce39bdb5f239eb6dd46bb2795c2a685.jpg";
+    } else {
+      return vm.project.photo_url;
+    }
+  };
+
 }]);
 
 app.component('projectCard', {
