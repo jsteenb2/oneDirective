@@ -18,13 +18,18 @@ app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams'
 
   // saving UX
   function _saving () {
-    angular.element('i.fa-spin').show();
+    var $save = angular.element('p.save-success');
+    var $cog = angular.element('i.fa-spin');
+    $save.stop(true,false);
+    $save.hide();
+    $cog.show();
   }
 
   function _success () {
-    angular.element('i.fa-spin').hide();
-    angular.element('p.save-success')
-      .fadeIn(1000)
+    var $save = angular.element('p.save-success');
+    var $cog = angular.element('i.fa-spin');
+    $cog.hide();
+    $save.fadeIn(1000)
       .delay(3000)
       .fadeOut(1000);
   }
