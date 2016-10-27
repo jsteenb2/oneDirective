@@ -19,14 +19,12 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
       onShow: _updateDimensions,
       onHide: _deleteTipped
     },
-    template: _buildTemplate
+    template: _template
   };
 
-  function _buildTemplate () {
-    return  '<a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a><p>How big is your grid?</p><p> Offset: <code id="off-set">' +
-            _offset +
-            '</code> | Width: <code id="width">` + _width + `</code></p><div id=\"slider\" class=\"col-xs-12\" style=\"width: 100\%\"></div>';
-  }
+  var _template = '<a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a><p>How big is your grid?</p><p> Offset: <code id="off-set">' +
+                  _offset +
+                  '</code> | Width: <code id="width">` + _width + `</code></p><div id=\"slider\" class=\"col-xs-12\" style=\"width: 100\%\"></div>';
 
   function _buildSlider (sliderConfig) {
     var $slider = $("#slider" );
@@ -37,7 +35,6 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
   // use this data to display the element being hovered over.
   function _initializeSlider (content, element) {
     _buildSlider(_data.sliderConfig);
-
     angular.element(content).on('click', '#delete-component', function(){
       var compId = angular.element(element).closest('component')
                       .first()
@@ -49,6 +46,8 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
       });
     });
   }
+
+  // remember to jquery remove stuff
 
   function _updateDimensions (event, ui) {
     // whenever the slider slides.
