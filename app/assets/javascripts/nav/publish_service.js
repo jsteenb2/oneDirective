@@ -9,9 +9,7 @@ app.factory('Publish', [function () {
     }
   };
 
-  // saving UX
   srv.saving = function () {
-    console.log('this is firing');
     _dom.getSave().stop(true,false);
     _dom.getSave().hide();
     _dom.getCog().show();
@@ -19,7 +17,8 @@ app.factory('Publish', [function () {
 
   srv.success = function () {
     _dom.getCog().hide();
-    _dom.getSave().fadeIn(1000)
+    _dom.getSave()
+      .fadeIn(1000)
       .delay(3000)
       .fadeOut(1000);
   };
