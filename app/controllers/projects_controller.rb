@@ -1,6 +1,9 @@
 class ProjectsController < ApplicationController
   # process params for file upload
   before_action :process_photo, only: [:update]
+  before_action :set_github_instance, only: [:publish]
+  before_action :build_page, only: [:publish]
+
 
   def index
     @projects = current_user.projects
@@ -43,8 +46,26 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def publish
+    @repo = @github.push_final_html_to_github
+    respond_to do |format|
+      format.json {
+        render json: @repo, status: 200
+      }
+    end
+  end
+
   private
     # Updating the project cards on the dashboard.
+    def set_github_instance
+      @github = GithubApi.new
+    end
+
+    def build_page
+      @project = current_user.projects.find_by_id(params[:id])
+      FileBuilder.new(@project.id)
+    end
+
     def update_cards
       if @project.update(project_params)
         respond_to do |format|

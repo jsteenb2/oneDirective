@@ -15,10 +15,6 @@ app.factory('ProjectService', ['Restangular', '_', 'rowService', function (Resta
     }
   };
 
-  srv.get = function(project_id) {
-    return _.find(_data.cached, {id: parseInt(project_id)});
-  };
-
   srv.getProjectData = function(project_id){
     return Restangular.one('projects', project_id).get()
       .then(function(data){

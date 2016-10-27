@@ -9,6 +9,7 @@ gem 'pg'
 gem 'font-awesome-rails'
 gem 'materialize-sass'
 gem 'angularjs-file-upload-rails', '~> 2.2.0'
+gem 'octokit'
 
 #angular
 gem 'angularjs-rails'
