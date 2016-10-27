@@ -1,18 +1,18 @@
-app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams', 'ProjectService', 'Publish', 'Restangular', function( $scope, $rootScope, currUser, $stateParams, ProjectService, Publish, Restangular ){
+app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams', 'ProjectService', 'Cog', 'Restangular', function( $scope, $rootScope, currUser, $stateParams, ProjectService, Cog, Restangular ){
 
   $scope.currentUser = currUser;
 
   $scope.saveProject = function(ev){
-
     ev.preventDefault();
-    // Publish service to handle save anims.
-    Publish.saving();
+    // Cog service to handle save anims.
+    Cog.saving();
     return ProjectService.saveProjectEdits($stateParams.id)
       .then(function(response){
-        Publish.success();
+        Cog.success();
         return response;
       })
       .catch(function(reason){
+        Cog.failed();
         console.log(reason);
       });
   };
@@ -21,6 +21,7 @@ app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams'
     ev.preventDefault();
     $scope.saveProject(ev)
       .then(function(ev){
+        Cog.saving();
         publish($stateParams.id)
         ;
       });
@@ -30,8 +31,13 @@ app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams'
     return Restangular.oneUrl('projects', "api/v1/projects/" + projectId + "/publish.json").withHttpConfig({timeout: 60000})
       .get()
       .then(function(response){
-        console.log(response);
+        Cog.published();
+        $scope.response = response;
+        return response;
+      }).then(function(response) {
+        Cog.repoReady();
       }).catch(function(reason){
+        Cog.failed();
         console.error(reason);
       });
   }
