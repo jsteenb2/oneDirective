@@ -1,4 +1,3 @@
-require 'Nokogiri'
 
 class FileBuilder
   CDN_HASH = {
