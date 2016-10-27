@@ -38,6 +38,7 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
   // use this data to display the element being hovered over.
   function _initializeSlider (content, element) {
     _buildSlider(_data.sliderConfig);
+    console.log(element);
     _data.element = element;
     angular.element(content).on('click', '#delete-component', function(){
       var compId = angular.element(element).closest('component')
@@ -52,7 +53,6 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
   }
 
   // remember to jquery remove stuff
-
   function _updateDimensions (event, ui) {
     // whenever the slider slides.
     // there's two ticks in the sldier; val 0 is the first drag handle, val 1 is the second drag handle;
@@ -66,18 +66,22 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
     $("#off-set").html($('#slider').slider("values", 0));
     $("#width").html($('#slider').slider("values", 1));
     //addes class to author-tipped to give it proper gridding
-    $(_data.element).attr('class', '')
-      .addClass('tipped')
-      .addClass('col-xs-' + _width)
-      .addClass('col-xs-offset-' + _offset)
-      .addClass('container-fluid')
-      .attr('style', 'border: 1px dotted black');
+    if (_data.element) {
+      $(_data.element).attr('class', '')
+        .addClass('tipped')
+        .addClass('col-xs-' + _width)
+        .addClass('col-xs-offset-' + _offset)
+        .addClass('container-fluid')
+        .attr('style', 'border: 1px dotted black');
+    }
     var newWidth = "col-xs-" + _width;
     var newOffset;
     if (_offset > 0) {
       newOffset = "col-xs-offset-" + _offset;
     }
-    _data.element.children[0].css(newWidth + " " + newOffset);
+    if (_data.element) {
+      $(_data.element).css(newWidth + " " + newOffset);
+    }
   }
 
   function _deleteTipped (content, element) {
