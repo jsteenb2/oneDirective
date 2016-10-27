@@ -22,8 +22,6 @@ ActiveRecord::Schema.define(version: 20161027031237) do
     t.integer  "row_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.integer  "width"
-    t.integer  "offset"
     t.string   "component_type"
     t.string   "width"
     t.string   "offset"
