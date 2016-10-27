@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root 'static_pages#index', as: :authenticated
-
-  get 'home' => 'static_pages#new'
+  root :to => 'static_pages#index'
 
   scope :api do
     scope :v1 do
