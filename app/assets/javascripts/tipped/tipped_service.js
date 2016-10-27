@@ -49,7 +49,6 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
         $rootScope.$emit('component.changed', compId);
       });
     });
-
   }
 
   function _updateDimensions (event, ui) {
