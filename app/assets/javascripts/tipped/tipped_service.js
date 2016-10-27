@@ -80,7 +80,7 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
     angular.element(element)
       .attr('style', '')
       .removeClass('tipped-curr');
-    _data.slider.slider("destroy");
+    $("#slider" ).slider("destroy");
   }
 
   stub.tipped = function () {
