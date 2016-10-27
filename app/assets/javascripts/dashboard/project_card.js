@@ -14,7 +14,6 @@ function (ProjectService, $uibModal, FlashService) {
   }
 
   vm.updateView = function (params) {
-    console.log(params);
     angular.copy(params,vm.project);
     return params;
   };
@@ -56,7 +55,6 @@ function (ProjectService, $uibModal, FlashService) {
 
   // fallback
   vm.showPhoto = function () {
-    console.log(vm.project.photo_url.match(/missing.jpg/));
     if (vm.project.photo_url.match(/missing.jpg/)) {
       return "https://s-media-cache-ak0.pinimg.com/originals/0c/e3/9b/0ce39bdb5f239eb6dd46bb2795c2a685.jpg";
     } else {
