@@ -1,4 +1,6 @@
-app.directive('component', ['$compile', "$rootScope", "$window", "tinyMCEService", 'componentService', 'rowService', function($compile, $rootScope, $window, tinyMCEService, componentService, rowService) {
+app.directive('component',
+  ['$compile', "$rootScope", "$window", "tinyMCEService", 'componentService',
+  function($compile, $rootScope, $window,tinyMCEService, componentService) {
 
   return {
     restrict: "E",
@@ -64,6 +66,43 @@ app.directive('component', ['$compile', "$rootScope", "$window", "tinyMCEService
         }// make a toggleClass('hovered')
         scope.doubleClicked = !scope.doubleClicked;
       };
+
+      scope.moveComponent = function(ev){
+        if (scope.hovered){
+          ev.preventDefault();
+          arrowListener(ev);
+        }
+      };
+
+      var arrowListener = function(ev){
+         if (ev.which == 37){
+           // left arrow
+           scope.component.moveLeft();
+           console.log("left arrow");
+         } else if (ev.which == 39){
+           // right arrow
+           scope.component.moveRight();
+           console.log("right arrow");
+         } else if (ev.which == 40){
+           // down arrow
+           scope.component.moveDown();
+         } else if (ev.which == 38){
+           // up arrow
+           scope.component.moveUp();
+           console.log("up arrow");
+         }
+         $rootScope.$emit('component.changed');
+      };
+
+      // updating dimensions
+      $rootScope.$on('dimensions.update', function (ev, arg) {
+        var compId = arg.component.attributes['data-component-id'].value;
+        var newWidth = arg.width;
+        var newOffset = arg.offset;
+        var component = componentService.getComponent(compId);
+        component.width = arg.width;
+        component.offset = arg.offset;
+      });
     }
   };
 }]);
