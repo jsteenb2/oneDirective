@@ -58,9 +58,9 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
     // there's two ticks in the sldier; val 0 is the first drag handle, val 1 is the second drag handle;
     // it's like a double range slider
     // adjusts for edge cases
-    _offset = _data.slider.slider("values", 0);
+    _offset = $("#slider").slider("values", 0);
     if (parseInt(_offset) === -1) { _offset = parseInt(_offset) + 1; }
-    _width = _data.slider.slider("values", 1);
+    _width = $("#slider").slider("values", 1);
     if (parseInt(_width) === 13) { _width = parseInt(_width) - 1; }
     //displays current offset and width
     $("#off-set").html($('#slider').slider("values", 0));
@@ -72,6 +72,12 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
       .addClass('col-xs-offset-' + _offset)
       .addClass('container-fluid')
       .attr('style', 'border: 1px dotted black');
+    var newWidth = "col-xs-" + _width;
+    var newOffset;
+    if (_offset > 0) {
+      newOffset = "col-xs-offset-" + _offset;
+    }
+    _data.element.children[0].css(newWidth + " " + newOffset);
   }
 
   function _deleteTipped (content, element) {
