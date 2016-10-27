@@ -1,4 +1,4 @@
-app.directive('component',
+app.directive('jcomponent',
   ['$compile', "$rootScope", "$window", "tinyMCEService",
   function($compile, $rootScope, $window, tinyMCEService) {
 

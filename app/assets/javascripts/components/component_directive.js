@@ -1,4 +1,4 @@
-app.directive('myComponent', ['$compile', "$rootScope", "$window", "tinyMCEService", 'componentService', 'rowService', function($compile, $rootScope, $window, tinyMCEService, componentService, rowService) {
+app.directive('component', ['$compile', "$rootScope", "$window", "tinyMCEService", 'componentService', 'rowService', function($compile, $rootScope, $window, tinyMCEService, componentService, rowService) {
 
   return {
     restrict: "E",
@@ -11,8 +11,8 @@ app.directive('myComponent', ['$compile', "$rootScope", "$window", "tinyMCEServi
       var linkFn = $compile(template);
       var content = linkFn(scope);
       element.append(content);
+      element.attr('data-comp-id', scope.component.id);
       console.log(element);
-      element.addClass('col-xs-12');
 
       scope.info = tinyMCEService.info;
 
@@ -28,6 +28,7 @@ app.directive('myComponent', ['$compile', "$rootScope", "$window", "tinyMCEServi
 
 
       $rootScope.$on('component-dropped', function(name, params){
+        console.log('dropped');
         $rootScope.$emit('component.changed');
         if(params.rowId && params.componentId){
           var component = componentService.getComponentById(params.componentId);
