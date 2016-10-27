@@ -317,11 +317,11 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
      swapArrayElements(this, indexA, indexB);
   };
 
-  rowService.addEmptyRow = function(){
-    var newRow = {id: _id, components: []};
-    _rows.push(newRow);
-    _id++;
-  };
+  // rowService.addEmptyRow = function(){
+  //   var newRow = {id: _id, components: []};
+  //   _rows.push(newRow);
+  //   _id++;
+  // };
 
   var _addNewTopRow = function(component){
     var newRow = {
