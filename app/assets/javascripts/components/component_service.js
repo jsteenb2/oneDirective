@@ -11,6 +11,12 @@ function(_, $http, FlashService, Restangular){
   var _id = 1;
   var componentTypes;
 
+  componentService.getComponentById = function(id){
+    return _.find(data.cachedComponents, function(component){
+      return component.id == id;
+    });
+  };
+
   componentService.clearCache = function(){
     Object.keys(data).forEach(function(listName){
       data[listName] = [];
@@ -97,12 +103,15 @@ function(_, $http, FlashService, Restangular){
       if (compIdx >= 0){
         var newComponent = angular.copy(component, {});
         newComponent.order = _findOrder(component);
+        console.log(newComponent);
+        console.log(data.cachedComponents);
         _cleanContent(newComponent);
         return newComponent;
       }
     });
   }
 
+  //fix this
   function _findOrder(component){
     return _.findIndex(data.cachedComponents, function(comp){
       return component.id == comp.id;
