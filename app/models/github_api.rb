@@ -60,7 +60,7 @@ class GithubApi
     repo = {
         repo:{
           url: "https://github.com/AnglifiedBootstrap/#{repo_name}",
-          preview: "https://htmlpreview.github.io/?https://github.com/AnglifiedBootstrap/#{repo_name}/blob/master/public/repo/index.html"
+          preview:  "https://htmlpreview.github.io/?https://github.com/AnglifiedBootstrap/#{repo_name}/blob/master/public/repo/index.html"
         }
       }
     return repo

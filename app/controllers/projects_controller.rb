@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   # process params for file upload
   before_action :process_photo, only: [:update]
   before_action :set_github_instance, only: [:publish]
-  # before_action :build_page, only: [:publish]
+  before_action :build_page, only: [:publish]
 
 
   def index
