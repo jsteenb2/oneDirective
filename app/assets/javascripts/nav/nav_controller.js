@@ -1,19 +1,22 @@
-app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams', 'ProjectService', function( $scope, $rootScope, currUser, $stateParams, ProjectService ){
+app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams', 'ProjectService', 'Publish', function( $scope, $rootScope, currUser, $stateParams, ProjectService, Publish ){
 
   $scope.currentUser = currUser;
 
   $scope.saveProject = function(ev){
+
     ev.preventDefault();
+    // Publish service to handle save anims.
+    Publish.saving();
     return ProjectService.saveProjectEdits($stateParams.id)
       .then(function(response){
-        console.log(response);
+        Publish.success();
         return response;
       })
       .catch(function(reason){
         console.log(reason);
       });
   };
-
+  
   $scope.publishProject = function(ev){
     ev.preventDefault();
     $scope.saveProject(ev)

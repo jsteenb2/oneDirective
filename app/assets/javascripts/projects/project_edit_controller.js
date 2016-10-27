@@ -1,6 +1,6 @@
 app.controller('ProjectEditCtrl',
-  ['$stateParams', 'ProjectService', 'TippedService', 'currUser', '$scope', 'rowService', "$rootScope",
-  function( $stateParams, ProjectService, TippedService, currUser, $scope, rowService, $rootScope) {
+  ['$stateParams', 'ProjectService', 'TippedService', 'currUser', '$scope', 'rowService', "$rootScope", 'FlashService',
+  function( $stateParams, ProjectService, TippedService, currUser, $scope, rowService, $rootScope, FlashService) {
     $scope.currentUser = currUser;
     $scope.config = {
       theme: 'minimal',

@@ -1,6 +1,12 @@
 app.controller('ProjectModalCtrl',
-['PhotoUploadService', 'Restangular', 'FlashService', function (PhotoUploadService, Restangular, FlashService) {
+['PhotoUploadService', 'Restangular', 'FlashService', 'Publish', function (PhotoUploadService, Restangular, FlashService, Publish) {
   var vm = this;
+
+  function _initUploader () {
+    var url = Restangular.one('projects', vm.project.id).getRequestedUrl();
+    PhotoUploadService.init(url);
+    vm.uploader = PhotoUploadService.getUploader();
+  }
 
   function _decouple () {
     vm.project = {};
@@ -13,23 +19,13 @@ app.controller('ProjectModalCtrl',
       if (emptyQueue) {
         vm.close(value);
       } else {
-        Promise.resolve(vm.close(value))
+        Promise.resolve(Publish.success)
+          .then(vm.close(value))
           .then(FlashService.custom('success', "You've uploaded a photo"))
           .catch(FlashService.custom('danger', "Upload failed"));
       }
     };
   }
-
-  function _initUploader () {
-    var url = Restangular.one('projects', vm.project.id).getRequestedUrl();
-    PhotoUploadService.init(url);
-    vm.uploader = PhotoUploadService.getUploader();
-  }
-
-  vm.$onInit = function () {
-    _decouple();
-    _initUploader();
-  };
 
   vm.ok = function (params) {
     var fn = _close({$value: params});
@@ -38,6 +34,7 @@ app.controller('ProjectModalCtrl',
     } else {
       vm.uploader.onCompleteAll = fn;
       vm.uploader.uploadAll();
+      Publish.saving();
     }
   };
 
@@ -46,6 +43,11 @@ app.controller('ProjectModalCtrl',
   };
 
   vm.fire = function () { console.log('hello'); };
+
+  vm.$onInit = function () {
+    _decouple();
+    _initUploader();
+  };
 }]);
 
 app.component('projectModal', {
