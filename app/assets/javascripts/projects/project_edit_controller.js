@@ -1,6 +1,6 @@
 app.controller('ProjectEditCtrl',
-  ['$stateParams', 'ProjectService', 'TippedService', 'currUser', '$scope', 'rowService', "$rootScope",
-  function( $stateParams, ProjectService, TippedService, currUser, $scope, rowService, $rootScope) {
+  ['$stateParams', 'ProjectService', 'TippedService', 'currUser', '$scope', 'rowService', "$rootScope", '$timeout',
+  function( $stateParams, ProjectService, TippedService, currUser, $scope, rowService, $rootScope, $timeout) {
     $scope.currentUser = currUser;
     $scope.config = {
       theme: 'minimal',
@@ -13,12 +13,13 @@ app.controller('ProjectEditCtrl',
 
     angular.element(document).on('mouseenter', '.tipped', function(event) {
 
+
       nested_targ = angular.element(event.target);
       while (!nested_targ.hasClass('tipped')) {
         nested_targ = nested_targ.parent();
       }
       nested_targ.addClass('tipped-curr');
-      TippedService.tipped();
+      $timeout(TippedService.tipped() , 100);
     });
 
     $rootScope.$on('component.changed', function(ev){
