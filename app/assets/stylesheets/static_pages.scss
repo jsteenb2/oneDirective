@@ -46,12 +46,13 @@ body {
     min-height: 3em;
   }
   .selected-row {
-    border: 1px solid green;
+    /* border: 1px solid green; */
+    box-shadow: 0 0 10px green;
   }
   .draggable {
-    border: 1px solid yellow;
   }
   .drop-row {
+    box-shadow: 0 0 10px red;
   }
   .sortable-placeholder {
     border-color: #9ecaed;

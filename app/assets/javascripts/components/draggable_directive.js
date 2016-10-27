@@ -8,7 +8,7 @@ app.directive('draggable', ['$rootScope', function($rootScope) {
         stop: function(event, ui){
           var $component = angular.element(event.target);
           var $row = $component.closest('.row.droppable');
-          var nodes = $row.find('my-component.draggable');
+          var nodes = $row.find('component.draggable');
           nodes = _.map(nodes, function(node){
             return angular.element(node).data('component-id');
           });

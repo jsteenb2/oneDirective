@@ -26,10 +26,17 @@ app.directive('component', ['$compile', "$rootScope", "$window", "tinyMCEService
         }
       });
 
+      $rootScope.$on('component.changed', function(ev, compId){
+        if(scope.component.id == compId){
+          element.remove();
+          scope.$destroy();
+        }
+      });
+
 
       $rootScope.$on('component-dropped', function(name, params){
         console.log('dropped');
-        $rootScope.$emit('component.changed');
+        $rootScope.$emit('component.changed', scope.component.id);
         if(params.rowId && params.componentId){
           var component = componentService.getComponentById(params.componentId);
           var row = rowService.getRowById(params.rowId);
