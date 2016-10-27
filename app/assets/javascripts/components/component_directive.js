@@ -1,6 +1,4 @@
-app.directive('component',
-  ['$compile', "$rootScope", "$window", "tinyMCEService", 'componentService',
-  function($compile, $rootScope, $window,tinyMCEService, componentService) {
+app.directive('component', ['$compile', "$rootScope", "$window", "tinyMCEService", 'componentService', 'rowService', function($compile, $rootScope, $window,tinyMCEService, componentService, rowService) {
 
   return {
     restrict: "E",
