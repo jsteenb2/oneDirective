@@ -5,24 +5,38 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
   var _offset = 0;
   var _data = {
     slider: undefined,
-    config: {
+    sliderConfig: {
         range: true,
         min: -1,
         max: 13,
         values: [_offset, _width],
         slide: _updateDimensions
-    }
+    },
+    tippedConfig: {
+      skin: 'white',
+      // closeButton: true,
+      hook: 'bottomright',
+      onShow: _updateDimensions,
+      onHide: _deleteTipped
+    },
+    template: _buildTemplate
   };
 
-  function _buildSlider (config) {
+  function _buildTemplate () {
+    return  '<a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a><p>How big is your grid?</p><p> Offset: <code id="off-set">' +
+            _offset +
+            '</code> | Width: <code id="width">` + _width + `</code></p><div id=\"slider\" class=\"col-xs-12\" style=\"width: 100\%\"></div>';
+  }
+
+  function _buildSlider (sliderConfig) {
     var $slider = $("#slider" );
-    $slider.slider(config);
+    $slider.slider(sliderConfig);
     _data.slider = $slider;
   }
 
   // use this data to display the element being hovered over.
   function _initializeSlider (content, element) {
-    _buildSlider(_data.config);
+    _buildSlider(_data.sliderConfig);
 
     angular.element(content).on('click', '#delete-component', function(){
       var compId = angular.element(element).closest('component')
@@ -55,33 +69,19 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
       .addClass('col-xs-offset-' + _offset)
       .addClass('container-fluid')
       .attr('style', 'border: 1px dotted black');
-    }
+  }
+
+  function _deleteTipped (content, element) {
+    Tipped.remove('.tipped-curr');
+    $('.t_ContentContainer.t_clearfix.t_Content_white').remove();
+    angular.element(element)
+      .attr('style', '')
+      .removeClass('tipped-curr');
+    _data.slider.slider("destroy");
   }
 
   stub.tipped = function () {
-    Tipped.create('.tipped-curr',
-    '<a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a><p>How big is your grid?</p><p> Offset: <code id="off-set">' +
-    _offset +
-    '</code> | Width: <code id="width">` + _width + `</code></p><div id=\"slider\" class=\"col-xs-12\" style=\"width: 100\%\"></div>',
-    { skin: 'white',
-      // closeButton: true,
-      hook: 'bottomright',
-      onShow: _updateDimensions,
-      afterUpdate: function(content, element) {
-
-      },
-
-      onHide: function(content, element) {
-        Tipped.remove('.tipped-curr');
-
-        $('.t_ContentContainer.t_clearfix.t_Content_white').remove();
-        angular.element(element)
-          .attr('style', '')
-          .removeClass('tipped-curr');
-
-        $("#slider").slider("destroy");
-      }
-    });
+    Tipped.create('.tipped-curr',_data.template,_data.tippedConfig);
   };
 
   return stub;
