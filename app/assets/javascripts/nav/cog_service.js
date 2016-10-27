@@ -1,8 +1,11 @@
-app.factory('Publish', [function () {
+app.factory('Cog', [function () {
   var srv = {};
   var _dom = {
     getSave: function () {
       return angular.element('p.save-success');
+    },
+    getPub: function () {
+      return angular.element('p.publish-success');
     },
     getCog: function () {
       return angular.element('i.fa-spin');
@@ -21,6 +24,18 @@ app.factory('Publish', [function () {
       .fadeIn(1000)
       .delay(3000)
       .fadeOut(1000);
+  };
+
+  srv.published = function () {
+    _dom.getCog().hide();
+    _dom.getPub()
+      .fadeIn(1000)
+      .delay(3000)
+      .fadeOut(1000);
+  };
+
+  srv.failed = function () {
+    _dom.getCog().hide();
   };
 
   return srv;
