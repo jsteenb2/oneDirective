@@ -1,4 +1,4 @@
-app.factory('TippedService',
+app.factory('TippedService', 
   ["_", 'rowService', 'componentService', '$rootScope', function(_, rowService, componentService, $rootScope){
   var stub = {};
 
@@ -7,17 +7,12 @@ app.factory('TippedService',
 
   stub.tipped = function () {
     Tipped.create('.tipped-curr',
-    `
-    <a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a>
-    <p>How big is your grid?</p>
-    <p> Offset: <code id="off-set">` + _offset + `</code> | Width: <code id="width">` + _width + `</code></p>
-    <div id=\"slider\" class=\"col-xs-12\" style=\"width: 100\%\"></div>
-    `,
+    `<a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a><p>How big is your grid?</p><p> Offset: <code id="off-set">` + _offset + `</code> | Width: <code id=\"width\">` + _width + `</code></p><div id=\"slider\" class=\"col-xs-12\" style=\"width: 100\%\"></div>`,
     { skin: 'white',
       // closeButton: true,
       hook: 'bottomright',
       onShow: function(content, element) {
-        $("#slider" ).slider({
+        $("#slider").slider({
           range: true,
           min: -1,
           max: 13,
@@ -69,8 +64,6 @@ app.factory('TippedService',
         $("#slider").slider("destroy");
       }
     });
-
-
   };
 
   return stub;

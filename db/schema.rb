@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20161026222008) do
     t.integer  "row_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "width"
+    t.integer  "offset"
     t.string   "component_type"
     t.index ["row_id"], name: "index_components_on_row_id", using: :btree
   end

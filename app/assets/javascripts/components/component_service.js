@@ -1,4 +1,5 @@
-app.factory('componentService', ["_", '$http', 'FlashService',
+app.factory('componentService', 
+  ["_", '$http', 'FlashService',
 function(_, $http, FlashService){
   var data = {
     cachedComponents: [],
@@ -6,10 +7,19 @@ function(_, $http, FlashService){
     updated: [],
     deleted: []
   };
+  var _baseComponents;
+
 
   var componentService = {};
   var _id = 1;
   var componentTypes;
+
+  componentService.getData = function() {
+    return data;
+  };
+  componentService.getBase = function() {
+    return _baseComponents;
+  };
 
   componentService.clearCache = function(){
     Object.keys(data).forEach(function(listName){
@@ -33,13 +43,14 @@ function(_, $http, FlashService){
     });
     delete component.rowId;
     data.deleted.push(component);
-    // Flash messages.
-    FlashService.destroy('success', 'components', component.name);
   };
 
   componentService.buildComponent = function(componentType){
     var component = angular.copy(componentTypes[componentType], {});
     component.id = _id;
+    // Need to give the component's html content an id to match later on.
+    angular.element(component.content[0]).attr('data-component-id', _id);
+    console.log(component);
     data.cachedComponents.push(component);
     data.created.push(component);
     _id++;
@@ -59,6 +70,7 @@ function(_, $http, FlashService){
   componentService.cacheComponentLibrary = function(){
     $http.get('components.json')
       .then(function(data){
+        _baseComponents = data;
         componentTypes = data.data;
         _.each(componentTypes, function(component){
           _extendContent(component);
@@ -131,24 +143,48 @@ function(_, $http, FlashService){
   }
 
   function _removeEditorAttrs(component){
-    component.content
+    angular.element(component.content).find('*')
       .removeClass('ng-scope ng-binding')
       .removeAttr('ng-keydown')
       .removeAttr('ng-click')
       .removeAttr('ng-dblclick')
       .removeAttr('data-head')
-      .removeAttr('ng-class')
-      .removeAttr('tabindex');
+      .removeAttr('ng-class');
+  }
+
+  //adds textable class to every text-type element
+  //so that tinymce listeners can proc it.
+  function _addTextable($content) {
+    //has content
+    $content.find('a').addClass('textable');
+    $content.find('p').addClass('textable');
+    $content.find('h1').addClass('textable');
+    $content.find('h2').addClass('textable');
+    $content.find('h3').addClass('textable');
+    $content.find('code').addClass('textable');
+    $content.find('span').addClass('textable'); 
+    
+    // is content
+    $content.addClass('textable');
   }
 
   function _extendContent(component){
+
+    // var wrapped = angular.element('<div class="col-xs-12 tipped">');
+    // var newContent = angular.element(component.content).wrap(wrapped).parent();
+    
+    // newContent
+
     component.content = angular.element(component.content)
       .attr('ng-keydown', 'moveComponent($event)')
       .attr('ng-click', 'onClick($event)')
       .attr('ng-dblclick', 'dblClick($event)')
       .attr('data-head', 'head')
-      .attr('ng-class', "{ 'hovered': hovered }");
+      .attr('ng-class', "{ 'hovered': hovered }")
+    _addTextable(component.content);
   }
+
+  
 
   function _logError (reason) {
     console.log(reason);
