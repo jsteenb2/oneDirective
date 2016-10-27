@@ -16,15 +16,16 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
       skin: 'white',
       // closeButton: true,
       hook: 'bottomright',
-      onShow: _updateDimensions,
+      onShow: _initializeSlider,
       onHide: _deleteTipped
     },
     template: _template
   };
 
-  var _template = '<a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a><p>How big is your grid?</p><p> Offset: <code id="off-set">' +
+  var _template = function () { return '<a class="btn btn-danger btn-small" id="delete-component" style="border: 1px solid red">Delete</a><p>How big is your grid?</p><p> Offset: <code id="off-set">' +
                   _offset +
                   '</code> | Width: <code id="width">` + _width + `</code></p><div id=\"slider\" class=\"col-xs-12\" style=\"width: 100\%\"></div>';
+                };
 
   function _buildSlider (sliderConfig) {
     var $slider = $("#slider" );
@@ -57,7 +58,7 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
     // adjusts for edge cases
     _offset = _data.slider.slider("values", 0);
     if (parseInt(_offset) === -1) { _offset = parseInt(_offset) + 1; }
-    _width = $('#slider').slider("values", 1);
+    _width = _data.slider.slider("values", 1);
     if (parseInt(_width) === 13) { _width = parseInt(_width) - 1; }
     //displays current offset and width
     $("#off-set").html($('#slider').slider("values", 0));
@@ -72,7 +73,6 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
   }
 
   function _deleteTipped (content, element) {
-    console.log(Tipped);
     Tipped.remove('.tipped-curr');
     $('.t_ContentContainer.t_clearfix.t_Content_white').remove();
     angular.element(element)
@@ -82,7 +82,6 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
   }
 
   stub.tipped = function () {
-    _initializeSlider();
     Tipped.create('.tipped-curr',_data.template,_data.tippedConfig);
   };
 
