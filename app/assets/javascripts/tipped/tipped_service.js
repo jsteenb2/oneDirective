@@ -50,12 +50,8 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
       });
     });
   }
-
-  // remember to jquery remove stuff
+  
   function _updateDimensions (event, ui) {
-    // whenever the slider slides.
-    // there's two ticks in the sldier; val 0 is the first drag handle, val 1 is the second drag handle;
-    // it's like a double range slider
     // adjusts for edge cases
     _offset = $("#slider").slider("values", 0);
     if (parseInt(_offset) === -1) { _offset = parseInt(_offset) + 1; }
@@ -79,14 +75,6 @@ app.factory('TippedService', ["_", 'rowService', 'componentService', '$rootScope
       component: _data.element
     };
     $rootScope.$emit('dimensions.update', compParams);
-    // var newWidth = "col-xs-" + _width;
-    // var newOffset;
-    // if (_offset > 0) {
-    //   newOffset = "col-xs-offset-" + _offset;
-    // }
-    // if (_data.element) {
-    //   $(_data.element).css(newWidth + " " + newOffset);
-    // }
   }
 
   function _deleteTipped (content, element) {
