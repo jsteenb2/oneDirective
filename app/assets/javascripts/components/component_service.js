@@ -6,10 +6,19 @@ function(_, $http){
     updated: [],
     deleted: []
   };
+  var _baseComponents;
+
 
   var componentService = {};
   var _id = 1;
   var componentTypes;
+
+  componentService.getData = function() {
+    return data;
+  };
+  componentService.getBase = function() {
+    return _baseComponents;
+  };
 
   componentService.clearCache = function(){
     Object.keys(data).forEach(function(listName){
@@ -55,6 +64,7 @@ function(_, $http){
   componentService.cacheComponentLibrary = function(){
     $http.get('components.json')
       .then(function(data){
+        _baseComponents = data;
         componentTypes = data.data;
         _.each(componentTypes, function(component){
           _extendContent(component);

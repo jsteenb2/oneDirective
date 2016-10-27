@@ -12,7 +12,7 @@ app.factory('TippedService',
       // closeButton: true,
       hook: 'bottomright',
       onShow: function(content, element) {
-        $("#slider" ).slider({
+        $("#slider").slider({
           range: true,
           min: -1,
           max: 13,
