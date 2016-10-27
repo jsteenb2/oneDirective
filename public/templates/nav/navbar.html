@@ -6,14 +6,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="javascript:void(0)">oneDirective</a>
+      <a class="navbar-brand" href="/">oneDirective</a>
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
       <div ui-view="saveHandler"></div>
       <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item"><a href class="nav-link">{{currentUser.name}}</a></li>
+        <li class="nav-item"><a href="/" class="nav-link">{{currentUser.name}}</a></li>
         <li class="nav-item nav-link"><a id="nav-divider">|</a></li>
         <li class="nav-item">
+          <!-- <a ng-click="signOut()">Logout</a> -->
           <a id="logout-link" class="nav-link" data-method="delete" href="/users/sign_out" rel="nofollow">
             Logout
           </a>

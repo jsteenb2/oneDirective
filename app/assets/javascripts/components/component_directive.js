@@ -1,6 +1,4 @@
-app.directive('component',
-  ['$compile', "$rootScope", "$window", "tinyMCEService", 'componentService',
-  function($compile, $rootScope, $window,tinyMCEService, componentService) {
+app.directive('component', ['$compile', "$rootScope", "$window", "tinyMCEService", 'componentService', 'rowService', '$stateParams', 'ProjectService', function($compile, $rootScope, $window,tinyMCEService, componentService, rowService, $stateParams, ProjectService) {
 
   return {
     restrict: "E",
@@ -8,6 +6,26 @@ app.directive('component',
       component: "="
     },
     link: function(scope, element, attrs){
+      var template = angular.element(scope.component.content)
+          .attr('tabindex', scope.component.id);
+      var linkFn = $compile(template);
+      var content = linkFn(scope);
+      element.append(content);
+      element.attr('data-comp-id', scope.component.id);
+      console.log(element);
+
+      scope.info = tinyMCEService.info;
+
+      scope.$watch('info.showing', function(newValue, oldValue){
+        if(newValue){
+          $rootScope.$broadcast('disable-dragging');
+          console.log('disabled');
+        } else {
+          $rootScope.$broadcast('enable-dragging');
+          console.log('enabled');
+        }
+      });
+
       // adds col-xs-12 and tipped
       angular.element(element)
         .addClass('col-xs-12 tipped');
@@ -19,23 +37,8 @@ app.directive('component',
         }
       });
 
-      scope.hovered = false;
-      scope.doubleClicked = false;
-      element.attr('data-comp-id', scope.component.id);
-      var template = angular.element(scope.component.content)
-        .attr('tabindex', scope.component.id);
-      var linkFn = $compile(template);
-      var content = linkFn(scope);
-      element.append(content);
-
-      scope.onClick = function($event){
-        $event.stopPropagation();
-        scope.hovered = !scope.hovered;
-        $rootScope.$emit('selected.component', scope.component.id);
-      };
-
       scope.dblClick = function($event){
-        $event.stopPropagation();
+        // $event.stopPropagation();
         var $ele = angular.element($event.target);
         if(scope.doubleClicked){
           $ele.removeClass('hovered');
@@ -50,12 +53,6 @@ app.directive('component',
         }// make a toggleClass('hovered')
         scope.doubleClicked = !scope.doubleClicked;
       };
-
-      $rootScope.$on('selected.component', function(ev, id){
-        if (scope.component.id !== id){
-          scope.hovered = false;
-        }
-      });
 
       scope.moveComponent = function(ev){
         if (scope.hovered){

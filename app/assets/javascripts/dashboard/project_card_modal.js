@@ -1,5 +1,5 @@
 app.controller('ProjectModalCtrl',
-['PhotoUploadService', 'Restangular', 'FlashService', 'Publish', function (PhotoUploadService, Restangular, FlashService, Publish) {
+['PhotoUploadService', 'Restangular', 'FlashService', 'Cog', function (PhotoUploadService, Restangular, FlashService, Cog) {
   var vm = this;
 
   function _initUploader () {
@@ -19,7 +19,7 @@ app.controller('ProjectModalCtrl',
       if (emptyQueue) {
         vm.close(value);
       } else {
-        Promise.resolve(Publish.success)
+        Promise.resolve(Cog.success)
           .then(vm.close(value))
           .then(FlashService.custom('success', "You've uploaded a photo"))
           .catch(FlashService.custom('danger', "Upload failed"));
@@ -34,7 +34,7 @@ app.controller('ProjectModalCtrl',
     } else {
       vm.uploader.onCompleteAll = fn;
       vm.uploader.uploadAll();
-      Publish.saving();
+      Cog.saving();
     }
   };
 

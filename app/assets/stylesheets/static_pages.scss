@@ -11,6 +11,7 @@ body {
 
 #component-library-header {
   color: white;
+  font-weight: bold;
   text-align: center;
 }
 
@@ -32,6 +33,29 @@ body {
   }
 }
 
+
 #workspace {
   background-color: white;
+
+  .highlight {
+    border: 1px solid blue;
+  }
+
+  .row {
+    // border: 1px solid red;
+    min-height: 3em;
+  }
+  .selected-row {
+    /* border: 1px solid green; */
+    box-shadow: 0 0 10px green;
+  }
+  .draggable {
+  }
+  .drop-row {
+    box-shadow: 0 0 10px red;
+  }
+  .sortable-placeholder {
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+  }
 }

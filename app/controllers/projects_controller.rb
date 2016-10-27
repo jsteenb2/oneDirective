@@ -35,7 +35,6 @@ class ProjectsController < ApplicationController
 
   def update
     @project = current_user.projects.find_by_id(params[:id])
-    p params
     if map_updates
       # respond_to do |format|
       #   format.json { render json: @project, status: 200 }

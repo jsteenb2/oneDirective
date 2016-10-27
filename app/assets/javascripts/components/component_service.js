@@ -13,6 +13,12 @@ function(_, $http, FlashService, Restangular){
   var _id = 1;
   var componentTypes;
 
+  componentService.getComponentById = function(id){
+    return _.find(data.cachedComponents, function(component){
+      return component.id == id;
+    });
+  };
+
   componentService.getData = function() {
     return data;
   };
@@ -107,12 +113,15 @@ function(_, $http, FlashService, Restangular){
       if (compIdx >= 0){
         var newComponent = angular.copy(component, {});
         newComponent.order = _findOrder(component);
+        console.log(newComponent);
+        console.log(data.cachedComponents);
         _cleanContent(newComponent);
         return newComponent;
       }
     });
   }
 
+  //fix this
   function _findOrder(component){
     return _.findIndex(data.cachedComponents, function(comp){
       return component.id == comp.id;
@@ -160,8 +169,8 @@ function(_, $http, FlashService, Restangular){
     $content.find('h2').addClass('textable');
     $content.find('h3').addClass('textable');
     $content.find('code').addClass('textable');
-    $content.find('span').addClass('textable'); 
-    
+    $content.find('span').addClass('textable');
+
     // is content
     $content.addClass('textable');
   }
@@ -170,7 +179,7 @@ function(_, $http, FlashService, Restangular){
 
     // var wrapped = angular.element('<div class="col-xs-12 tipped">');
     // var newContent = angular.element(component.content).wrap(wrapped).parent();
-    
+
     // newContent
 
     component.content = angular.element(component.content)
@@ -178,11 +187,11 @@ function(_, $http, FlashService, Restangular){
       .attr('ng-click', 'onClick($event)')
       .attr('ng-dblclick', 'dblClick($event)')
       .attr('data-head', 'head')
-      .attr('ng-class', "{ 'hovered': hovered }")
+      .attr('ng-class', "{ 'hovered': hovered }");
     _addTextable(component.content);
   }
 
-  
+
 
   function _logError (reason) {
     console.log(reason);

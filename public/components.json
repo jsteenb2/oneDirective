@@ -3,7 +3,7 @@
     "name": "toggleButton",
     "content": "<button component_type=\"button\" class=\"btn btn-primary\" data-toggle=\"button\" aria-pressed=\"false\" autocomplete=\"off\" data-head=\"head\"> Single toggle</button></div>",
     "component_type": "button",
-    "width": 12,
+    "width": 3,
     "offset": 0
   },
   "authorBox": {
