@@ -208,7 +208,7 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   };
 
   function _removeComponent(){
-    var rowIdx = _findRowIdx(this.rowId, data.cahedRows);
+    var rowIdx = _findRowIdx(this.rowId, data.cachedRows);
     var compIdx = _findComponentIdx(this, rowIdx);
     data.cachedRows[rowIdx].components.splice(compIdx, 1);
     return Promise.resolve(componentService.deleteComponent(this)).then(function(response){
