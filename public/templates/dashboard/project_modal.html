@@ -2,7 +2,7 @@
 <div class='modal-body'>
   <form ng-submit='$ctrl.ok($ctrl.project)'>
     <div class='form-group'>
-      <button class='btn btn-primary browse-btn' type="button">browse</button>
+      <button class='btn btn-primary' type="button">browse</button>
       <input id='projectPhoto' ng-model='$ctrl.photo_upload' uploader='$ctrl.uploader' nv-file-select type='file'>
       <div class='progress'>
         <div class='progress-bar' ng-style="{'width': $ctrl.uploader.queue[0].progress + '%'}">
@@ -23,6 +23,8 @@
     <div class='form-group'>
       <button class='btn btn-danger' ng-click='$ctrl.cancel()'>Cancel Changes</button>
       <input type='submit' class='btn btn-primary pull-right' value='Update Project'>
+      <i class='fa fa-spin fa-cog fa-3x save-icon pull-right' style='display: none; margin-right: 30px; margin-top: 7px;'></i>
+      <p class='save-success pull-right' style='display: none;'>Saved</p>
     </div>
   </form>
 </div>

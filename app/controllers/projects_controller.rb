@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
     @project = current_user.projects.build(project_params)
     if @project.save
       respond_to do |format|
-        format.json { render json: @project, status: 200 }
+        format.json { render json: @project.to_json(methods: [:photo_url]), status: 200 }
       end
     end
   end
@@ -48,7 +48,7 @@ class ProjectsController < ApplicationController
     def update_cards
       if @project.update(project_params)
         respond_to do |format|
-          format.json { render json: @project, status: 200 }
+          format.json { render json: @project.to_json(methods: [:photo_url]), status: 200 }
         end
       end
     end

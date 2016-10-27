@@ -1,6 +1,6 @@
 app.directive('component',
-  ['$compile', "$rootScope", "$window", "tinyMCEService",
-  function($compile, $rootScope, $window,tinyMCEService) {
+  ['$compile', "$rootScope", "$window", "tinyMCEService", 'componentService',
+  function($compile, $rootScope, $window,tinyMCEService, componentService) {
 
   return {
     restrict: "E",
@@ -80,6 +80,16 @@ app.directive('component',
          }
          $rootScope.$emit('component.changed');
       };
+
+      // updating dimensions
+      $rootScope.$on('dimensions.update', function (ev, arg) {
+        var compId = arg.component.attributes['data-component-id'].value;
+        var newWidth = arg.width;
+        var newOffset = arg.offset;
+        var component = componentService.getComponent(compId);
+        component.width = arg.width;
+        component.offset = arg.offset;
+      });
     }
   };
 }]);
