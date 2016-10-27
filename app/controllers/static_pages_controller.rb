@@ -1,9 +1,9 @@
 class StaticPagesController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
+
   def index
-    if (current_user)
-      render(action: 'index')
-    else
-      render(action: 'new')
-    end
+  end
+
+  def new
   end
 end

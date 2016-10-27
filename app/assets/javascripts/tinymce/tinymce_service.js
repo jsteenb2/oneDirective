@@ -7,10 +7,6 @@ function( _, $timeout) {
   var _previousNode;
   var _previousId;
 
-  stub.info = {
-    showing: false
-  };
-
   stub.getPreviousNode = function() {
     return _previousNode;
   };
@@ -21,7 +17,6 @@ function( _, $timeout) {
 
   stub.clearEditors = function () {
     console.log('cleared editors');
-    stub.info.showing = false;
     tinymce.remove('#tinymce');
     angular.element('#tinymce').removeAttr('id');
   };
@@ -48,7 +43,6 @@ function( _, $timeout) {
   };
 
   stub.whichMCE = function(tagType) {
-    stub.info.showing = true;
     switch(tagType) {
     default:
         stub.defaultMCE(tagType);

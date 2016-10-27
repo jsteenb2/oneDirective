@@ -1,4 +1,4 @@
-app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams', 'ProjectService', 'Restangular', function( $scope, $rootScope, currUser, $stateParams, ProjectService, Restangular ){
+app.controller('navbarCtrl', ["$scope", "$rootScope", 'currUser', '$stateParams', 'ProjectService', function( $scope, $rootScope, currUser, $stateParams, ProjectService ){
 
   $scope.currentUser = currUser;
 
