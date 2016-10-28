@@ -8,10 +8,58 @@ function(_, $http, FlashService, Restangular){
   };
   var _baseComponents;
 
-
   var componentService = {};
   var _id = 1;
   var componentTypes;
+
+  // Rebuilding the component provided from DB
+  componentService.rebuildComponent = function(componentData){
+    _extendContent(componentData);
+    _trackId(componentData.id);
+    data.cachedComponents.push(componentData);
+    data.updated.push(componentData);
+    return componentData;
+  };
+
+  // Get templates ready to rock n roll
+  componentService.cacheComponentLibrary = function(){
+    $http.get('components.json')
+      .then(function(data){
+        _baseComponents = data;
+        componentTypes = data.data;
+        _.each(componentTypes, function(component){
+          _extendContent(component);
+        });
+        return data.data;
+      })
+      .catch(_logError);
+  };
+
+  // Builds the component by creating a copy of the matching template
+  componentService.buildComponent = function(componentType){
+    var component = angular.copy(componentTypes[componentType], {});
+    component.id = _id;
+    // Need to give the component's html content an id to match later on.
+    angular.element(component.content[0]).attr('data-component-id', _id);
+    data.cachedComponents.push(component);
+    data.created.push(component);
+    _id++;
+    // Flash messages.
+    FlashService.create('success', 'components', component.name);
+    return component;
+  };
+
+  // Destruction a la component
+  componentService.deleteComponent = function(component){
+    Object.keys(data).forEach(function(name, index, array){
+      var compIdx = _.findIndex(data[name], function(comp){
+        return component.id == comp.id;
+      });
+      data[name].splice(compIdx, 1);
+    });
+    delete component.rowId;
+    data.deleted.push(component);
+  };
 
   componentService.getComponentById = function(id){
     return _.find(data.cachedComponents, function(component){
@@ -39,51 +87,7 @@ function(_, $http, FlashService, Restangular){
     return data.cachedComponents[compIdx];
   };
 
-  componentService.deleteComponent = function(component){
-    Object.keys(data).forEach(function(name, index, array){
-      var compIdx = _.findIndex(data[name], function(comp){
-        return component.id == comp.id;
-      });
-      data[name].splice(compIdx, 1);
-    });
-    delete component.rowId;
-    data.deleted.push(component);
-  };
 
-  componentService.buildComponent = function(componentType){
-    var component = angular.copy(componentTypes[componentType], {});
-    component.id = _id;
-    // Need to give the component's html content an id to match later on.
-    angular.element(component.content[0]).attr('data-component-id', _id);
-    console.log(component);
-    data.cachedComponents.push(component);
-    data.created.push(component);
-    _id++;
-    // Flash messages.
-    FlashService.create('success', 'components', component.name);
-    return component;
-  };
-
-  componentService.rebuildComponent = function(componentData){
-    _extendContent(componentData);
-    _trackId(componentData.id);
-    data.cachedComponents.push(componentData);
-    data.updated.push(componentData);
-    return componentData;
-  };
-
-  componentService.cacheComponentLibrary = function(){
-    $http.get('components.json')
-      .then(function(data){
-        _baseComponents = data;
-        componentTypes = data.data;
-        _.each(componentTypes, function(component){
-          _extendContent(component);
-        });
-        return data.data;
-      })
-      .catch(_logError);
-  };
 
   componentService.componentKeys = function(){
     return Object.keys(componentTypes);

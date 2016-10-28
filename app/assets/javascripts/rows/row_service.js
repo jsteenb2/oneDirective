@@ -8,6 +8,93 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   var rowService = {};
   var _id = 1;
 
+  // Clearing the data from the data object
+  rowService.clearCache = function(){
+    componentService.clearCache();
+    Object.keys(data).forEach(function(listName){
+      data[listName] = [];
+    });
+  };
+
+  // Rebuilding rows that have been supplied from DB
+  rowService.rebuildRows = function(rows){
+    rows.forEach(_reactivateRows);
+  };
+
+  function _reactivateRows(ele, index, array){
+    var newRow = angular.copy(ele, {});
+    _rebuildComponents(newRow.components);
+    _trackId(newRow.id);
+    data.cachedRows.push(newRow);
+    data.updated.push(newRow);
+  }
+
+  function _rebuildComponents(compArray){
+    compArray.forEach(_reactivateComponent);
+  }
+
+  // Building a new component from
+  rowService.buildNewComponent = function(componentType, rowId){
+    var component = _activateComponent(componentType);
+    if (rowId) {
+      _addComponentToExistingRow(component, rowId);
+    } else {
+      _makeNewRow(component);
+    }
+    _extendComponent(component);
+  };
+
+  // Super powers for our components
+  function _extendComponent(component){
+    component.moveLeft = _moveLeft;
+    component.moveRight = _moveRight;
+    component.moveUp = _moveUp;
+    component.moveDown = _moveDown;
+    component.remove = _removeComponent;
+  }
+
+  // Creates a new component using the template
+  function _activateComponent(componentType){
+    var component = componentService.buildComponent(componentType);
+    return component;
+  }
+
+  // Recreates component provided from DB
+  function  _reactivateComponent(componentType, index, array){
+    var component = componentService.rebuildComponent(componentType);
+    _extendComponent(component);
+    return component;
+  }
+
+  // Packages up rows to submit to DB
+  rowService.packageRowsForSave = function(){
+    var rows = { };
+    _cleanPack(rows, ["created", "updated", "deleted"]);
+    return rows;
+  };
+
+  function _cleanPack(obj, listNames){
+    listNames.forEach(function(name){
+      var collection = data[name].map(_repackage);
+      if (collection.length > 0){
+        obj[name] = collection;
+      }
+    });
+    return obj;
+  }
+
+  function _repackage(row, index){
+    var newRow = angular.copy(row, {});
+    newRow.order = _findOrder(row);
+    newRow.components = componentService.getPackagedComponents(row.components);
+    _reorderComponents(newRow);
+    return newRow;
+  }
+
+  rowService.getRows = function(){
+    return data.cachedRows;
+  };
+
   rowService.getComponentOrder = function(component){
     var row = rowService.getRowById(component.rowId);
     var index = _.findIndex(row.components, function(rowComponent){
@@ -20,7 +107,7 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     return _.find(data.cachedRows, function(row){
       return row.id == component.rowId;
     });
-  };
+  }
 
   rowService.getComponentRow = function(component){
     return _getComponentRow(component);
@@ -38,13 +125,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     });
   };
 
-  rowService.clearCache = function(){
-    componentService.clearCache();
-    Object.keys(data).forEach(function(listName){
-      data[listName] = [];
-    });
-  };
-
   var _removeComponentFromRow = function(component){
     var row = rowService.getRowById(component.rowId);
     var componentIndex = _.findIndex(row.components, function(rowComponent){
@@ -58,47 +138,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
   rowService.moveComponentFromRowToRow = function(component, toRow){
     _removeComponentFromRow(component);
     _addComponentToExistingRow(component, toRow.id);
-  };
-
-  rowService.getRows = function(){
-    return data.cachedRows;
-  };
-
-  function _activateComponent(componentType){
-    var component = componentService.buildComponent(componentType);
-    return component;
-  }
-
-  function  _reactivateComponent(componentType, index, array){
-    var component = componentService.rebuildComponent(componentType);
-    _extendComponent(component);
-    return component;
-  }
-
-  rowService.rebuildRows = function(rows){
-    rows.forEach(_reactivateRows);
-  };
-
-  function _reactivateRows(ele, index, array){
-    var newRow = angular.copy(ele, {});
-    _rebuildComponents(newRow.components);
-    _trackId(newRow.id);
-    data.cachedRows.push(newRow);
-    data.updated.push(newRow);
-  }
-
-  function _rebuildComponents(compArray){
-    compArray.forEach(_reactivateComponent);
-  }
-
-  rowService.buildNewComponent = function(componentType, rowId){
-    var component = _activateComponent(componentType);
-    if (rowId) {
-      _addComponentToExistingRow(component, rowId);
-    } else {
-      _makeNewRow(component);
-    }
-    _extendComponent(component);
   };
 
   rowService.changeComponentOrder = function(componentIds, row){
@@ -160,30 +199,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
     }
   }
 
-  rowService.packageRowsForSave = function(){
-    var rows = { };
-    _cleanPack(rows, ["created", "updated", "deleted"]);
-    return rows;
-  };
-
-  function _cleanPack(obj, listNames){
-    listNames.forEach(function(name){
-      var collection = data[name].map(_repackage);
-      if (collection.length > 0){
-        obj[name] = collection;
-      }
-    });
-    return obj;
-  }
-
-  function _repackage(row, index){
-    var newRow = angular.copy(row, {});
-    newRow.order = _findOrder(row);
-    newRow.components = componentService.getPackagedComponents(row.components);
-    _reorderComponents(newRow);
-    return newRow;
-  }
-
   var _getComponentRowId = function(id){
     return componentService.getComponentById(id).rowId;
   };
@@ -196,15 +211,6 @@ app.factory('rowService', ["_", "Restangular", "componentService", function(_, R
       }
     });
     return row;
-  };
-
-
-  function _extendComponent(component){
-    component.moveLeft = _moveLeft;
-    component.moveRight = _moveRight;
-    component.moveUp = _moveUp;
-    component.moveDown = _moveDown;
-    component.remove = _removeComponent;
   };
 
   function _removeComponent(){
