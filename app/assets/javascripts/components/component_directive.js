@@ -32,8 +32,8 @@ app.directive('component', ['$compile', "$rootScope", "$window", "tinyMCEService
 
       $rootScope.$on('component.changed', function(ev, compId){
         if(scope.component.id == compId){
-          element.remove();
           scope.$destroy();
+          element.remove();
         }
       });
 
